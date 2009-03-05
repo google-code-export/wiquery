@@ -1,8 +1,14 @@
-== Topics ==
-
 === Information ===
 
+  * [WhatIsWiQuery What is WiQuery ?]
+  * [TheCoreTeam The core team]
+  * [ContactMailing Contact / Mailing list]
+
 === Getting started ===
+
+  * [QuickStart Quickstart]
+
+=== Examples ===
 
 === Components ===
 
