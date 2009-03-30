@@ -1,0 +1,9 @@
+= !WiQuery downloads =
+
+== Last build releases ==
+
+  * [http://wiquery.googlecode.com/svn/releases/wiquery-1.0-SNAPSHOT-r29-d1238452674049.jar]
+
+== Last stable release ==
+ 
+  * 1.0 Last stable release: Not yet available ! Should be available on 15 April.
