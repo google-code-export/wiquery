@@ -166,7 +166,7 @@ public class HomePage extends WebPage {
 
   * You should see a button. If you double click on this button, a modal window should open:
 
-modal-quickstart.png	
+http://wiquery.googlecode.com/files/modal-quickstart.png	
 
 That's it, you have coded your first WiQuery application !
 
