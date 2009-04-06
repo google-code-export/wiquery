@@ -1,0 +1,63 @@
+#summary This page describes how to start a project with WiQuery 1.0
+
+= Introduction =
+
+This tutorial will teach you how to install and use WiQuery 1.0 in 5 minutes, with a classic "Hello world" example.
+
+== Tools ==
+
+To begin this tutorial, you'll need the following components to be installed:
+  * [http://maven.apache.org/download.html Maven 2.0.10] 
+  * Java JDK1.5+
+
+== Version of Wicket ==
+
+WiQuery is built over the last Wicket version: Wicket 1.4-rc2 version
+
+== Starting a Wicket project ==
+
+First of all, we need to start a Wicket project. To do this quickly, we'll use maven archetypes, already ready to use with your Maven 2 installation.
+
+=== Create the project with Maven 2 ===
+
+Go to your home directory (or in any directory you want to work in) and type the command below:
+
+{{{
+mvn archetype:create -DarchetypeGroupId=org.apache.wicket -DarchetypeArtifactId=wicket-archetype-quickstart -DarchetypeVersion=1.4-rc2 -DgroupId=org.odlabs -DartifactId=quickstart
+}}}
+
+You should see the following output:
+
+{{{
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+}}}
+
+=== Check that your Wicket project works well ===
+
+Change to the quickstart directory.
+
+Before adding WiQuery to this project, let's check that the created project works by typing the command below:
+
+{{{
+mvn jetty:run
+}}}
+
+Maven 2 should output some logs and the message:
+
+{{{
+[INFO] Started Jetty Server
+}}} 
+
+Then, connect to localhost:8080/quickstart. The following contents should appear:
+
+
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
