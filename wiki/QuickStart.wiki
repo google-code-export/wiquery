@@ -1,4 +1,5 @@
 #summary This page describes how to start a project with WiQuery 1.0
+#labels Featured
 
 = Introduction =
 
