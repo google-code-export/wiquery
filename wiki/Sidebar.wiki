@@ -4,7 +4,7 @@
     * [WhatIsWiQuery What is WiQuery ?]
     * [TheCoreTeam The core team]
     * [ContactMailing Contact / Mailing list]
-  * WiQuery 1.0  
+  * WiQuery! 1.0  
     * Getting started
       * [QuickStart Quickstart]
     * Examples
