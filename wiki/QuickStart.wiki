@@ -66,7 +66,7 @@ mvn install:install-file -Dfile=/your/path/to/wiquery-1.0.jar -DgroupId=org.odla
 
 *Warning: For the moment, WiQuery 1.0 is still a snapshot version, until the ALPHA version is released.*
 
-== Add the dependency to the quickstart application ==
+== Add a dependency to the quickstart application ==
 
   * To do this, get back in the quickstart application and edit the pom.xml file to add the following lines:
 
@@ -82,4 +82,21 @@ mvn install:install-file -Dfile=/your/path/to/wiquery-1.0.jar -DgroupId=org.odla
 
 {{{
 mvn jetty:run
+}}}
+
+= The Hello World example =
+
+Let's do the HellWorld example with WiQuery's modal window.
+
+== Enable WiQuery ==
+
+To enable WiQuery, you'll have to configure your application:
+  * Either by extending WiQueryWebApplication
+  * Or by adding a listener (see http://n2.nabble.com/MyTreeViewPlugin-example-td1604959.html)
+
+{{{
+public class WicketApplication extends WiQueryWebApplication
+{    
+   /* ... */
+}
 }}}
