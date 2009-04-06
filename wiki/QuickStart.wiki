@@ -95,8 +95,79 @@ To enable WiQuery, you'll have to configure your application:
   * Or by adding a listener (see http://n2.nabble.com/MyTreeViewPlugin-example-td1604959.html)
 
 {{{
+
+import org.odlabs.wiquery.utils.WiQueryWebApplication;
+
 public class WicketApplication extends WiQueryWebApplication
 {    
    /* ... */
 }
 }}}
+
+== Add markup for the modal window ==
+
+In this tutorial, we will use the inline modal window (e.g., a modal window displaying content already loaded in the current page). This modal window will be opened when the "dblclick" event happends on a button.
+
+  * Edit the markup file !HomePage.html to have the following code: 
+
+{{{
+<html>
+    <head>
+        <title>WiQuery Quickstart Archetype Homepage</title>
+    </head>
+    <body>
+        <button wicket:id="open-dialog">Open dialog !</button>
+             
+        <p wicket:id="dialog">
+        	Hello world, yes we can !
+        </p>
+    </body>
+</html>
+}}}
+
+  * Add the modal window in !HomePage.java:
+
+{{{
+public class HomePage extends WebPage {
+
+	public HomePage(final PageParameters parameters) {
+
+            final Dialog dialog = new Dialog("dialog");
+            add(dialog);
+
+        }
+}
+
+}}}
+
+  * Add the event to trigger the modal window:
+
+{{{
+public class HomePage extends WebPage {
+
+	public HomePage(final PageParameters parameters) {
+
+        final Dialog dialog = new Dialog("dialog");
+        add(dialog);
+        
+        Button button = new Button("open-dialog");
+        button.add(new WiQueryEventBehavior(new Event(MouseEvent.DBLCLICK) {
+		
+			@Override
+			public JsScope callback() {
+				return JsScope.quickScope(dialog.open().render());
+			}
+		
+		}));
+        add(button);
+    }
+}
+}}}
+
+  * You should see a button. If you double click on this button, a modal window should open:
+
+modal-quickstart.png	
+
+That's it, you have coded your first WiQuery application !
+
+= How does it works ? =
