@@ -54,7 +54,9 @@ Then, connect to localhost:8080/quickstart. The following contents should appear
 
 http://wiquery.googlecode.com/files/check-wicket-works.png
 
-= Install WiQuery 1.0 in your local repository =
+= Install WiQuery =
+
+== Install WiQuery 1.0 in your local repository ==
 
 [Downloads] the last stable release of WiQuery 1.0. When it's done, install it in your local repository with the command below:
 
@@ -63,3 +65,21 @@ mvn install:install-file -Dfile=/your/path/to/wiquery-1.0.jar -DgroupId=org.odla
 }}}
 
 *Warning: For the moment, WiQuery 1.0 is still a snapshot version, until the ALPHA version is released.*
+
+== Add the dependency to the quickstart application ==
+
+  * To do this, get back in the quickstart application and edit the pom.xml file to add the following lines:
+
+{{{
+<dependency>
+        <groupId>org.odlabs.wiquery</groupId>
+        <artifactId>wiquery</artifactId>
+        <version>1.0-SNAPSHOT</version>
+</dependency>
+}}}
+
+  * Then, restart the jetty server to check that everything worked fined:
+
+{{{
+mvn jetty:run
+}}}
