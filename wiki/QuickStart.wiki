@@ -56,7 +56,7 @@ http://wiquery.googlecode.com/files/check-wicket-works.png
 
 = Install WiQuery 1.0 =
 
-Download the last stable release of WiQuery 1.0,
+[Download] the last stable release of WiQuery 1.0,
 
 = Details =
 
