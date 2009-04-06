@@ -171,3 +171,59 @@ http://wiquery.googlecode.com/files/modal-quickstart.png
 That's it, you have coded your first WiQuery application !
 
 = How does it works ? =
+
+WiQuery eases jQuery / jQuery UI JavaScript integration:
+  * WiQuery imports needed JavaScript / CSS resources
+  * WiQuery wrapps all jQuery events, that's why we are able to detect a double click event
+  * You just have to extend WiQueryWebApplication or to add a listener to your application.
+
+Let's check the generated source:
+
+{{{
+<html>
+    <head>
+        <title>Wicket Quickstart Archetype Homepage</title>
+    <script type="text/javascript" src="resources/org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference/jquery/jquery-1.3.2.min.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference/fusion/ui.all.css" />
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference/ui.core.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.dialog.Dialog/ui.dialog.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceLocator/ui.draggable.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference/ui.resizable.js"></script>
+<script type="text/javascript">$(document).ready(function() {
+			$('#dialog1').dialog({autoOpen:false,
+position:'center'});
+});</script><script type="text/javascript">$(document).ready(function() {
+			$('#open_dialog2').bind('dblclick', function() {
+	$('#dialog1').dialog('open');
+});
+});</script></head>
+    <body>
+        <button wicket:id="open-dialog" name="open-dialog" id="open_dialog2">Open dialog !</button>
+             
+        <p wicket:id="dialog" id="dialog1">
+        	Hello world, yes we can !
+        </p>
+    </body>
+</html>
+}}}
+
+WiQuery automatically generates a "dom ready" event with your code inside. As you can see, the JavaScript code needed to create a modal window is generated:
+{{{
+$(document).ready(function() {
+  $('#dialog1').dialog({autoOpen:false, position:'center'});
+});
+}}}
+
+To manage events, WiQuery defines JsScope, a class to represent a JavaScript closure (e.g. an anonymous function with its own scope). Think that when your write:
+{{{
+JsScope.quickScope("alert('foo')");
+}}}
+... you generate the following JavaScript code:
+
+{{{
+function() {
+alert('foo');
+}
+
+
+}}}
