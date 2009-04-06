@@ -54,13 +54,12 @@ Then, connect to localhost:8080/quickstart. The following contents should appear
 
 http://wiquery.googlecode.com/files/check-wicket-works.png
 
-= Install WiQuery 1.0 =
+= Install WiQuery 1.0 in your local repository =
 
-[Download] the last stable release of WiQuery 1.0,
+[Downloads] the last stable release of WiQuery 1.0. When it's done, install it in your local repository with the command below:
 
-= Details =
+{{{
+mvn install:install-file -Dfile=/your/path/to/wiquery-1.0.jar -DgroupId=org.odlabs.wiquery -DartifactId=wiquery -Dversion=1.0-SNAPSHOT -Dpackaging=jar
+}}}
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+*Warning: For the moment, WiQuery 1.0 is still a snapshot version, until the ALPHA version is released.*
