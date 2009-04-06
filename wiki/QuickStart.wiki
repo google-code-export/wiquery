@@ -52,8 +52,11 @@ Maven 2 should output some logs and the message:
 
 Then, connect to localhost:8080/quickstart. The following contents should appear:
 
+http://wiquery.googlecode.com/files/check-wicket-works.png
 
+= Install WiQuery 1.0 =
 
+Download the last stable release of WiQuery 1.0,
 
 = Details =
 
