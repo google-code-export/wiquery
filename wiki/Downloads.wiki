@@ -2,7 +2,7 @@
 
 == Last build releases ==
 
-  * Revision 44, 04/07/2009 [http://wiquery.googlecode.com/svn/dist/wiquery-1.0-SNAPSHOT-r44-d1239056994426.jar]
+  * Revision 44, 04/07/2009 [http://wiquery.googlecode.com/svn/dist/wiquery-1.0-SNAPSHOT-r44-d1239057663270.jar]
   * Revision 29, 03/31/2009 [http://wiquery.googlecode.com/svn/dist/wiquery-1.0-SNAPSHOT-r29-d1238452674049.jar]
 
 == Last stable release ==
