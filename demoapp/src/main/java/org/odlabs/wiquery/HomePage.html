@@ -4,20 +4,58 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>WiQuery 1.0 Demo application</title>
+	<style type="text/css">
+		.leftMenu {
+			width: 233px;
+			float: left;
+		}
+		
+		#content-wrapper {
+			padding-left: 240px;
+		}
+		
+		.source p {
+			display: none;
+		}
+		
+		.visible p {
+			display: block;
+		}
+	</style>
 </head>
 <body>
 
-	<ul wicket:id="leftMenu">
+	<ul class="leftMenu" wicket:id="leftMenu">
 		<li>
 			<h2>WiQUery Core</h2>
 			<div>
-				FOO !
+				<ul>
+					<li><a href="#">Core jQuery statements</a></li>
+					<li><a href="#">Behavior abstraction</a></li>
+					<li><a href="#">Events</a></li>
+					<li><a href="#">Effects</a></li>
+				</ul>
 			</div>
 		</li>
 		<li>
-			<h2>WiQUery Core</h2>
+			<h2>WiQUery UI</h2>
 			<div>
-				FOO !
+				<ul>
+					<li><a href="#">Effects</a></li>
+					<li><a href="#">Draggable</a></li>
+					<li><a href="#">Dropable</a></li>
+					<li><a href="#">Accordion</a></li>
+					<li><a href="#">Tab panel</a></li>
+				</ul>
+			</div>
+		</li>
+		<li>
+			<h2>WiQUery plugins</h2>
+			<div>
+				<ul>
+					<li><a href="#">Howto bind you jQuery plugin</a></li>
+					<li><a href="#">Example: flexigrid plugin</a></li>
+				</ul>
 			</div>
 		</li>
 	</ul>
