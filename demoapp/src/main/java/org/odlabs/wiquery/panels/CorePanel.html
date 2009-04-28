@@ -1,11 +1,11 @@
 <html xmlns:wicket>
 <wicket:panel>
+ 
   <div wicket:id="examples" class="section">
-  	<h2 id="statements">Core jQuery statements</h2>
+  	<h2 id="behaviors">WiQuery behaviors</h2>
 	<p>
-		<strong>WiQuery</strong> aims to be closed to <strong>jQuery</strong> 
-		programming style. That's why WiQuery implements the jQuery API with 
-		the same "fluent interface" principle.
+		<strong>WiQuery</strong> aims to easy writting JavaScript with Wicket,
+		e.g. use behaviors to attache jQuery statements to a component.
 	</p>
 	<div class="section">
 		<h3>Example 1: change border style when a click happends</h3>
@@ -19,7 +19,6 @@
 		</div>
 		
 		<div class="source">
-			<span class="toggle">Toggle source code</span>
 			<p class="htmlCode">
 <code class="html">
 &lt;span wicket:id="example1"&gt;Example 1 !&lt;/span&gt;
@@ -27,7 +26,6 @@
 			</p>
 			<p class="javaCode">
 <code class="js">
-// consider being in a WebPage constructor
 public MyWebPage() {
 	Label example1 = new Label("example1", "Example 1");
 	example1.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
@@ -52,6 +50,7 @@ public MyWebPage() {
 		</div>		
 	</div>
   </div>
+  
 </wicket:panel>
 </html>
   

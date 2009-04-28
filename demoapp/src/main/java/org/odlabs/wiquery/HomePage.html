@@ -14,26 +14,22 @@
 			padding-left: 240px;
 		}
 		
-		.source p {
-			display: none;
+		code {
+			white-space: pre;
 		}
 		
-		.visible p {
-			display: block;
-		}
 	</style>
 </head>
 <body>
-
 	<ul class="leftMenu" wicket:id="leftMenu">
 		<li>
 			<h2>WiQUery Core</h2>
 			<div>
 				<ul>
-					<li><a href="#">Core jQuery statements</a></li>
 					<li><a href="#">Behavior abstraction</a></li>
-					<li><a href="#">Events</a></li>
-					<li><a href="#">Effects</a></li>
+					<li><a wicket:id="statementsMenu" href="#">Core jQuery statements</a></li>
+					<li><a wicket:id="eventsMenu" href="#">Events (Both Ajax and non Ajax)</a></li>
+					<li><a href="#">Effects [TODO]</a></li>
 				</ul>
 			</div>
 		</li>
@@ -41,9 +37,9 @@
 			<h2>WiQUery UI</h2>
 			<div>
 				<ul>
-					<li><a href="#">Effects</a></li>
-					<li><a href="#">Draggable</a></li>
-					<li><a href="#">Dropable</a></li>
+					<li><a href="#">Effects [TODO]</a></li>
+					<li><a wicket:id="draggableMenu" href="#">Draggable</a></li>
+					<li><a wicket:id="droppableMenu" href="#">Droppable</a></li>
 					<li><a href="#">Accordion</a></li>
 					<li><a href="#">Tab panel</a></li>
 				</ul>

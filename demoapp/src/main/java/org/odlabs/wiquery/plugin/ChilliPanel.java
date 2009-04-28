@@ -3,6 +3,7 @@ package org.odlabs.wiquery.plugin;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
 public class ChilliPanel extends WebMarkupContainer implements IWiQueryPlugin {
@@ -17,7 +18,7 @@ public class ChilliPanel extends WebMarkupContainer implements IWiQueryPlugin {
 	}
 
 	public JsStatement statement() {
-		return new JsStatement();
+		return new JsQuery(this).$("code").chain("chili");
 	}
 
 }

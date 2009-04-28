@@ -1,0 +1,79 @@
+<html xmlns:wicket>
+<wicket:panel>
+ 
+  <div wicket:id="examples" class="section">
+  	<h2 id="behaviors">WiQuery events</h2>
+	<p>
+		<strong>WiQuery</strong> provides an extensive set of behaviors. Events
+		are handled with behaviors.
+	</p>
+	<div class="section">
+		<h3>Example 1: How events are handled</h3>
+		<p>
+			This first example shows how events are attached to a component.
+			These events are attached in an unobtrusive fashion, by adding an
+			event listener.
+		</p>
+		
+		<div class="runit">
+			<span wicket:id="example1">Click here to alert something</span>
+		</div>
+		
+		<div class="source">
+			<p class="htmlCode">
+<code class="html">
+&lt;span wicket:id="example1"&gt;Click here to alert something&lt;/span&gt;
+</code>
+			</p>
+			<p class="javaCode">
+<code class="js">
+public MyWebPage() {
+	super(id);
+	ChilliPanel chilliPlugin = new ChilliPanel("examples");
+	add(chilliPlugin);
+	final Label label = new Label("example1", "Click here to alert something");
+	chilliPlugin.add(label);
+	label.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
+	
+		@Override
+		public JsScope callback() {
+			return JsScope.quickScope("alert('something :)')");
+		}
+	
+	}));			
+}
+</code>
+			</p>
+			<p>
+				Events are handled with three concepts:
+				<ul>
+					<li>
+						WiQueryEventBehavior: a class used to bind events
+						to with component
+					</li>
+					<li>
+						Event: this class is part of WiQuery core and is used
+						to create reusable events attached to multiple components.
+						The constructor of the Event class takes a list of event
+						labels. These event labels can be custom events.
+					</li>
+					<li>
+						JsScope: this class abstracts JavaScript anonymous functions.
+						A JsScope is like writing the following JavaScript statement:
+						<p>
+<code class="js">
+function() {
+
+}
+</code>
+						</p>
+					</li>
+				</ul>
+			</p>		
+		</div>		
+	</div>
+  </div>
+  
+</wicket:panel>
+</html>
+  
