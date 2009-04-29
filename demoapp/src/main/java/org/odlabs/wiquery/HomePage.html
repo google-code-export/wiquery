@@ -1,60 +1,84 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>WiQuery 1.0 Demo application</title>
 	<style type="text/css">
+	
+		body {
+			font: 62.5% "Trebuchet MS", sans-serif;
+		}
+	
 		.leftMenu {
 			width: 233px;
 			float: left;
 		}
 		
 		#content-wrapper {
-			padding-left: 240px;
+			float: left;
+			width: 70%;
+			padding-left: 10px;
+		}
+		
+		.section {
 		}
 		
 		code {
 			white-space: pre;
 		}
 		
+		#myContent {
+			display: none;
+		}
+		
+		.resizable {
+			width: 300px;
+			height: 300px;
+			border: 1px solid black;
+		}
+		
 	</style>
 </head>
 <body>
-	<ul class="leftMenu" wicket:id="leftMenu">
-		<li>
-			<h2>WiQUery Core</h2>
-			<div>
-				<ul>
-					<li><a href="#">Behavior abstraction</a></li>
-					<li><a wicket:id="statementsMenu" href="#">Core jQuery statements</a></li>
-					<li><a wicket:id="eventsMenu" href="#">Events (Both Ajax and non Ajax)</a></li>
-					<li><a href="#">Effects [TODO]</a></li>
-				</ul>
-			</div>
-		</li>
-		<li>
-			<h2>WiQUery UI</h2>
-			<div>
-				<ul>
-					<li><a href="#">Effects [TODO]</a></li>
-					<li><a wicket:id="draggableMenu" href="#">Draggable</a></li>
-					<li><a wicket:id="droppableMenu" href="#">Droppable</a></li>
-					<li><a href="#">Accordion</a></li>
-					<li><a href="#">Tab panel</a></li>
-				</ul>
-			</div>
-		</li>
-		<li>
-			<h2>WiQUery plugins</h2>
-			<div>
-				<ul>
-					<li><a href="#">Howto bind you jQuery plugin</a></li>
-					<li><a href="#">Example: flexigrid plugin</a></li>
-				</ul>
-			</div>
-		</li>
-	</ul>
+
+	<div>
+		<ul class="leftMenu" wicket:id="leftMenu">
+			<li>
+				<h2><a href="#">WiQUery Core</a></h2>
+				<div>
+					<ul>
+						<li><a href="#">Behavior abstraction</a></li>
+						<li><a wicket:id="statementsMenu" href="#">Core jQuery statements</a></li>
+						<li><a wicket:id="eventsMenu" href="#">Events (Both Ajax and non Ajax)</a></li>
+						<li><a href="#">Effects [TODO]</a></li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<h2><a href="#">WiQUery UI</a></h2>
+				<div>
+					<ul>
+						<li><a href="#">Effects [TODO]</a></li>
+						<li><a wicket:id="draggableMenu" href="#">Draggable</a></li>
+						<li><a wicket:id="droppableMenu" href="#">Droppable</a></li>
+						<li><a wicket:id="resizableMenu" href="#">Resizable</a></li>
+						<li><a href="#">Accordion</a></li>
+						<li><a wicket:id="tabsMenu" href="#">Tab panel</a></li>
+						<li><a wicket:id="dialogMenu" href="#">Dialog</a></li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<h2><a href="#">WiQUery plugins</a></h2>
+				<div>
+					<ul>
+						<li><a href="#">Howto bind you jQuery plugin</a></li>
+						<li><a href="#">Example: flexigrid plugin</a></li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</div>
 	
 	<div id="content-wrapper">
 		<div wicket:id="content">
