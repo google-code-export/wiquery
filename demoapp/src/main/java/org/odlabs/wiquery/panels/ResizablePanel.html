@@ -14,17 +14,15 @@
 		<div class="source">
 			<p class="htmlCode">
 <code class="html">
-&lt;div wicket:id="example1"&gt;Drag me !&lt;/div&gt;
+&lt;div wicket:id="example1"&gt;Resize me !&lt;/div&gt;
 </code>
 			</p>
 			<p class="javaCode">
 <code class="js">
 public MyWebPage() {
-	ChilliPanel chilliPlugin = new ChilliPanel("examples");
-	add(chilliPlugin);
-	final Label label = new Label("example1", "Drag me !");
-	chilliPlugin.add(label);
-	label.add(new DraggableBehavior());		
+	Label label = new Label("example1", "Resize me !");
+	add(label);
+	label.add(new ResizableBehavior());		
 }
 </code>
 			</p>

@@ -17,6 +17,7 @@
 		#content-wrapper {
 			float: left;
 			width: 70%;
+			font-size: 12px;
 			padding-left: 10px;
 		}
 		
@@ -37,9 +38,30 @@
 			border: 1px solid black;
 		}
 		
+		.view-source {
+			padding:0.4em 1em 0.4em 20px;
+			position:relative;
+			text-decoration:none;
+			position: relative;
+			float: right;
+		}
+		
+		.view-source span.ui-icon {
+			position: absolute;
+			top: 2px;
+			left: 0px;
+		}
 	</style>
 </head>
 <body>
+
+	<a href="#" wicket:id="viewSource" class="view-source ui-state-default ui-corner-all">
+		<span class="ui-icon ui-icon-newwin"></span>View source
+	</a>
+	
+	<div wicket:id="source-viewer">
+		<iframe id="source-loader" src=""><p>Source code</p></iframe>
+	</div>
 
 	<div>
 		<ul class="leftMenu" wicket:id="leftMenu">
@@ -47,7 +69,7 @@
 				<h2><a href="#">WiQUery Core</a></h2>
 				<div>
 					<ul>
-						<li><a href="#">Behavior abstraction</a></li>
+						<li><a wicket:id="behaviorMenu" href="#">Behavior abstraction</a></li>
 						<li><a wicket:id="statementsMenu" href="#">Core jQuery statements</a></li>
 						<li><a wicket:id="eventsMenu" href="#">Events (Both Ajax and non Ajax)</a></li>
 						<li><a href="#">Effects [TODO]</a></li>
@@ -64,6 +86,7 @@
 						<li><a wicket:id="resizableMenu" href="#">Resizable</a></li>
 						<li><a href="#">Accordion</a></li>
 						<li><a wicket:id="tabsMenu" href="#">Tab panel</a></li>
+						<li><a wicket:id="progressMenu" href="#">Progress bar</a></li>
 						<li><a wicket:id="dialogMenu" href="#">Dialog</a></li>
 					</ul>
 				</div>

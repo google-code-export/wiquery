@@ -29,10 +29,8 @@
 <code class="js">
 public MyWebPage() {
 	super(id);
-	ChilliPanel chilliPlugin = new ChilliPanel("examples");
-	add(chilliPlugin);
-	final Label label = new Label("example1", "Click here to alert something");
-	chilliPlugin.add(label);
+	Label label = new Label("example1", "Click here to alert something");
+	add(label);
 	label.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
 	
 		@Override

@@ -25,10 +25,8 @@
 			<p class="javaCode">
 <code class="js">
 public MyWebPage() {
-	ChilliPanel chilliPlugin = new ChilliPanel("examples");
-	add(chilliPlugin);
-	final Label label = new Label("example1", "Drag me !");
-	chilliPlugin.add(label);
+	Label label = new Label("example1", "Drag me !");
+	add(label);
 	label.add(new DraggableBehavior());		
 }
 </code>

@@ -30,14 +30,13 @@
 <code class="js">
 public MyWebPage() {
 	Label label = new Label("example1", "Drag me !");
-	chilliPlugin.add(label);
 	label.add(new DraggableBehavior());
 	WebMarkupContainer dropzone = new WebMarkupContainer("dropzone");
 	DroppableBehavior droppableBehavior = new DroppableBehavior();
 	droppableBehavior.setOnDrop(JsScope.quickScope("alert('dropped');"));
 	droppableBehavior.setAccept(".draggable");
 	dropzone.add(droppableBehavior);
-	chilliPlugin.add(dropzone);	
+	add(dropzone);	
 }
 </code>
 			</p>
