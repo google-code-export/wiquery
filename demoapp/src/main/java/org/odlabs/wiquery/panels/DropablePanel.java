@@ -1,5 +1,6 @@
 package org.odlabs.wiquery.panels;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -38,8 +39,8 @@ public class DropablePanel extends Panel {
 		DroppableAjaxBehavior ajaxDroppableBehavior = new DroppableAjaxBehavior() {
 		
 			@Override
-			public void onDrop(AjaxRequestTarget target) {
-				target.appendJavascript("alert('Ajax drop');");
+			public void onDrop(Component component, AjaxRequestTarget target) {
+				target.appendJavascript("alert('Ajax drop for id=" + component.getMarkupId() +"');");
 			}
 		
 		};

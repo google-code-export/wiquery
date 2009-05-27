@@ -1,5 +1,6 @@
 package org.odlabs.wiquery;
 
+import org.apache.wicket.ResourceReference;
 import org.odlabs.wiquery.utils.WiQueryWebApplication;
 
 /**
@@ -14,8 +15,20 @@ public class WicketApplication extends WiQueryWebApplication
      */
 	public WicketApplication()
 	{
+		super();
 	}
 	
+	
+	
+	@Override
+	protected void init() {
+		super.init();
+//		this.setTheme(new ResourceReference(WicketApplication.class, 
+//			"sampleTheme/jquery-ui-1.7.1.custom.css"));
+	}
+
+
+
 	/**
 	 * @see org.apache.wicket.Application#getHomePage()
 	 */

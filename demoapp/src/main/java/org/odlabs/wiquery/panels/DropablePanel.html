@@ -80,13 +80,13 @@ public MyWebPage() {
 	WebMarkupContainer ajaxDropzone = new WebMarkupContainer("ajaxDropzone");
 	chilliPlugin.add(ajaxDropzone);
 	DroppableAjaxBehavior ajaxDroppableBehavior = new DroppableAjaxBehavior() {
-
-		@Override
-		public void onDrop(AjaxRequestTarget target) {
-			target.appendJavascript("alert('Ajax drop');");
-		}
-
-	};
+		
+			@Override
+			public void onDrop(Component component, AjaxRequestTarget target) {
+				target.appendJavascript("alert('Ajax drop for id=" + component.getMarkupId() +"');");
+			}
+		
+		};
 	ajaxDroppableBehavior.setAccept(".draggable");
 	ajaxDropzone.add(ajaxDroppableBehavior);
 }

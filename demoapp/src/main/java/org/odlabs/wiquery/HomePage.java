@@ -71,7 +71,7 @@ public class HomePage extends WebPage {
     	Accordion accordion = new Accordion("leftMenu");
 		add(accordion);
 		// content
-    	this.currentPanel = new CorePanel("content");
+    	this.currentPanel = new DropablePanel("content");
     	currentPanel.setOutputMarkupId(true);
 		add(currentPanel);
 		accordion.add(new MenuItem("behaviorMenu", new Model<String>("Behaviors overview")) {
