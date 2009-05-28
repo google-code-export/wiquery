@@ -1,0 +1,29 @@
+#summary One-sentence summary of this page.
+
+= WiQuery 1.0 Roadmap and TODOs =
+
+== Current release ==
+
+== Next release ==
+
+  * 1.0-Alpha release version planned for the start of June
+  * Features:
+    * jQuery Core JavaScript generation tools
+    * Basic event handling (ajax and non ajax)
+    * Basic effect handling
+    * Generic behavior to attach jQuery code to a component (both ajax and non ajax)
+    * IWiqueryPlugin to create user's own WiQuery plugins
+    * Binding of jQuery UI:
+      * Theming is supported
+      * Components:
+        * Accordion
+        * Tab panel
+        * Draggable
+        * Droppable
+        * Resizable
+        * Dialog window
+        * 
+
+== TODO ==
+
+=== Features ===
