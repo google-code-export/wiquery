@@ -1,10 +1,11 @@
 #summary One-sentence summary of this page.
+#labels Featured
 
 = WiQuery 1.0 Roadmap and TODOs =
 
 == Current release ==
 
-== Next release ==
+== Next release: 1.0-Alpha ==
 
   * 1.0-Alpha release version planned for the start of June
   * Features:
@@ -22,8 +23,25 @@
         * Droppable
         * Resizable
         * Dialog window
-        * 
+        * Date picker
 
-== TODO ==
+== Othere future releases ==
 
-=== Features ===
+=== WiQuery 1.0-m1 ===
+
+  * No date defined yet
+  * Features / TODO:
+    * Binding all jQuery UI components and effects
+    * Generating the JavaScript code in a separated file
+    * Source code documentation
+    * Make a POC on how to make JavaScript components "IModel aware"
+
+=== WiQuery 1.0-m2 === 
+
+  * No date defined yet
+  * Features / TODO:
+    * Live compression of generated JavaScript code
+
+=== WiQuery 1.0 ===
+
+  * To define
