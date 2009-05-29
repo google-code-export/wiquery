@@ -35,6 +35,7 @@
     * Generating the JavaScript code in a separated file
     * Source code documentation
     * Make a POC on how to make JavaScript components "IModel aware"
+    * Bind jQuery UI CSS framework with a set of behaviors (to support jQuery UI rounded buttons etc)
 
 === WiQuery 1.0-m2 === 
 
