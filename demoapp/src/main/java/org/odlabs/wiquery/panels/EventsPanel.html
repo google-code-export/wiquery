@@ -1,4 +1,5 @@
-<html xmlns:wicket>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:wicket="http://wicket.apache.org/">
 <wicket:panel>
  
   <div wicket:id="examples" class="section">
@@ -26,7 +27,7 @@
 </code>
 			</p>
 			<p class="javaCode">
-<code class="js">
+<code class="java">
 public MyWebPage() {
 	super(id);
 	Label label = new Label("example1", "Click here to alert something");
@@ -42,21 +43,17 @@ public MyWebPage() {
 }
 </code>
 			</p>
-			<p>
-				Events are handled with three concepts:
-				<ul>
-					<li>
-						WiQueryEventBehavior: a class used to bind events
-						to with component
-					</li>
-					<li>
-						Event: this class is part of WiQuery core and is used
+				<p>Events are handled by three concepts:</p>
+				<dl>
+					<dt><strong>WiQueryEventBehavior</strong>:</dt>
+					<dd>a class used to bind events with components</dd>
+					<dt><strong>Event</strong>:</dt>
+					<dd>this class is part of WiQuery core and is used
 						to create reusable events attached to multiple components.
 						The constructor of the Event class takes a list of event
-						labels. These event labels can be custom events.
-					</li>
-					<li>
-						JsScope: this class abstracts JavaScript anonymous functions.
+						labels. These event labels can be custom events.</dd>
+					<dt><strong>JsScope</strong>:</dt>
+					<dd>this class abstracts JavaScript anonymous functions.
 						A JsScope is like writing the following JavaScript statement:
 						<p>
 <code class="js">
@@ -65,13 +62,11 @@ function() {
 }
 </code>
 						</p>
-					</li>
-				</ul>
-			</p>		
+					</dd>
+				</dl>		
 		</div>		
 	</div>
   </div>
   
 </wicket:panel>
 </html>
-  
