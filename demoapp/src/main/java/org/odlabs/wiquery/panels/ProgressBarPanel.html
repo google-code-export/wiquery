@@ -1,9 +1,10 @@
-<html xmlns:wicket>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:wicket="http://wicket.apache.org/">
 <wicket:panel>
   <div wicket:id="examples" class="section">
-  	<h2>Dialog box example</h2>
+  	<h2>Progress bar example</h2>
 	<p>
-		This example show how to build a progress bar with <strong>WiQuery</strong>
+		This example show how to build a progress bar with <strong>WiQuery</strong>.
 	</p>
 	<div class="section">
 		<div class="runit">
@@ -15,11 +16,35 @@
 		<div class="source">
 			<p class="htmlCode">
 <code class="html">
+&lt;a wicket:id="increaseProgress"&gt;Click me to increase progress bar&lt;/a&gt;
+&lt;div wicket:id="progress"&gt;
+&lt;/div&gt;
 
 </code>
 			</p>
 			<p class="javaCode">
-<code class="js">
+<code class="java">
+public MyWebPage(String id) {
+        super(id);
+        
+        Button button = new Button("increaseProgress");
+        this.add(button);
+        
+        final ProgressBar pgbar = new ProgressBar("progress");
+        pgbar.setValue(0);
+        button.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
+        
+            private static final long serialVersionUID = 1L;
+            
+            @Override
+            public JsScope callback() {
+                pgbar.setValue(13);
+                return JsScope.quickScope(pgbar.update().render());
+            }
+        
+        }));
+        this.add(pgbar);
+    }
 </code>
 			</p>
 
