@@ -1,4 +1,5 @@
-<html xmlns:wicket>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:wicket="http://wicket.apache.org/">
 <wicket:panel>
   <div wicket:id="examples" class="section">
   	<h2 id="statements">Core jQuery statements</h2>
@@ -8,14 +9,14 @@
 		the same "fluent interface" principle.
 	</p>
 	<p>
-		WiQuery comes with severals helpers to bind the whole jQuery API, here
+		WiQuery comes with several helpers to bind the whole jQuery API, here
 		are some examples:
 	</p>
 	<div class="section">
 		<h3>Example: CSS Helper</h3>
 		<p>
 			This example describes how to dynamically change CSS with WiQuery.
-			WiQuery ease jQuery integration and provides behaviors to do it with Wicket style.
+			WiQuery eases jQuery integration and provides behaviors to do it with Wicket style.
 		</p>
 		<p>
 			This first example shows how to attach a simple jQuery CSS statement,
@@ -32,11 +33,13 @@
 </code>
 			</p>
 			<p class="javaCode">
-<code class="js">
+<code class="java">
 // consider being in a WebPage constructor
-public MyWebPage() {
-		final Label label = new Label("example1", "CSS Helper curtomized me");
-		add(label);
+public MyWebPage(String id) {
+		super(id);
+		
+		final Label label = new Label("example1", "CSS Helper customized me");
+		this.add(label);
 		label.add(new WiQueryAbstractBehavior() {
 		
 			@Override
@@ -64,7 +67,7 @@ public JsStatement statement() {
 </code>
 			</p>
 			<p>
-				The <code class="js">new JsQuery(label)</code> aims to create JsStatements
+				The <code class="java">new JsQuery(label)</code> aims to create JsStatements
 				for a given component. All of these statements can be chained 
 				with other statements to provide a fluent way to write 
 				JavaScript code from Wicket.
@@ -73,7 +76,7 @@ public JsStatement statement() {
 				A JsQuery provides the well know jQuery <strong>$</strong> method.
 				Consider that a call to the $() method will generate the corresponding
 				jQuery statement. If a component is attached to a JsQuery (like 
-				the one we wrote before), this will generate 
+				the one we wrote before), this will generate:
 				<code class="js">$("#thegeneratedcomponentid")</code>.
 			</p>
 			<p>
@@ -88,4 +91,3 @@ public JsStatement statement() {
   </div>
 </wicket:panel>
 </html>
-  
