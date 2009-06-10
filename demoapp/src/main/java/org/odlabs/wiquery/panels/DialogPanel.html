@@ -1,4 +1,5 @@
-<html xmlns:wicket>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:wicket="http://wicket.apache.org/">
 <wicket:panel>
   <div wicket:id="examples" class="section">
   	<h2>Dialog box example</h2>
@@ -16,11 +17,28 @@
 		<div class="source">
 			<p class="htmlCode">
 <code class="html">
-
+&lt;a wicket:id="openSimpleDialog"&gt;Click me to open a dialog box with existing content&lt;/a&gt;
+&lt;div title="Simple dialog with WiQuery" wicket:id="simpleDialog"&gt;
+        WiQuery rocks !
+&lt;/div&gt;
 </code>
 			</p>
 			<p class="javaCode">
-<code class="js">
+<code class="java">
+Button button = new Button("openSimpleDialog");
+this.add(button);
+ 
+final Dialog dialog = new Dialog("simpleDialog");
+button.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
+        
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public JsScope callback() {
+                return JsScope.quickScope(dialog.open().render());
+            }
+        
+        }));
 </code>
 			</p>
 
@@ -39,11 +57,38 @@
 		<div class="source">
 			<p class="htmlCode">
 <code class="html">
-
+&lt;a wicket:id="openAjaxDialog"&gt;Click me to open a dialog box with Ajax content&lt;/a&gt;
+&lt;div title="Ajax dialog with WiQuery" wicket:id="ajaxDialog"&gt;
+    &lt;div wicket:id="ajaxContent"&gt;
+                
+    &lt;/div&gt;
+&lt;/div&gt;
 </code>
 			</p>
 			<p class="javaCode">
-<code class="js">
+<code class="java">
+ button = new Button("openAjaxDialog");
+ this.add(button);
+ 
+ final Dialog ajaxDialog = new Dialog("ajaxDialog");
+ final WebMarkupContainer container = new WebMarkupContainer("ajaxContent");
+ container.setOutputMarkupId(true);
+ ajaxDialog.add(container);
+ button.add(new WiQueryAjaxEventBehavior(MouseEvent.CLICK) {
+       
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        protected void onEvent(AjaxRequestTarget target) {
+            if (newContent == null) {
+                 newContent = new AjaxContent("ajaxContent");
+                 newContent.setOutputMarkupId(true);
+                 container.replaceWith(newContent);
+                 target.addComponent(newContent, container.getMarkupId());
+              }
+             ajaxDialog.open(target);
+            }       
+        });
 </code>
 			</p>
 
