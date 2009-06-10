@@ -14,6 +14,8 @@ import org.odlabs.wiquery.ui.progressbar.ProgressBar;
  */
 public class ProgressBarPanel extends Panel {
 
+	private static final long serialVersionUID = 1L;
+	
 	public ProgressBarPanel(String id) {
 		super(id);
 		ChilliPanel chilliPlugin = new ChilliPanel("examples");
@@ -24,6 +26,7 @@ public class ProgressBarPanel extends Panel {
 		pgbar.setValue(0);
 		button.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
 		
+			private static final long serialVersionUID = 1L;
 			@Override
 			public JsScope callback() {
 				pgbar.setValue(13);
@@ -35,4 +38,3 @@ public class ProgressBarPanel extends Panel {
 	}
 
 }
-
