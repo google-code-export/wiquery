@@ -25,9 +25,11 @@
 			</p>
 			<p class="javaCode">
 <code class="java">
-public MyWebPage() {
+public MyWebPage(String id) {
+    setup(id);
+    
 	Label label = new Label("example1", "Drag me !");
-	add(label);
+	this.add(label);
 	label.add(new DraggableBehavior());		
 }
 </code>

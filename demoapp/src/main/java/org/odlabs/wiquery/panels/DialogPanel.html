@@ -25,11 +25,14 @@
 			</p>
 			<p class="javaCode">
 <code class="java">
-Button button = new Button("openSimpleDialog");
-this.add(button);
+public MyWebPage(String id) {
+	super(id);
+	
+	Button button = new Button("openSimpleDialog");
+	this.add(button);
  
-final Dialog dialog = new Dialog("simpleDialog");
-button.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
+	final Dialog dialog = new Dialog("simpleDialog");
+	button.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
         
             private static final long serialVersionUID = 1L;
 
@@ -39,6 +42,7 @@ button.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
             }
         
         }));
+        this.add(dialog);
 </code>
 			</p>
 
@@ -60,21 +64,22 @@ button.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
 &lt;a wicket:id="openAjaxDialog"&gt;Click me to open a dialog box with Ajax content&lt;/a&gt;
 &lt;div title="Ajax dialog with WiQuery" wicket:id="ajaxDialog"&gt;
     &lt;div wicket:id="ajaxContent"&gt;
-                
     &lt;/div&gt;
 &lt;/div&gt;
 </code>
 			</p>
 			<p class="javaCode">
 <code class="java">
- button = new Button("openAjaxDialog");
- this.add(button);
- 
- final Dialog ajaxDialog = new Dialog("ajaxDialog");
- final WebMarkupContainer container = new WebMarkupContainer("ajaxContent");
- container.setOutputMarkupId(true);
- ajaxDialog.add(container);
- button.add(new WiQueryAjaxEventBehavior(MouseEvent.CLICK) {
+public MyWebPage(String id) {
+
+	button = new Button("openAjaxDialog");
+	this.add(button);
+
+	final Dialog ajaxDialog = new Dialog("ajaxDialog");
+	final WebMarkupContainer container = new WebMarkupContainer("ajaxContent");
+	container.setOutputMarkupId(true);
+	ajaxDialog.add(container);
+	button.add(new WiQueryAjaxEventBehavior(MouseEvent.CLICK) {
        
         private static final long serialVersionUID = 1L;
 
@@ -89,6 +94,8 @@ button.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
              ajaxDialog.open(target);
             }       
         });
+   this.add(ajaxDialog);
+ }
 </code>
 			</p>
 
