@@ -13,21 +13,25 @@ import org.odlabs.wiquery.plugin.ChilliPanel;
  */
 public class EventsPanel extends Panel {
 
+	private static final long serialVersionUID = 1L;
+
 	public EventsPanel(String id) {
 		super(id);
 		ChilliPanel chilliPlugin = new ChilliPanel("examples");
-		add(chilliPlugin);
-		final Label label = new Label("example1", "Click here to alert something");
+		this.add(chilliPlugin);
+		final Label label = new Label("example1",
+				"Click here to alert something");
 		chilliPlugin.add(label);
 		label.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
-		
+
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public JsScope callback() {
 				return JsScope.quickScope("alert('something :)')");
 			}
-		
+
 		}));
 	}
 
 }
-
