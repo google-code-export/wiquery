@@ -7,7 +7,7 @@
 
 == Next release: 1.0-Alpha ==
 
-  * 1.0-Alpha release version planned for the start of June
+  * 1.0-Alpha release version planned for the beginning of June
   * Features:
     * jQuery Core JavaScript generation tools
     * Basic event handling (ajax and non ajax)
@@ -25,11 +25,11 @@
         * Dialog window
         * Date picker
 
-== Othere future releases ==
+== Other future releases ==
 
 === WiQuery 1.0-m1 ===
 
-  * No date defined yet
+  * No date defined
   * Features / TODO:
     * Binding all jQuery UI components and effects
     * Generating the JavaScript code in a separated file
@@ -39,10 +39,10 @@
 
 === WiQuery 1.0-m2 === 
 
-  * No date defined yet
+  * No date defined
   * Features / TODO:
     * Live compression of generated JavaScript code
 
 === WiQuery 1.0 ===
 
-  * To define
+  * To be define
