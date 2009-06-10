@@ -14,9 +14,11 @@ import org.odlabs.wiquery.ui.droppable.DroppableBehavior;
 /**
  * @author lionel
  */
-public class DropablePanel extends Panel {
+public class DroppablePanel extends Panel {
 
-	public DropablePanel(String id) {
+	private static final long serialVersionUID = 1L;
+	
+	public DroppablePanel(String id) {
 		super(id);
 		ChilliPanel chilliPlugin = new ChilliPanel("examples");
 		add(chilliPlugin);
@@ -24,6 +26,7 @@ public class DropablePanel extends Panel {
 		Label label = new Label("example1", "Drag me !");
 		chilliPlugin.add(label);
 		label.add(new DraggableBehavior());
+		
 		WebMarkupContainer dropzone = new WebMarkupContainer("dropzone");
 		DroppableBehavior droppableBehavior = new DroppableBehavior();
 		droppableBehavior.setOnDrop(JsScope.quickScope("alert('dropped');"));
@@ -38,6 +41,8 @@ public class DropablePanel extends Panel {
 		chilliPlugin.add(ajaxDropzone);
 		DroppableAjaxBehavior ajaxDroppableBehavior = new DroppableAjaxBehavior() {
 		
+			private static final long serialVersionUID = 1L;
+			
 			@Override
 			public void onDrop(Component component, AjaxRequestTarget target) {
 				target.appendJavascript("alert('Ajax drop for id=" + component.getMarkupId() +"');");

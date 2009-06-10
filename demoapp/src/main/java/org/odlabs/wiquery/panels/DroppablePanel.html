@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:wicket="http://wicket.apache.org/">
+<wicket:panel>
+ 
+  <div wicket:id="examples" class="section">
+  	<h2 id="behaviors">WiQuery UI::Droppable</h2>
+	<p>
+		This page shows how droppable elements are bound with WiQuery.
+	</p>
+	
+	<div class="section">
+		<h3>Example 1: Set an element droppable</h3>
+		<p>
+			This example shows how to turn an element droppable, and how to
+			declare where elements can be dropped.
+		</p>
+		
+		<div class="runit">
+			<div class="draggable" wicket:id="example1">Drag me !</div>
+			<div class="dropzone"  wicket:id="dropzone">Drop elements here</div>
+		</div>
+		
+		<div class="source">
+			<p class="htmlCode">
+<code class="html">
+&lt;div class="draggable" wicket:id="example1"&gt;Drag me !&lt;/div&gt;
+&lt;div class="dropzone" wicket:id="dropzone"&gt;Drop elements here&lt;/div&gt;
+</code>
+			</p>
+			<p class="javaCode">
+<code class="java">
+public MyWebPage(String id) {
+    super(id);
+	Label label = new Label("example1", "Drag me !"); 
+	label.add(new DraggableBehavior());
+	this.add(label);
+	
+	WebMarkupContainer dropzone = new WebMarkupContainer("dropzone"); 
+	DroppableBehavior droppableBehavior = new DroppableBehavior();
+	droppableBehavior.setOnDrop(JsScope.quickScope("alert('dropped');"));
+	droppableBehavior.setAccept(".draggable");
+	dropzone.add(droppableBehavior);
+	this.add(dropzone);
+}
+</code>
+			</p>
+		</div>		
+	</div>
+
+	<div class="section">
+		<h3>Example 2: Do it with Ajax !</h3>
+		<p>
+			This is the same example in Ajax mode.
+		</p>
+		
+		<div class="runit">
+			<div class="draggable" wicket:id="example2">Drag me !</div>
+			<div class="dropzone" wicket:id="ajaxDropzone">Drop elements here</div>
+		</div>
+		
+		<div class="source">
+			<p class="htmlCode">
+<code class="html">
+&lt;div class="draggable" wicket:id="example2"&gt;Drag me !&lt;/div&gt;
+&lt;div class="dropzone" wicket:id="ajaxDropzone"&gt;Drop elements here&lt;/div&gt;
+</code>
+			</p>
+			<p class="javaCode">
+<code class="js">
+public MyWebPage(String id) {
+        super(id);
+        Label label = new Label("example1", "Drag me !");
+        label.add(new DraggableBehavior());
+        this.add(label);
+                
+	    WebMarkupContainer dropzone = new WebMarkupContainer("dropzone");
+        DroppableBehavior droppableBehavior = new DroppableBehavior();
+        droppableBehavior.setOnDrop(JsScope.quickScope("alert('dropped');"));
+        droppableBehavior.setAccept(".draggable");
+        dropzone.add(droppableBehavior); chilliPlugin.add(dropzone); 
+               
+        label = new Label("example2", "Drag me !");
+        label.add(new DraggableBehavior());
+        this.add(label);
+	            
+	    WebMarkupContainer ajaxDropzone = new WebMarkupContainer("ajaxDropzone");
+	    this.add(ajaxDropzone);
+	    DroppableAjaxBehavior ajaxDroppableBehavior = new DroppableAjaxBehavior() { 
+	            
+	       @Override 
+	       public void onDrop(Component component, AjaxRequestTarget target) {
+	          target.appendJavascript("alert('Ajax drop for id=" +
+	          component.getMarkupId() +"');"); 
+	        } 
+	    };
+	    ajaxDroppableBehavior.setAccept(".draggable");
+	    ajaxDropzone.add(ajaxDroppableBehavior); 
+}
+</code>
+			</p>
+		</div>
+	</div>
+	
+  </div>
+  
+</wicket:panel>
+</html>
