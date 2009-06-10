@@ -10,6 +10,8 @@ import org.odlabs.wiquery.ui.draggable.DraggableBehavior;
  */
 public class DraggablePanel extends Panel {
 
+	private static final long serialVersionUID = 1L;
+
 	public DraggablePanel(String id) {
 		super(id);
 		ChilliPanel chilliPlugin = new ChilliPanel("examples");
@@ -20,4 +22,3 @@ public class DraggablePanel extends Panel {
 	}
 
 }
-
