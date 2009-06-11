@@ -48,9 +48,9 @@ public MyWebPage(String id) {
 	</div>
 
 	<div class="section">
-		<h3>Example 2: Do it with Ajax !</h3>
+		<h3>Example 2: Do it with Ajax!</h3>
 		<p>
-			This is the same example in Ajax mode.
+			Same example in Ajax mode.
 		</p>
 		
 		<div class="runit">
@@ -67,8 +67,10 @@ public MyWebPage(String id) {
 			</p>
 			<p class="javaCode">
 <code class="java">
+// consider being in a WebPage constructor 
 public MyWebPage(String id) {
         super(id);
+        
         Label label = new Label("example1", "Drag me !");
         label.add(new DraggableBehavior());
         this.add(label);
