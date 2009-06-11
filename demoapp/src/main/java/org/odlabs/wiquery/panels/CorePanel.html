@@ -27,7 +27,9 @@
 			</p>
 			<p class="javaCode">
 <code class="java">
-public MyWebPage() {
+public MyWebPage(String id) {
+    super(id);
+    
 	Label example1 = new Label("example1", "Example 1");
 	example1.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
 	
@@ -44,7 +46,7 @@ public MyWebPage() {
 		}
 	
 	}));
-	add(example1);				
+	this.add(example1);				
 }
 </code>
 			</p>		
