@@ -4,11 +4,11 @@
   <div wicket:id="examples" class="section">
   	<h2>Dialog box example</h2>
 	<p>
-		This example show how to build a dialog box with <strong>WiQuery</strong>
+		This example show how to build a dialog box with <strong>WiQuery</strong>.
 	</p>
 	<div class="section">
 		<div class="runit">
-			<a wicket:id="openSimpleDialog">Click me to open a dialog box with existing content</a>
+			<a wicket:id="openSimpleDialog">Click me to open a dialog box with an existing content</a>
 			<div title="Simple dialog with WiQuery" wicket:id="simpleDialog">
 				WiQuery rocks !
 			</div>
@@ -17,7 +17,7 @@
 		<div class="source">
 			<p class="htmlCode">
 <code class="html">
-&lt;a wicket:id="openSimpleDialog"&gt;Click me to open a dialog box with existing content&lt;/a&gt;
+&lt;a wicket:id="openSimpleDialog"&gt;Click me to open a dialog box with an existing content&lt;/a&gt;
 &lt;div title="Simple dialog with WiQuery" wicket:id="simpleDialog"&gt;
         WiQuery rocks !
 &lt;/div&gt;
@@ -43,6 +43,7 @@ public MyWebPage(String id) {
         
         }));
         this.add(dialog);
+}
 </code>
 			</p>
 
@@ -50,7 +51,7 @@ public MyWebPage(String id) {
 	</div>
 	<div class="section">
 		<div class="runit">
-			<a wicket:id="openAjaxDialog">Click me to open a dialog box with Ajax content</a>
+			<a wicket:id="openAjaxDialog">Click me to open a dialog box with an Ajax content</a>
 			<div title="Ajax dialog with WiQuery" wicket:id="ajaxDialog">
 				<div wicket:id="ajaxContent">
 				
@@ -61,7 +62,7 @@ public MyWebPage(String id) {
 		<div class="source">
 			<p class="htmlCode">
 <code class="html">
-&lt;a wicket:id="openAjaxDialog"&gt;Click me to open a dialog box with Ajax content&lt;/a&gt;
+&lt;a wicket:id="openAjaxDialog"&gt;Click me to open a dialog box with an Ajax content&lt;/a&gt;
 &lt;div title="Ajax dialog with WiQuery" wicket:id="ajaxDialog"&gt;
     &lt;div wicket:id="ajaxContent"&gt;
     &lt;/div&gt;
@@ -70,6 +71,7 @@ public MyWebPage(String id) {
 			</p>
 			<p class="javaCode">
 <code class="java">
+// consider being in a WebPage constructor 
 public MyWebPage(String id) {
 
 	button = new Button("openAjaxDialog");
