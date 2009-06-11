@@ -22,6 +22,7 @@ import org.odlabs.wiquery.panels.ProgressBarPanel;
 import org.odlabs.wiquery.panels.ResizablePanel;
 import org.odlabs.wiquery.panels.StatementsPanel;
 import org.odlabs.wiquery.panels.TabPanel;
+import org.odlabs.wiquery.panels.WelcomePanel;
 import org.odlabs.wiquery.ui.accordion.Accordion;
 import org.odlabs.wiquery.ui.dialog.Dialog;
 
@@ -77,7 +78,7 @@ public class HomePage extends WebPage {
 		Accordion accordion = new Accordion("leftMenu");
 		this.add(accordion);
 		// content
-		this.currentPanel = new DroppablePanel("content");
+		this.currentPanel = new WelcomePanel("content");
 		this.currentPanel.setOutputMarkupId(true);
 		this.add(this.currentPanel);
 		accordion.add(new MenuItem("behaviorMenu", new Model<String>(
