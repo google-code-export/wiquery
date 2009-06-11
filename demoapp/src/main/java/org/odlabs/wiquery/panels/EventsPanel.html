@@ -28,10 +28,11 @@
 			</p>
 			<p class="javaCode">
 <code class="java">
-public MyWebPage() {
+public MyWebPage(String id) {
 	super(id);
+	
 	Label label = new Label("example1", "Click here to alert something");
-	add(label);
+	this.add(label);
 	label.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
 	
 		@Override
@@ -46,11 +47,11 @@ public MyWebPage() {
 				<p>Events are handled by three concepts:</p>
 				<dl>
 					<dt><strong>WiQueryEventBehavior</strong>:</dt>
-					<dd>a class used to bind events with components</dd>
+					<dd>class used to bind events with components</dd>
 					<dt><strong>Event</strong>:</dt>
 					<dd>this class is part of WiQuery core and is used
 						to create reusable events attached to multiple components.
-						The constructor of the Event class takes a list of event
+						The constructor of the <code class="java">Event</code> class takes a list of event
 						labels. These event labels can be custom events.</dd>
 					<dt><strong>JsScope</strong>:</dt>
 					<dd>this class abstracts JavaScript anonymous functions.
