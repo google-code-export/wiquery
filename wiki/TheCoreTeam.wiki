@@ -1,0 +1,7 @@
+= wiQuery team =
+
+|| *Name* || *Description* || *Links* ||
+|| Lionel Armanet || Project leader and developer || <a href="http://www.linkedin.com/in/lionelarmanet" ><img src="http://www.linkedin.com/img/webpromo/btn_profile_bluetxt_80x15.gif" width="80" height="15" border="0" alt="View Lionel Armanet's profile on LinkedIn"/></a> ||
+|| François Delalande || Project leader and developer || <a href="http://www.linkedin.com/pub/françois-delalande/1/a54/551" ><img src="http://www.linkedin.com/img/webpromo/btn_profile_bluetxt_80x15.gif" width="80" height="15" border="0" alt="View Francois Delalande's profile on LinkedIn"/></a> ||
+|| Julien Roche || UI Components development leader ||  ||
+|| Pierre Marguerite || Developer || <a href="http://www.linkedin.com/in/pierremarguerite" ><img src="http://www.linkedin.com/img/webpromo/btn_profile_bluetxt_80x15.gif" width="80" height="15" border="0" alt="View Pierre Marguerite's profile on LinkedIn"/></a> ||
