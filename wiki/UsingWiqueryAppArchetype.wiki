@@ -2,11 +2,10 @@
 
 == Introduction ==
 
-In order to ease the creation of Wiquery application, a maven archetype has been developed. 
-
+In order to ease the creation of WiQuery application, a maven archetype has been developed. 
+The page presents only how  to use the maven archetype for WiQuery application.
 The current version aims the Wiquery 1.0-m1 release.
 == Preparation ==
-
 
 === Tools ===
 
