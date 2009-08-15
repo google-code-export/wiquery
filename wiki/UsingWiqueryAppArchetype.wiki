@@ -4,26 +4,46 @@
 
 In order to ease the creation of Wiquery application, a maven archetype has been developed. 
 
-
+The current version aims the Wiquery 1.0-m1 release.
 == Preparation ==
 
+
+=== Tools ===
+
+To begin this tutorial, you'll need the following components to be installed:
+  * [http://maven.apache.org/download.html Maven 2.0.10] 
+  * Java JDK1.5+
+
+===getting started===
   1. Download the archetype:
 
 From SVN:
-
+{{{
 svn checkout http://wiquery.googlecode.com/svn/apparchetype/ wiquery-read-only
+}}}
 
-  2. install the archetype in your local repository:
+  2. go in the apparchetype directory and install the archetype in your local repository:
 
+{{{
 mvn install
+}}}
 
-==Start a projet==
+==Start a projet with the archetype==
 
 
 mvn archetype:generate -DarchetypeCatalog=local
 
 {{{
-$ mvn archetype:generate -DarchetypeCatalog=local
+ mvn archetype:generate -DarchetypeCatalog=local
+}}}
+
+You will  be prompted for selecting the archetype and :
+ * your groupId
+ * your artifactId
+ * your version
+ * your package
+
+{{{
 [INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'archetype'.
 [INFO] artifact org.apache.maven.plugins:maven-archetype-plugin: checking for updates from central
@@ -63,4 +83,15 @@ package: test.wiquery
 
 }}}
 
+
+or you can do it directly :
+ {{{
+mvn archetype:create -DarchetypeGroupId=org.odlabs.wiquery -DarchetypeArtifactId=wiqueryapp-archetype -DarchetypeVersion=1.0-SNAPSHOT -DgroupId=org.odlabs -DartifactId=quickstart
+}}}
+
+
 You can now start to develop your Wiquery app.
+
+Think to check the project/pom dependencies and starts working on the WicketApplication Java class.
+
+Enjoy!!
