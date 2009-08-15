@@ -9,13 +9,13 @@
 	</p>
 	<div class="section">
 		<div class="runit">
-			<div class="resizable" wicket:id="example1">Resize me !</div>
+			<div class="resizable" wicket:id="example1">Resize me!</div>
 		</div>
 		
 		<div class="source">
 			<p class="htmlCode">
 <code class="html">
-&lt;div wicket:id="example1"&gt;Resize me !&lt;/div&gt;
+&lt;div wicket:id="example1"&gt;Resize me!&lt;/div&gt;
 </code>
 			</p>
 			<p class="javaCode">
@@ -24,7 +24,7 @@
 public MyWebPage(String id) {
 	super(id);
 	
-	Label label = new Label("example1", "Resize me !");
+	Label label = new Label("example1", "Resize me!");
 	this.add(label);
 	label.add(new ResizableBehavior());		
 }

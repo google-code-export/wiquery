@@ -5,8 +5,9 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.odlabs.wiquery.core.javascript.JsScope;
+import org.odlabs.wiquery.core.javascript.JsScopeContext;
 import org.odlabs.wiquery.plugin.ChilliPanel;
+import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableBehavior;
 import org.odlabs.wiquery.ui.droppable.DroppableAjaxBehavior;
 import org.odlabs.wiquery.ui.droppable.DroppableBehavior;
@@ -17,41 +18,54 @@ import org.odlabs.wiquery.ui.droppable.DroppableBehavior;
 public class DroppablePanel extends Panel {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public DroppablePanel(String id) {
 		super(id);
 		ChilliPanel chilliPlugin = new ChilliPanel("examples");
-		add(chilliPlugin);
-		
+		this.add(chilliPlugin);
+
 		Label label = new Label("example1", "Drag me !");
 		chilliPlugin.add(label);
 		label.add(new DraggableBehavior());
-		
+
 		WebMarkupContainer dropzone = new WebMarkupContainer("dropzone");
 		DroppableBehavior droppableBehavior = new DroppableBehavior();
-		droppableBehavior.setOnDrop(JsScope.quickScope("alert('dropped');"));
+		droppableBehavior.setDropEvent(new JsScopeUiEvent() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void execute(JsScopeContext scopeContext) {
+				scopeContext.append("alert('dropped');");
+			}
+
+		});
+
 		droppableBehavior.setAccept(".draggable");
 		dropzone.add(droppableBehavior);
 		chilliPlugin.add(dropzone);
 
-		label = new Label("example2", "Drag me !");
+		label = new Label("example2", "Drag me!");
 		chilliPlugin.add(label);
 		label.add(new DraggableBehavior());
 		WebMarkupContainer ajaxDropzone = new WebMarkupContainer("ajaxDropzone");
 		chilliPlugin.add(ajaxDropzone);
 		DroppableAjaxBehavior ajaxDroppableBehavior = new DroppableAjaxBehavior() {
-		
+
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public void onDrop(Component component, AjaxRequestTarget target) {
-				target.appendJavascript("alert('Ajax drop for id=" + component.getMarkupId() +"');");
+				target.appendJavascript("alert('Ajax drop for id="
+						+ component.getMarkupId() + "');");
 			}
-		
+
 		};
-		ajaxDroppableBehavior.setAccept(".draggable");
+		ajaxDroppableBehavior.getDroppableBehavior().setAccept(".draggable");
 		ajaxDropzone.add(ajaxDroppableBehavior);
 	}
 
 }
-

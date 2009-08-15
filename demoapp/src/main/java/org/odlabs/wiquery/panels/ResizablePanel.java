@@ -11,12 +11,12 @@ import org.odlabs.wiquery.ui.resizable.ResizableBehavior;
 public class ResizablePanel extends Panel {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public ResizablePanel(String id) {
 		super(id);
 		ChilliPanel chilliPlugin = new ChilliPanel("examples");
 		this.add(chilliPlugin);
-		final Label label = new Label("example1", "Resize me !");
+		final Label label = new Label("example1", "Resize me!");
 		chilliPlugin.add(label);
 		label.add(new ResizableBehavior());
 	}

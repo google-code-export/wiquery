@@ -4,7 +4,7 @@
   <div wicket:id="examples" class="section">
   	<h2 id="statements">Core jQuery statements</h2>
 	<p>
-		<strong>WiQuery</strong> aims to be closed to <strong>jQuery</strong> 
+		<strong>WiQuery</strong> aims to be close to <strong>jQuery</strong> 
 		programming style. That's why WiQuery implements the jQuery API with 
 		the same "fluent interface" principle.
 	</p>
@@ -23,13 +23,13 @@
 			e.g. dynamically style an element with JavaScript.
 		</p>		
 		<div class="runit">
-			<span wicket:id="example1">Example 1 !</span>
+			<span wicket:id="example1">Example 1!</span>
 		</div>
 		
 		<div class="source">
 			<p class="htmlCode">
 <code class="html">
-&lt;span wicket:id="example1"&gt;Example 1 !&lt;/span&gt;
+&lt;span wicket:id="example1"&gt;Example 1!&lt;/span&gt;
 </code>
 			</p>
 			<p class="javaCode">
@@ -58,8 +58,9 @@ public MyWebPage(String id) {
 			</p>
 			<p>
 				The <code class="java">JsQuery</code> class implements 	a proper JsStatement initialization
-				and the attachment to a Wicket component. Let's take a closer look
-				at the querying code:
+				and the attachment to a Wicket component.
+			</p>
+			<p>Let's take a closer look	at the querying code:
 <code class="js">
 public JsStatement statement() {
 	return new JsQuery(label).$().chain(CssHelper.css("border", "1px solid red"));

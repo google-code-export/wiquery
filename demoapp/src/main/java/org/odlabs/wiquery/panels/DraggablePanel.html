@@ -14,13 +14,13 @@
 		</p>
 		
 		<div class="runit">
-			<div class="draggable" wicket:id="example1">Drag me !</div>
+			<div class="draggable" wicket:id="example1">Drag me!</div>
 		</div>
 		
 		<div class="source">
 			<p class="htmlCode">
 <code class="html">
-&lt;div wicket:id="example1"&gt;Drag me !&lt;/div&gt;
+&lt;div wicket:id="example1"&gt;Drag me!&lt;/div&gt;
 </code>
 			</p>
 			<p class="javaCode">
@@ -29,7 +29,7 @@
 public MyWebPage(String id) {
     setup(id);
     
-	Label label = new Label("example1", "Drag me !");
+	Label label = new Label("example1", "Drag me!");
 	this.add(label);
 	label.add(new DraggableBehavior());		
 }

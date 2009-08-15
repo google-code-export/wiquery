@@ -17,7 +17,9 @@ import org.odlabs.wiquery.panels.CorePanel;
 import org.odlabs.wiquery.panels.DialogPanel;
 import org.odlabs.wiquery.panels.DraggablePanel;
 import org.odlabs.wiquery.panels.DroppablePanel;
+import org.odlabs.wiquery.panels.EffectPanel;
 import org.odlabs.wiquery.panels.EventsPanel;
+import org.odlabs.wiquery.panels.PluginExamplePanel;
 import org.odlabs.wiquery.panels.ProgressBarPanel;
 import org.odlabs.wiquery.panels.ResizablePanel;
 import org.odlabs.wiquery.panels.StatementsPanel;
@@ -175,6 +177,28 @@ public class HomePage extends WebPage {
 			@Override
 			public Panel getContent() {
 				return new DialogPanel("content");
+			}
+
+		});
+		accordion.add(new MenuItem("effectMenu", new Model<String>("Effect")) {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Panel getContent() {
+				return new EffectPanel("content");
+			}
+
+		});
+
+		accordion.add(new MenuItem("flexigridMenu", new Model<String>(
+				"Flexigrid")) {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Panel getContent() {
+				return new PluginExamplePanel("content");
 			}
 
 		});

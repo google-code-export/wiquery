@@ -9,9 +9,10 @@ import org.odlabs.wiquery.ui.tabs.Tabs;
 public class AjaxContent extends Panel {
 
 	private static final long serialVersionUID = 1L;
+
 	public AjaxContent(String id) {
 		super(id);
-		add(new Tabs("tabs"));
+		this.add(new Tabs("tabs"));
 	}
 
 }

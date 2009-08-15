@@ -15,8 +15,8 @@ public class DraggablePanel extends Panel {
 	public DraggablePanel(String id) {
 		super(id);
 		ChilliPanel chilliPlugin = new ChilliPanel("examples");
-		add(chilliPlugin);
-		final Label label = new Label("example1", "Drag me !");
+		this.add(chilliPlugin);
+		final Label label = new Label("example1", "Drag me!");
 		chilliPlugin.add(label);
 		label.add(new DraggableBehavior());
 	}
