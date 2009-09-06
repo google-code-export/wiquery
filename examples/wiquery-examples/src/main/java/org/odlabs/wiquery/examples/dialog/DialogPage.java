@@ -134,7 +134,7 @@ public class DialogPage extends AbstractExamplePage {
 		buttonsAdv.add(new DialogButton("Save", 
 				JsScope.quickScope("wicketSubmitFormById('form','" +
 						formAjaxBehavior.getCallbackUrl() + 
-						"', null, null, null).bind(this);")));
+						"', null, null, null, null, null);")));
 		advancedDialog.setButtons(buttonsAdv);
 		advancedDialog.setTitle("Type your name please");
 		advancedDialog.setCloseOnEscape(false);
