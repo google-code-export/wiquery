@@ -1,0 +1,22 @@
+= How to use =
+
+See example here: http://www.wiquery.org/wiquery-examples-1.0/?wicket:bookmarkablePage=:org.odlabs.wiquery.examples.progressbar.ProgressBarPage
+
+== XHTML ==
+
+{{{
+<div wicket:id="progressBar">
+</div>
+}}}
+
+== Java ==
+
+{{{
+ProgressBar  progressBar = new ProgressBar("progressBar");
+progressBar.setValue(0);
+add(progressBar);
+}}}
+
+= Options =
+
+TODO
