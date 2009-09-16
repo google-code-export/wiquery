@@ -5,7 +5,7 @@ See example here: http://www.wiquery.org/wiquery-examples-1.0/?wicket:bookmarkab
 == XHTML ==
 
 {{{
-<div wicket:id="tabs" style="height: 350px;"> 
+<div wicket:id="tabs"> 
     <ul> 
 	<li><a href="#tab1">Tab 1</a></li> 
 	<li><a href="#tab2">Tab 2</a></li>  
