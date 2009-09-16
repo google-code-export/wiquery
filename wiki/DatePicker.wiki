@@ -1,6 +1,6 @@
 = How to use =
 
-See example here: hhttp://www.wiquery.org/wiquery-examples-1.0/?wicket:bookmarkablePage=:org.odlabs.wiquery.examples.datepicker.DatePickerPage
+See example here: http://www.wiquery.org/wiquery-examples-1.0/?wicket:bookmarkablePage=:org.odlabs.wiquery.examples.datepicker.DatePickerPage
 
 == XHTML ==
 
