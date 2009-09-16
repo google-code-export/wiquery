@@ -1,0 +1,19 @@
+= How to use =
+
+See example here: http://www.wiquery.org/wiquery-examples-1.0/?wicket:bookmarkablePage=:org.odlabs.wiquery.examples.slider.SliderPage
+
+== XHTML ==
+
+{{{
+<div wicket:id="slider"></div>
+}}}
+
+== Java ==
+
+{{{
+Slider  slider = new Slider("slider", 0, 100);
+}}}
+
+= Options =
+
+TODO
