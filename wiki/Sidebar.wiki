@@ -14,4 +14,8 @@
       * UI
         * [Accordion]
         * [DatePicker]
+        * [Dialog]
+        * [ProgressBar]
+        * [Slider]
+        * [Tabs]
     * Developers
