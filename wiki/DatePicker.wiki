@@ -1,0 +1,20 @@
+= How to use =
+
+See example here: hhttp://www.wiquery.org/wiquery-examples-1.0/?wicket:bookmarkablePage=:org.odlabs.wiquery.examples.datepicker.DatePickerPage
+
+== XHTML ==
+
+{{{
+<input type="text" wicket:id="datePicker" />
+}}}
+
+== Java ==
+
+{{{
+DatePicker<Date> datePicker = new DatePicker<Date>("datePicker");
+datePanel.add(datePicker);
+}}}
+
+= Options =
+
+TODO
