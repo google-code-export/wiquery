@@ -10,4 +10,7 @@
       * [UsingWiqueryAppArchetype  WiQuery Maven archtetype]
     * Examples
     * Components
+      * [Core]
+      * UI
+        [Accordion Panel]
     * Developers
