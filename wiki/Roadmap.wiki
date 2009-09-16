@@ -1,6 +1,4 @@
-#summary One-sentence summary of this page.
 #labels Featured
-
 = WiQuery 1.0 Roadmap and TODO list =
 
 == Current release ==
