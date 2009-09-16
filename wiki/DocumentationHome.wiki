@@ -1,3 +1,4 @@
 = !WiQuery documentation =
 
+  * Documentation update on 04/07/2009: Adding documentation about UI components
   * Documentation update on 04/07/2009: Adding quickstart tutorial [QuickStart]
