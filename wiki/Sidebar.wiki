@@ -13,4 +13,5 @@
       * Core
       * UI
         * [Accordion]
+        * [DatePicker]
     * Developers
