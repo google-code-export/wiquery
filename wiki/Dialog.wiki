@@ -1,0 +1,22 @@
+= How to use =
+
+See example here: http://www.wiquery.org/wiquery-examples-1.0/?wicket:bookmarkablePage=:org.odlabs.wiquery.examples.dialog.DialogPage
+
+== XHTML ==
+
+{{{
+<div wicket:id="simpleDialog" style="display: none;">
+	Very very simple 
+</div>
+}}}
+
+== Java ==
+
+{{{
+Dialog simpleDialog = new Dialog("simpleDialog");
+add(simpleDialog);
+}}}
+
+= Options =
+
+TODO
