@@ -14,6 +14,7 @@ import org.odlabs.wiquery.examples.selectable.SelectablePage;
 import org.odlabs.wiquery.examples.slider.SliderPage;
 import org.odlabs.wiquery.examples.sortable.SortablePage;
 import org.odlabs.wiquery.examples.tabs.TabsPage;
+import org.odlabs.wiquery.examples.themedecorator.ThemeDecoratorPage;
 import org.odlabs.wiquery.examples.themeroller.ThemeRollerPage;
 
 /**
@@ -33,6 +34,7 @@ public class HomePage extends WebPage {
 		super();
 		
 		add(new BookmarkablePageLink<ThemeRollerPage>("themeRollerLink", ThemeRollerPage.class));
+		add(new BookmarkablePageLink<ThemeDecoratorPage>("themeDecoratorLink", ThemeDecoratorPage.class));
 		
 		add(new BookmarkablePageLink<AccordionPage>("accordionLink", AccordionPage.class));
 		add(new BookmarkablePageLink<DatePickerPage>("datePickerLink", DatePickerPage.class));
