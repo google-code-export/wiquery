@@ -1,5 +1,7 @@
 package org.odlabs.wiquery.examples;
 
+import groovy.lang.GroovyShell;
+
 import org.odlabs.wiquery.utils.WiQueryWebApplication;
 
 /**
@@ -9,7 +11,9 @@ import org.odlabs.wiquery.utils.WiQueryWebApplication;
  * @see war.Start#main(String[])
  */
 public class WicketApplication extends WiQueryWebApplication {
-
+	// Groovy Shell
+	private GroovyShell groovyShell;
+	
 	/**
 	 * Constructor
 	 */
@@ -23,6 +27,14 @@ public class WicketApplication extends WiQueryWebApplication {
 	@Override
 	protected void init() {
 		super.init();
+		groovyShell = new GroovyShell();
+	}
+	
+	/**
+	 * @return the Groovy Shell
+	 */
+	public GroovyShell getGroovyShell() {
+		return groovyShell;
 	}
 
 	/**

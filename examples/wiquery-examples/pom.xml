@@ -10,6 +10,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jetty.version>6.1.17</jetty.version>
 		<wiquery.version>1.0-m2</wiquery.version>
+		<groovy.version>1.6.4</groovy.version>
 	</properties>
 	<dependencies>
 		<!--  WIQUERY DEPENDENCIES -->
@@ -59,6 +60,13 @@
 			<version>${jetty.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<!-- GROOVY DEPENDENCIES -->
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>${groovy.version}</version>
+	    </dependency>
 	</dependencies>
 	<build>
 		<resources>
