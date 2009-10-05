@@ -1,5 +1,7 @@
 package org.odlabs.wiquery.examples;
 
+import java.net.URL;
+
 import groovy.lang.GroovyShell;
 
 import org.odlabs.wiquery.utils.WiQueryWebApplication;
@@ -28,6 +30,11 @@ public class WicketApplication extends WiQueryWebApplication {
 	protected void init() {
 		super.init();
 		groovyShell = new GroovyShell();
+		
+		ClassLoader myClassLoader = Thread.currentThread().getContextClassLoader();
+		URL file = myClassLoader.getResource("groovy/security/groovy.policy");
+		System.setProperty("java.security.policy", file.toString());
+		System.setSecurityManager(new SecurityManager());
 	}
 	
 	/**

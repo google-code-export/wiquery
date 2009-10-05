@@ -1,5 +1,6 @@
 package org.odlabs.wiquery.examples.javascript;
 
+import groovy.lang.GroovyCodeSource;
 import groovy.lang.GroovyShell;
 
 import org.apache.wicket.PageParameters;
@@ -13,6 +14,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.validation.validator.StringValidator;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -58,6 +60,7 @@ public class JavascriptPage extends AbstractExamplePage {
 		
 		binding = new Model<String>(exampleJavaCode.toString());
 		TextArea<String> jsCode = new TextArea<String>("jsCode", binding);
+		jsCode.add(new StringValidator.MaximumLengthValidator(200));
 		jsForm.add(jsCode);
 		
 		AjaxSubmitLink jsSubmit = new AjaxSubmitLink("jsSubmit") {
@@ -115,13 +118,17 @@ public class JavascriptPage extends AbstractExamplePage {
 					
 					StringBuffer groovyScript = new StringBuffer();
 					groovyScript.append("import org.odlabs.wiquery.core.javascript.*;").append("\n");
+					groovyScript.append("import org.odlabs.wiquery.core.javascript.helper.*").append("\n");
 					groovyScript.append("import org.odlabs.wiquery.ui.core.*;").append("\n");
 					groovyScript.append("import org.odlabs.wiquery.core.options.*;").append("\n");
 					groovyScript.append(binding.getObject());
 					
+					GroovyCodeSource codeSource = new GroovyCodeSource(
+							groovyScript.toString(), "wiQueryScript", "/serverCodeBase/restrictedClient");
+					
 					GroovyShell groovyShell = ((WicketApplication) getApplication()).getGroovyShell();
 					groovyShell.setVariable("component", jsGenerated);
-					Object returnObject = groovyShell.evaluate(groovyScript.toString());
+					Object returnObject = groovyShell.evaluate(codeSource);
 					
 					if(returnObject instanceof JsStatement 
 							|| returnObject instanceof JsQuery
@@ -162,5 +169,13 @@ public class JavascriptPage extends AbstractExamplePage {
 		jsGenerated = new Label("jsGenerated", new Model<String>());
 		jsGenerated.setOutputMarkupPlaceholderTag(true);
 		add(jsGenerated);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.examples.AbstractExamplePage#isVisibleDownloadLinks()
+	 */
+	@Override
+	public Boolean isVisibleDownloadLinks() {
+		return false;
 	}
 }
