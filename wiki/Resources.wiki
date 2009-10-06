@@ -1,0 +1,13 @@
+= Screencasts =
+
+== How to plug wiQuery with an existing Wicket application ==
+
+Julien Roche explains the different methods to plug wiQuery in an existing Wicket application.
+
+=== English version === 
+
+<wiki:video url="http://www.youtube.com/watch?v=aiTiMTHJv-o "/>
+
+=== French version ===
+
+<wiki:video url="http://www.youtube.com/watch?v=Rvx7xC1T6Zs"/>
