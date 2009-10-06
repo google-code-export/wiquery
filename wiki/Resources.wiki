@@ -1,3 +1,4 @@
+#labels Featured
 = Screencasts =
 
 == How to plug wiQuery with an existing Wicket application ==
