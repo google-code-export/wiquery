@@ -1,4 +1,8 @@
-= !WiQuery documentation =
+= !wiQuery resources =
+
+Checkout our screencasts on this page : [Resources]
+
+= !wiQuery documentation =
 
   * Documentation update on 04/07/2009: Adding documentation about UI components
   * Documentation update on 04/07/2009: Adding quickstart tutorial [QuickStart]
