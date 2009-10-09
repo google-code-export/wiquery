@@ -1,6 +1,16 @@
 #labels Featured
 = Screencasts =
 
+== How to use the tabs panel ==
+
+=== English version === 
+
+<wiki:video url="http://www.youtube.com/watch?v=tMcQuI0KKpM"/>
+
+=== French version ===
+
+<wiki:video url="http://www.youtube.com/watch?v=f7X-yMGz2cc"/>
+
 == How to plug wiQuery with an existing Wicket application ==
 
 Julien Roche explains the different methods to plug wiQuery in an existing Wicket application.
