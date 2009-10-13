@@ -1,5 +1,6 @@
 package org.odlabs.wiquery;
 
+import org.odlabs.wiquery.presentation.examples.scrumdashboard.ScrumDashboardPage;
 import org.odlabs.wiquery.utils.WiQueryWebApplication;
 
 /**

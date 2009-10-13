@@ -4,7 +4,26 @@
     </wicket:head>
     
     <wicket:panel>
-    	Center dashboard panel
+    	<table style="height: 100%; width: 100%;">
+    		<thead>
+    			<tr style="height: 20px;">
+    				<th>Todo</th>
+    				<th>In progression</th>
+    				<th>Done</th>
+    			</tr>
+    		</thead>
+    		
+    		<tbody>
+    			<tr>
+    				<td style="border: 1px solid black; width: 30%">A</td>
+    				<td style="border: 1px solid black; width: 30%">B</td>
+    				<td style="border: 1px solid black; width: 30%">C</td>
+    				<td style="border: 1px solid black; width: 30%">
+    					<button onclick="$('#taskDialog').dialog('open');">Open Task dialog</button>
+					</td>
+    			</tr>
+    		</tbody>
+    	</table>
     </wicket:panel>
 </html>
 

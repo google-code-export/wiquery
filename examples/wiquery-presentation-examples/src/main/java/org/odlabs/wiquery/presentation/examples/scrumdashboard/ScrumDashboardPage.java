@@ -1,10 +1,9 @@
-package org.odlabs.wiquery;
+package org.odlabs.wiquery.presentation.examples.scrumdashboard;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.odlabs.wiquery.presentation.examples.scrumdashboard.DashboardCenterPanel;
-import org.odlabs.wiquery.presentation.examples.scrumdashboard.DashboardLeftPanel;
 import org.odlabs.wiquery.presentation.examples.ui.layout.Layout;
+import org.odlabs.wiquery.ui.dialog.Dialog;
 
 /**
  * Scrum Dashboard
@@ -15,6 +14,11 @@ public class ScrumDashboardPage extends WebPage {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
+	
+	// Wicket components
+	private Dialog taskDialog;
+	private Panel centerPanel;
+	private Panel leftPanel;
 	
 	/**
 	 * Default constructor
@@ -30,7 +34,8 @@ public class ScrumDashboardPage extends WebPage {
 			 */
 			@Override
 			public Panel getLayoutCenterComponent(String wicketId) {
-				return new DashboardCenterPanel(wicketId);
+				centerPanel = new DashboardCenterPanel(wicketId, ScrumDashboardPage.this);
+				return centerPanel;
 			}
 
 			/* (non-Javadoc)
@@ -38,10 +43,36 @@ public class ScrumDashboardPage extends WebPage {
 			 */
 			@Override
 			public Panel getLayoutEastComponent(String wicketId) {
-				return new DashboardLeftPanel(wicketId);
+				leftPanel = new DashboardLeftPanel(wicketId, ScrumDashboardPage.this);
+				return leftPanel;
 			}
 		};
 		
 		add(dashboard);
+		
+		taskDialog = new Dialog("taskDialog");
+		taskDialog.setMarkupId(taskDialog.getId());
+		add(taskDialog);
+	}
+	
+	/**
+	 * @return the task dialog
+	 */
+	public Dialog getTaskDialog() {
+		return taskDialog;
+	}
+	
+	/**
+	 * @return the centered panel
+	 */
+	public Panel getCenterPanel() {
+		return centerPanel;
+	}
+	
+	/**
+	 * @return the left panel
+	 */
+	public Panel getLeftPanel() {
+		return leftPanel;
 	}
 }

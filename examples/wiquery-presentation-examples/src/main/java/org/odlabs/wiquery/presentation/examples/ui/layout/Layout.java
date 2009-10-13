@@ -1,16 +1,20 @@
 package org.odlabs.wiquery.presentation.examples.ui.layout;
 
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.Model;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
+import org.odlabs.wiquery.core.options.IComplexOption;
+import org.odlabs.wiquery.core.options.IListItemOption;
+import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
+import org.odlabs.wiquery.presentation.examples.ui.layout.LayoutFxSpeed.DurationEnum;
+import org.odlabs.wiquery.presentation.examples.ui.layout.LayoutSize.SizeEnum;
+import org.odlabs.wiquery.presentation.examples.ui.layout.LayoutTogglerAlign.PositionEnum;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.effects.CoreEffectJavaScriptResourceReference;
@@ -21,35 +25,101 @@ import org.odlabs.wiquery.ui.effects.SlideEffectJavaScriptResourceReference;
 /**
  * jQuery UI Layout
  * 
- * Missing functionalities
+ * Missing binding for the external panes :
  * <ul>
- * 	<li>option : paneSelector</li>
- * 	<li>option : size</li>
- * 	<li>option : slideTrigger_open</li>
- * 	<li>option : slideTrigger_closed</li>
- * 	<li>option : togglerAlign_open</li>
- * 	<li>option : togglerAlign_closed</li>
- * 	<li>option : fxName</li>
- * 	<li>option : fxSpeed</li>
- * 	<li>option : fxSettings</li>
+ * 	<li>resizerCursor</li>
+ * 	<li>customHotkey</li>
+ * 	<li>onshow</li>
+ * 	<li>onshow_start</li>
+ * 	<li>onshow_end</li>
+ * 	<li>onhide</li>
+ * 	<li>onhide_start</li>
+ * 	<li>onhide_end</li>
+ * 	<li>onopen</li>
+ * 	<li>onopen_start</li>
+ * 	<li>onopen_end</li>
+ * 	<li>onclose</li>
+ * 	<li>onclose_start</li>
+ * 	<li>onclose_end</li>
+ * 	<li>onresize</li>
+ * 	<li>onresize_start</li>
+ * 	<li>onresize_end</li>
  * </ul>
  * 
  * @author Julien Roche
  *
  */
 @WiQueryUIPlugin
-public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
+public class Layout extends Panel implements IWiQueryPlugin {
 	
 	/**
 	 * Enumeration of layout possible position
 	 * @author Julien Roche
 	 *
 	 */
-	public enum LayoutPosition {
+	public enum LayoutPositionEnum {
 		EAST,
 		NORTH,
 		SOUTH,
 		WEST;
+
+		/* (non-Javadoc)
+		 * @see java.lang.Enum#toString()
+		 */
+		@Override
+		public String toString() {
+			return super.toString().toLowerCase();
+		}
+	}
+	
+	/**
+	 * Enumeration of pane
+	 * @author Julien Roche
+	 *
+	 */
+	public enum PanePositionEnum {
+		CENTER,
+		EAST,
+		NORTH,
+		SOUTH,
+		WEST;
+
+		/* (non-Javadoc)
+		 * @see java.lang.Enum#toString()
+		 */
+		@Override
+		public String toString() {
+			return super.toString().toLowerCase();
+		}
+	}
+	
+	/**
+	 * Enumeration for the option close
+	 * @author Julien Roche
+	 *
+	 */
+	public enum SlideTriggerCloseEnum {
+		CLICK,
+		MOUSEOUT;
+
+		/* (non-Javadoc)
+		 * @see java.lang.Enum#toString()
+		 */
+		@Override
+		public String toString() {
+			return super.toString().toLowerCase();
+		}
+	}
+	
+	/**
+	 * Enumeration for the option slideTrigger_open
+	 * @author Julien Roche
+	 *
+	 */
+	public enum SlideTriggerOpenEnum {
+		CLICK,
+		DBCLICK,
+		MOUSEOVER;
 
 		/* (non-Javadoc)
 		 * @see java.lang.Enum#toString()
@@ -105,6 +175,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 		optionsWest = new Options();
 		
 		setOutputMarkupId(true);
+		getApplication().getMarkupSettings().setStripWicketTags(true);
 		
 		Panel layoutCenter = getLayoutCenterComponent("layoutCenter");
 		Panel layoutEast = getLayoutEastComponent("layoutEast");
@@ -112,25 +183,42 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 		Panel layoutSouth = getLayoutSouthComponent("layoutSouth");
 		Panel layoutWest = getLayoutWestComponent("layoutWest");
 		
-		layoutCenter.add(new AttributeModifier("class", true, new Model<String>("ui-layout-center")));
-		layoutEast.add(new AttributeModifier("class", true, new Model<String>("ui-layout-east")));
-		layoutNorth.add(new AttributeModifier("class", true, new Model<String>("ui-layout-north")));
-		layoutSouth.add(new AttributeModifier("class", true, new Model<String>("ui-layout-south")));
-		layoutWest.add(new AttributeModifier("class", true, new Model<String>("ui-layout-west")));
+		WebMarkupContainer paneCenter = new WebMarkupContainer("paneCenter");
+		WebMarkupContainer paneNorth = new WebMarkupContainer("paneNorth");
+		WebMarkupContainer paneSouth = new WebMarkupContainer("paneSouth");
+		WebMarkupContainer paneEast = new WebMarkupContainer("paneEast");
+		WebMarkupContainer paneWest = new WebMarkupContainer("paneWest");
 		
-		layoutCenter.setVisible(!(layoutCenter instanceof EmptyPanel));
-		layoutEast.setVisible(!(layoutEast instanceof EmptyPanel));
-		layoutNorth.setVisible(!(layoutNorth instanceof EmptyPanel));
-		layoutSouth.setVisible(!(layoutSouth instanceof EmptyPanel));
-		layoutWest.setVisible(!(layoutWest instanceof EmptyPanel));
+		options.putLiteral("center__paneSelector", ".ui-layout-center");
+		options.putLiteral("north__paneSelector", ".ui-layout-north");
+		options.putLiteral("south__paneSelector", ".ui-layout-south");
+		options.putLiteral("east__paneSelector", ".ui-layout-east");
+		options.putLiteral("west__paneSelector", ".ui-layout-west");
 		
-		add(layoutCenter);
-		add(layoutNorth);
-		add(layoutSouth);
-		add(layoutEast);		
-		add(layoutWest);
+		paneCenter.setOutputMarkupId(true);
+		paneCenter.setVisible(!(layoutCenter instanceof EmptyPanel));
+		paneNorth.setOutputMarkupId(true);
+		paneNorth.setVisible(!(layoutNorth instanceof EmptyPanel));
+		paneSouth.setOutputMarkupId(true);
+		paneSouth.setVisible(!(layoutSouth instanceof EmptyPanel));
+		paneEast.setOutputMarkupId(true);
+		paneEast.setVisible(!(layoutEast instanceof EmptyPanel));
+		paneWest.setOutputMarkupId(true);
+		paneWest.setVisible(!(layoutWest instanceof EmptyPanel));
+		
+		paneCenter.add(layoutCenter);
+		paneNorth.add(layoutNorth);
+		paneSouth.add(layoutSouth);
+		paneEast.add(layoutEast);		
+		paneWest.add(layoutWest);
+		
+		add(paneCenter);
+		add(paneNorth);
+		add(paneSouth);
+		add(paneEast);		
+		add(paneWest);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
@@ -203,6 +291,31 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	protected Options getOptions() {
 		return options;
+	}
+	
+	/**Method retrieving the options of the component
+	 * @param layoutPositionEnum Layout's options
+	 * @return the options
+	 */
+	protected Options getOptions(LayoutPositionEnum layoutPositionEnum) {
+		Options opt = null;
+		
+		switch(layoutPositionEnum){
+		case EAST:
+			opt = optionsEast;
+			break;
+		case NORTH:
+			opt = optionsNorth;
+			break;
+		case SOUTH:
+			opt = optionsSouth;
+			break;
+		case WEST:
+			opt = optionsWest;
+			break;
+		}
+		
+		return opt;
 	}
 
 	/* (non-Javadoc)
@@ -506,6 +619,74 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	}
 	
 	/**
+	 * Animation effect for open/close. Choose a preset effect OR can specify a 
+	 * custom fxName as long as you also specify fxSettings
+	 * (even if fxSettings is just empty - {}) 
+	 * 
+	 * @return instance of the current component
+	 */
+	public Layout setFxName(String fxName) {
+		options.putLiteral("fxName", fxName);
+		return this;
+	}
+
+	/**
+	 * Returns the component's fxName .
+	 */
+	public String getFxName() {
+		if(this.options.containsKey("fxName")){
+			return options.getLiteral("fxName");
+		}
+		
+		return "slide";
+	}
+	
+	/**
+	 * Sets the duration time for animating, in milliseconds. 
+	 * Other possible values: 'slow', 'normal', 'fast'.
+	 * 
+	 * @return instance of the current component
+	 */
+	public Layout setFxSpeed(LayoutFxSpeed fxSpeed) {
+		this.options.put("fxSpeed", fxSpeed);
+		return this;
+	}
+	
+	/**
+	 * @return the fxSpeed option
+	 */
+	public LayoutFxSpeed getFxSpeed() {
+		IComplexOption fxSpeed = this.options.getComplexOption("fxSpeed");
+		if(fxSpeed != null && fxSpeed instanceof LayoutFxSpeed){
+			return (LayoutFxSpeed) fxSpeed;
+		}
+		
+		return new LayoutFxSpeed(DurationEnum.NORMAL);
+	}
+	
+	/**
+	 * You can customize the default animation settings by passing new settings
+	 * 
+	 * @return instance of the current component
+	 */
+	public Layout setFxSettings(ListItemOptions<IListItemOption> fxSettings) {
+		this.options.put("fxSettings", fxSettings);
+		return this;
+	}
+	
+	/**
+	 * Returns the component's fxSettings .
+	 */
+	@SuppressWarnings("unchecked")
+	public ListItemOptions<IListItemOption> getFxSettings() {
+		if(this.options.containsKey("fxSettings")){
+			return (ListItemOptions<IListItemOption>) this.options.getListItemOptions("fxSettings");
+		}
+		
+		return null;
+	}
+	
+	/**
 	 * If true, the toggler-button is hidden when a pane is 'slid-open'. This 
 	 * makes sense because the user only needs to 'mouse-off' to close the pane. 
 	 * 
@@ -636,6 +817,42 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	}
 	
 	/**
+	 * Trigger events to 'slide closed' a pane 
+	 * 
+	 * @return instance of the current component
+	 */
+	public Layout setSlideTriggerClosed(SlideTriggerCloseEnum slideTriggerClosed) {
+		options.putLiteral("slideTrigger_closed", slideTriggerClosed.toString());
+		return this;
+	}
+
+	/**
+	 * Returns the component's slideTrigger_closed.
+	 */
+	public SlideTriggerCloseEnum getSlideTriggerClosed() {
+		String literal = options.getLiteral("slideTrigger_closed");
+		return SlideTriggerCloseEnum.valueOf(literal.toUpperCase());
+	}
+	
+	/**
+	 * Trigger events to 'slide open' a pane 
+	 * 
+	 * @return instance of the current component
+	 */
+	public Layout setSlideTriggerOpen(SlideTriggerOpenEnum slideTriggerOpen) {
+		options.putLiteral("slideTrigger_open", slideTriggerOpen.toString());
+		return this;
+	}
+
+	/**
+	 * Returns the component's slideTrigger_open.
+	 */
+	public SlideTriggerOpenEnum getSlideTriggerOpen() {
+		String literal = options.getLiteral("slideTrigger_open");
+		return SlideTriggerOpenEnum.valueOf(literal.toUpperCase());
+	}
+	
+	/**
 	 * Maximum-size limit when resizing a pane (0 = as small as pane can go) 
 	 * 
 	 * @return instance of the current component
@@ -675,6 +892,28 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 		}
 		
 		return 50;
+	}
+	
+	/**
+	 * Default values are: ".ui-layout-north", ".ui-layout-west", etc.
+	 * Any valid jQuery selector string can be used – classNames, IDs, etc. 
+	 * 
+	 * @return instance of the current component
+	 */
+	public Layout setPaneSelector(PanePositionEnum pane, String selector) {
+		options.put(pane + "__paneSelector", selector);
+		return this;
+	}
+	
+	/**
+	 * Returns the component's paneSelector.
+	 */
+	public String getPaneSelector(PanePositionEnum pane) {
+		if(this.options.containsKey(pane + "__paneSelector")){
+			return options.getLiteral(pane + "__paneSelector");
+		}
+		
+		return ".ui-layout-PANE";
 	}
 	
 	/**
@@ -738,6 +977,31 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 		}
 		
 		return 6;
+	}
+	
+	/**
+	 * Specifies the initial size of the panes - 'height' for north & south panes 
+	 * - 'width' for east and west. If "auto", then pane will size to fit its 
+	 * content - most useful for north/south panes (to auto-fit your banner or 
+	 * toolbar), but also works for east/west panes. 
+	 * 
+	 * @return instance of the current component
+	 */
+	public Layout setSize(LayoutSize size) {
+		this.options.put("size", size);
+		return this;
+	}
+	
+	/**
+	 * @return the component's size
+	 */
+	public LayoutSize getSize() {
+		IComplexOption size = this.options.getComplexOption("size");
+		if(size != null && size instanceof LayoutSize){
+			return (LayoutSize) size;
+		}
+		
+		return new LayoutSize(SizeEnum.AUTO);
 	}
 	
 	/**
@@ -810,6 +1074,62 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * Alignment of toggler button inside the resizer-bar when pane is 'closed'.
+	 * 
+	 * A positive integer means a pixel offset from top or left
+	 * 
+	 * A negative integer means a pixel offset from bottom or right
+	 * 
+	 * Position-Keywords: "left", "center", "right", "top", "middle", "bottom"
+	 * 
+	 * @return instance of the current component
+	 */
+	public Layout setTogglerAlignClosed(LayoutTogglerAlign togglerAlignClosed) {
+		this.options.put("togglerAlign_closed", togglerAlignClosed);
+		return this;
+	}
+	
+	/**
+	 * @return the component's togglerAlign_closed
+	 */
+	public LayoutTogglerAlign getTogglerAlignClosed() {
+		IComplexOption togglerAlign = this.options.getComplexOption("togglerAlign_closed");
+		if(togglerAlign != null && togglerAlign instanceof LayoutTogglerAlign){
+			return (LayoutTogglerAlign) togglerAlign;
+		}
+		
+		return new LayoutTogglerAlign(PositionEnum.CENTER);
+	}
+	
+	/**
+	 * Alignment of toggler button inside the resizer-bar when pane is 'open'.
+	 * 
+	 * A positive integer means a pixel offset from top or left
+	 * 
+	 * A negative integer means a pixel offset from bottom or right
+	 * 
+	 * Position-Keywords: "left", "center", "right", "top", "middle", "bottom"
+	 * 
+	 * @return instance of the current component
+	 */
+	public Layout setTogglerAlignOpen(LayoutTogglerAlign togglerAlignOpen) {
+		this.options.put("togglerAlign_open", togglerAlignOpen);
+		return this;
+	}
+	
+	/**
+	 * @return the component's togglerAlign_open
+	 */
+	public LayoutTogglerAlign getTogglerAlignOpen() {
+		IComplexOption togglerAlign = this.options.getComplexOption("togglerAlign_open");
+		if(togglerAlign != null && togglerAlign instanceof LayoutTogglerAlign){
+			return (LayoutTogglerAlign) togglerAlign;
+		}
+		
+		return new LayoutTogglerAlign(PositionEnum.CENTER);
 	}
 	
 	/**
@@ -1124,7 +1444,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param layoutPosition
 	 * @return the associated JsStatement
 	 */
-	public JsStatement addCloseBtn(String selector, LayoutPosition layoutPosition) {
+	public JsStatement addCloseBtn(String selector, LayoutPositionEnum layoutPosition) {
 		return new JsQuery(this).$().chain("layout").chain(
 				"addCloseBtn", selector, "'" + layoutPosition  + "'");
 	}
@@ -1135,7 +1455,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param layoutPosition
 	 */
 	public void addCloseBtn(AjaxRequestTarget ajaxRequestTarget, 
-			String selector, LayoutPosition layoutPosition) {
+			String selector, LayoutPositionEnum layoutPosition) {
 		ajaxRequestTarget.appendJavascript(
 				this.addCloseBtn(selector, layoutPosition).render().toString());
 	}
@@ -1145,7 +1465,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param layoutPosition
 	 * @return the associated JsStatement
 	 */
-	public JsStatement addOpenBtn(String selector, LayoutPosition layoutPosition) {
+	public JsStatement addOpenBtn(String selector, LayoutPositionEnum layoutPosition) {
 		return new JsQuery(this).$().chain("layout").chain(
 				"addOpenBtn", selector, "'" + layoutPosition  + "'");
 	}
@@ -1156,7 +1476,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param layoutPosition
 	 */
 	public void addOpenBtn(AjaxRequestTarget ajaxRequestTarget, 
-			String selector, LayoutPosition layoutPosition) {
+			String selector, LayoutPositionEnum layoutPosition) {
 		ajaxRequestTarget.appendJavascript(
 				this.addOpenBtn(selector, layoutPosition).render().toString());
 	}
@@ -1166,7 +1486,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param layoutPosition
 	 * @return the associated JsStatement
 	 */
-	public JsStatement addPinBtn(String selector, LayoutPosition layoutPosition) {
+	public JsStatement addPinBtn(String selector, LayoutPositionEnum layoutPosition) {
 		return new JsQuery(this).$().chain("layout").chain(
 				"addPinBtn", selector, "'" + layoutPosition  + "'");
 	}
@@ -1177,7 +1497,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param layoutPosition
 	 */
 	public void addPinBtn(AjaxRequestTarget ajaxRequestTarget, 
-			String selector, LayoutPosition layoutPosition) {
+			String selector, LayoutPositionEnum layoutPosition) {
 		ajaxRequestTarget.appendJavascript(
 				this.addPinBtn(selector, layoutPosition).render().toString());
 	}
@@ -1187,7 +1507,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param layoutPosition
 	 * @return the associated JsStatement
 	 */
-	public JsStatement addToggleBtn(String selector, LayoutPosition layoutPosition) {
+	public JsStatement addToggleBtn(String selector, LayoutPositionEnum layoutPosition) {
 		return new JsQuery(this).$().chain("layout").chain(
 				"addToggleBtn", selector, "'" + layoutPosition  + "'");
 	}
@@ -1198,7 +1518,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param layoutPosition
 	 */
 	public void addToggleBtn(AjaxRequestTarget ajaxRequestTarget, 
-			String selector, LayoutPosition layoutPosition) {
+			String selector, LayoutPositionEnum layoutPosition) {
 		ajaxRequestTarget.appendJavascript(
 				this.addToggleBtn(selector, layoutPosition).render().toString());
 	}
@@ -1226,7 +1546,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param layoutPosition
 	 * @return the associated JsStatement
 	 */
-	public JsStatement close(LayoutPosition layoutPosition) {
+	public JsStatement close(LayoutPositionEnum layoutPosition) {
 		return new JsQuery(this).$().chain("layout").chain("close", "'" + layoutPosition  + "'");
 	}
 
@@ -1234,7 +1554,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 * @param layoutPosition
 	 */
-	public void close(AjaxRequestTarget ajaxRequestTarget, LayoutPosition layoutPosition) {
+	public void close(AjaxRequestTarget ajaxRequestTarget, LayoutPositionEnum layoutPosition) {
 		ajaxRequestTarget.appendJavascript(this.close(layoutPosition).render().toString());
 	}
 	
@@ -1242,7 +1562,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param layoutPosition
 	 * @return the associated JsStatement
 	 */
-	public JsStatement hide(LayoutPosition layoutPosition) {
+	public JsStatement hide(LayoutPositionEnum layoutPosition) {
 		return new JsQuery(this).$().chain("layout").chain("hide", "'" + layoutPosition  + "'");
 	}
 
@@ -1250,7 +1570,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 * @param layoutPosition
 	 */
-	public void hide(AjaxRequestTarget ajaxRequestTarget, LayoutPosition layoutPosition) {
+	public void hide(AjaxRequestTarget ajaxRequestTarget, LayoutPositionEnum layoutPosition) {
 		ajaxRequestTarget.appendJavascript(this.hide(layoutPosition).render().toString());
 	}
 	
@@ -1258,7 +1578,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param layoutPosition
 	 * @return the associated JsStatement
 	 */
-	public JsStatement open(LayoutPosition layoutPosition) {
+	public JsStatement open(LayoutPositionEnum layoutPosition) {
 		return new JsQuery(this).$().chain("layout").chain("open", "'" + layoutPosition  + "'");
 	}
 
@@ -1266,7 +1586,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 * @param layoutPosition
 	 */
-	public void open(AjaxRequestTarget ajaxRequestTarget, LayoutPosition layoutPosition) {
+	public void open(AjaxRequestTarget ajaxRequestTarget, LayoutPositionEnum layoutPosition) {
 		ajaxRequestTarget.appendJavascript(this.open(layoutPosition).render().toString());
 	}
 	
@@ -1293,7 +1613,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param layoutPosition
 	 * @return the associated JsStatement
 	 */
-	public JsStatement resizeContent(LayoutPosition layoutPosition) {
+	public JsStatement resizeContent(LayoutPositionEnum layoutPosition) {
 		return new JsQuery(this).$().chain("layout").chain("resizeContent", "'" + layoutPosition  + "'");
 	}
 
@@ -1301,7 +1621,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 * @param layoutPosition
 	 */
-	public void resizeContent(AjaxRequestTarget ajaxRequestTarget, LayoutPosition layoutPosition) {
+	public void resizeContent(AjaxRequestTarget ajaxRequestTarget, LayoutPositionEnum layoutPosition) {
 		ajaxRequestTarget.appendJavascript(this.resizeContent(layoutPosition).render().toString());
 	}
 	
@@ -1309,7 +1629,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param layoutPosition
 	 * @return the associated JsStatement
 	 */
-	public JsStatement show(LayoutPosition layoutPosition) {
+	public JsStatement show(LayoutPositionEnum layoutPosition) {
 		return new JsQuery(this).$().chain("layout").chain("show", "'" + layoutPosition  + "'");
 	}
 
@@ -1317,7 +1637,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 * @param layoutPosition
 	 */
-	public void show(AjaxRequestTarget ajaxRequestTarget, LayoutPosition layoutPosition) {
+	public void show(AjaxRequestTarget ajaxRequestTarget, LayoutPositionEnum layoutPosition) {
 		ajaxRequestTarget.appendJavascript(this.show(layoutPosition).render().toString());
 	}
 	
@@ -1326,7 +1646,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param openPane
 	 * @return the associated JsStatement
 	 */
-	public JsStatement show(LayoutPosition layoutPosition, boolean openPane) {
+	public JsStatement show(LayoutPositionEnum layoutPosition, boolean openPane) {
 		return new JsQuery(this).$().chain("layout").chain("show", 
 				"'" + layoutPosition  + "'", Boolean.toString(openPane));
 	}
@@ -1337,7 +1657,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param openPane
 	 */
 	public void show(AjaxRequestTarget ajaxRequestTarget, 
-			LayoutPosition layoutPosition, boolean openPane) {
+			LayoutPositionEnum layoutPosition, boolean openPane) {
 		ajaxRequestTarget.appendJavascript(
 				this.show(layoutPosition, openPane).render().toString());
 	}
@@ -1347,7 +1667,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param sizeInPixel Size in pixel
 	 * @return the associated JsStatement
 	 */
-	public JsStatement sizePane(LayoutPosition layoutPosition, int sizeInPixel) {
+	public JsStatement sizePane(LayoutPositionEnum layoutPosition, int sizeInPixel) {
 		return new JsQuery(this).$().chain("layout").chain("sizePane", 
 				"'" + layoutPosition  + "'", Integer.toString(sizeInPixel));
 	}
@@ -1358,7 +1678,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param sizeInPixel Size in pixel
 	 */
 	public void sizePane(AjaxRequestTarget ajaxRequestTarget, 
-			LayoutPosition layoutPosition, int sizeInPixel) {
+			LayoutPositionEnum layoutPosition, int sizeInPixel) {
 		ajaxRequestTarget.appendJavascript(
 				this.sizePane(layoutPosition, sizeInPixel).render().toString());
 	}
@@ -1367,7 +1687,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param layoutPosition
 	 * @return the associated JsStatement
 	 */
-	public JsStatement toggle(LayoutPosition layoutPosition) {
+	public JsStatement toggle(LayoutPositionEnum layoutPosition) {
 		return new JsQuery(this).$().chain("layout").chain("toggle", "'" + layoutPosition  + "'");
 	}
 
@@ -1375,7 +1695,7 @@ public class Layout extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 * @param layoutPosition
 	 */
-	public void toggle(AjaxRequestTarget ajaxRequestTarget, LayoutPosition layoutPosition) {
+	public void toggle(AjaxRequestTarget ajaxRequestTarget, LayoutPositionEnum layoutPosition) {
 		ajaxRequestTarget.appendJavascript(this.toggle(layoutPosition).render().toString());
 	}
 }

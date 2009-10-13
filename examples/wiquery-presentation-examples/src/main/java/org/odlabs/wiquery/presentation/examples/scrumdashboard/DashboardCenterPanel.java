@@ -15,8 +15,9 @@ public class DashboardCenterPanel extends Panel {
 	/**
 	 * Constructor
 	 * @param id Wicket identifiant
+	 * @param scrumDashboardPage
 	 */
-	public DashboardCenterPanel(String id) {
+	public DashboardCenterPanel(String id, ScrumDashboardPage scrumDashboardPage) {
 		super(id);
 		this.setOutputMarkupId(true);
 	}
