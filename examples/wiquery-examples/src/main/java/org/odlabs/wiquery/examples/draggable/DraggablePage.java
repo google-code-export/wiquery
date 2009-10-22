@@ -1,5 +1,6 @@
 package org.odlabs.wiquery.examples.draggable;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
@@ -7,9 +8,11 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.model.Model;
 import org.odlabs.wiquery.examples.AbstractExamplePage;
+import org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior;
 import org.odlabs.wiquery.ui.draggable.DraggableBehavior;
 import org.odlabs.wiquery.ui.draggable.DraggableContainment;
 import org.odlabs.wiquery.ui.draggable.DraggableRevert;
+import org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior.DraggableEvent;
 
 /**
  * DraggablePage
@@ -22,7 +25,9 @@ public class DraggablePage extends AbstractExamplePage {
 	private CheckBox revertPosition;
 	private CheckBox containmentConstraint;
 	private DraggableBehavior draggableBehavior;
+	private DraggableAjaxBehavior draggableAjaxBehavior;
 	private WebMarkupContainer dragPanel;
+	private WebMarkupContainer dragAjaxPanel;
 
 	/**
 	 * Constructor that is invoked when page is invoked without a session.
@@ -76,5 +81,40 @@ public class DraggablePage extends AbstractExamplePage {
 			}
 		});
 		add(containmentConstraint);
+		
+		// Ajax
+		draggableAjaxBehavior = new DraggableAjaxBehavior(DraggableEvent.START,
+				DraggableEvent.STOP) {
+			private static final long serialVersionUID = 1L;
+			
+			/* (non-Javadoc)
+			 * @see org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior#onDrag(org.apache.wicket.Component, org.apache.wicket.ajax.AjaxRequestTarget)
+			 */
+			@Override
+			public void onDrag(Component component, AjaxRequestTarget ajaxRequestTarget) {
+				// Nothing
+			}
+
+			/* (non-Javadoc)
+			 * @see org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior#onStart(org.apache.wicket.Component, org.apache.wicket.ajax.AjaxRequestTarget)
+			 */
+			@Override
+			public void onStart(Component component, AjaxRequestTarget ajaxRequestTarget) {
+				ajaxRequestTarget.appendJavascript("alert('drag start');");
+			}
+
+			/* (non-Javadoc)
+			 * @see org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior#onStop(org.apache.wicket.Component, org.apache.wicket.ajax.AjaxRequestTarget)
+			 */
+			@Override
+			public void onStop(Component draggedComponent,
+					AjaxRequestTarget ajaxRequestTarget) {
+				ajaxRequestTarget.appendJavascript("alert('drag stop');");
+			}
+		};
+		
+		dragAjaxPanel = new WebMarkupContainer("dragAjaxPanel");
+		dragAjaxPanel.add(draggableAjaxBehavior);
+		add(dragAjaxPanel);
 	}
 }
