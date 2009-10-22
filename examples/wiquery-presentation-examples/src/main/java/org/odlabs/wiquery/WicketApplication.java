@@ -1,6 +1,7 @@
 package org.odlabs.wiquery;
 
-import org.odlabs.wiquery.presentation.examples.scrumdashboard.ScrumDashboardPage;
+import org.apache.wicket.markup.html.WebPage;
+import org.odlabs.wiquery.demo.dashboard.DashBoard;
 import org.odlabs.wiquery.utils.WiQueryWebApplication;
 
 /**
@@ -20,9 +21,9 @@ public class WicketApplication extends WiQueryWebApplication
 	/**
 	 * @see org.apache.wicket.Application#getHomePage()
 	 */
-	public Class<ScrumDashboardPage> getHomePage()
+	public Class<? extends WebPage> getHomePage()
 	{
-		return ScrumDashboardPage.class;
+		return DashBoard.class;
 	}
 
 }
