@@ -1,13 +1,23 @@
+body {
+	font-size: 12px;	
+}
+
 ul {
 	list-style-type: none;	
+}
+
+div.tasks-category {
+	float: left;	
+	width: 30%;
+	margin: 0 5px 0 0;
 }
 
 ul.tasks {	
 	border: 1px solid black;
 	float: left;
 	padding: 0;
+	width: 100%;
 	margin: 0 10px 0 0;
-	width: 30%;
 	height: 500px;
 }
 
@@ -17,7 +27,6 @@ ul.tasks li {
 	padding: 3px;
 	width: 90px;
 	height: 50px;
-	border: 1px solid red;
 }
 
 ul.tasks li span {

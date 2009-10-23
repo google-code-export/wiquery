@@ -1,4 +1,4 @@
-package org.odlabs.wiquery.demo.tasks.views;
+package org.odlabs.wiquery.demo.tasks;
 
 import java.util.List;
 
@@ -15,8 +15,11 @@ public class TaskList extends WebMarkupContainer {
 
 	private TaskService taskService = new TaskService();	
 	
+	private TaskState taskState;
+	
 	public TaskList(String id, final TaskState taskState) {
 		super(id);
+		this.taskState = taskState;
 		TaskListView taskListView = new TaskListView(id + "-list", new LoadableDetachableModel<List<Task>>() {
 
 			@Override
@@ -25,27 +28,29 @@ public class TaskList extends WebMarkupContainer {
 			}
 			
 		});
-		add(taskListView);
-		add(new SortableAjaxBehavior() {
+		SortableAjaxBehavior sortableAjaxBehavior = new SortableAjaxBehavior() {
 			
 			@Override
 			public void onUpdate(Component sortedComponent, int index,
 					AjaxRequestTarget ajaxRequestTarget) {
-				System.out.println("drop");
 			}
 			
 			@Override
 			public void onRemove(Component sortedComponent,
 					AjaxRequestTarget ajaxRequestTarget) {
-				System.out.println("drop");
 			}
 			
 			@Override
 			public void onReceive(Component sortedComponent, int index,
 					Component parentSortedComponent, AjaxRequestTarget ajaxRequestTarget) {
-				System.out.println("drop");
+				Task task = (Task) sortedComponent.getDefaultModelObject();
+				taskService.changeState(task, taskState);
 			}
-		}.getSortableBehavior().setConnectWith(".todo"));
+			
+		};
+		sortableAjaxBehavior.getSortableBehavior().setConnectWith(".tasks");
+		add(sortableAjaxBehavior);
+		add(taskListView);
 	}
 
 }
