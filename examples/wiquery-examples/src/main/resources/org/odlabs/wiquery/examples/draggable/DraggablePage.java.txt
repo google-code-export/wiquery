@@ -13,6 +13,7 @@ import org.odlabs.wiquery.ui.draggable.DraggableBehavior;
 import org.odlabs.wiquery.ui.draggable.DraggableContainment;
 import org.odlabs.wiquery.ui.draggable.DraggableRevert;
 import org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior.DraggableEvent;
+import org.odlabs.wiquery.ui.draggable.DraggableContainment.ContainmentEnum;
 
 /**
  * DraggablePage
@@ -72,9 +73,11 @@ public class DraggablePage extends AbstractExamplePage {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				if(containmentConstraint.getModelObject()){
-					draggableBehavior.setContainment(new DraggableContainment("parent"));
+					draggableBehavior.setContainment(new DraggableContainment(
+							ContainmentEnum.PARENT));
 				} else {
-					draggableBehavior.setContainment(new DraggableContainment("window"));
+					draggableBehavior.setContainment(new DraggableContainment(
+							ContainmentEnum.WINDOW));
 				}
 				
 				target.addComponent(dragPanel);
@@ -83,8 +86,7 @@ public class DraggablePage extends AbstractExamplePage {
 		add(containmentConstraint);
 		
 		// Ajax
-		draggableAjaxBehavior = new DraggableAjaxBehavior(DraggableEvent.START,
-				DraggableEvent.STOP) {
+		draggableAjaxBehavior = new DraggableAjaxBehavior(DraggableEvent.STOP) {
 			private static final long serialVersionUID = 1L;
 			
 			/* (non-Javadoc)
@@ -100,7 +102,7 @@ public class DraggablePage extends AbstractExamplePage {
 			 */
 			@Override
 			public void onStart(Component component, AjaxRequestTarget ajaxRequestTarget) {
-				ajaxRequestTarget.appendJavascript("alert('drag start');");
+				// Nothing
 			}
 
 			/* (non-Javadoc)
@@ -112,6 +114,8 @@ public class DraggablePage extends AbstractExamplePage {
 				ajaxRequestTarget.appendJavascript("alert('drag stop');");
 			}
 		};
+		draggableAjaxBehavior.getDraggableBehavior().setContainment(
+				new DraggableContainment(ContainmentEnum.PARENT));
 		
 		dragAjaxPanel = new WebMarkupContainer("dragAjaxPanel");
 		dragAjaxPanel.add(draggableAjaxBehavior);
