@@ -16,7 +16,6 @@ public class WicketApplication extends WiQueryWebApplication
      */
 	public WicketApplication()
 	{
-//		WiQueryCoreHeaderContributor.setTheme(new WiQueryCoreThemeResourceReference("mintchoc"));
 	}
 	
 	/**
