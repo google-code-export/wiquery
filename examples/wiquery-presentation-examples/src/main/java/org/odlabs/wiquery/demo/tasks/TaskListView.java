@@ -32,7 +32,7 @@ public class TaskListView extends ListView<Task> {
 		item.add(label);
 		item.add(new Label("priority"));
 		ThemeUiHelper.buttonRounded(item);
-		label.add(new WiQueryAjaxEventBehavior(MouseEvent.DBLCLICK) {
+		item.add(new WiQueryAjaxEventBehavior(MouseEvent.DBLCLICK) {
 			
 			@Override
 			protected void onEvent(AjaxRequestTarget target) {

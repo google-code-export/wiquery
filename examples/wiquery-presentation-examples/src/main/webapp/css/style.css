@@ -11,11 +11,22 @@ body {
 	float: left;
 }
 
+#filters {
+	background-image: url(../img/w-white.png) !important;
+	background-repeat: no-repeat !important;		
+	background-position: center center !important;
+}
+
 #tasks h2 {
 	text-align: center;
 	font-size: 14px;
 	color: #777777;
 	margin: 0;
+}
+
+h2 {
+	margin: 0 0 5px 0;	
+	text-align: center;
 }
 
 ul {
@@ -43,11 +54,24 @@ ul.tasks li {
 	float: left;
 	margin: 5px;
 	padding: 3px;
-	width: 90px;
-	height: 50px;
+	width: 110px;
 }
 
-ul.tasks li span {
-	float: left;
-	clear: left;
+.ui-layout-east {
+	padding: 0 !important;	
+} 
+
+.dashboard-action {
+	padding: 4px;
+	display: block;
+	margin: 4px;
+}
+
+dl dt {
+	font-weight: bold;
+}
+
+dl dd {
+	margin: 0;
+	display: block;
 }

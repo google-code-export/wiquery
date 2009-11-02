@@ -2,8 +2,12 @@
 	<h2 wicket:id="title">TODO</h2>
 	<ul wicket:id="draggable" class="tasks todo">
 		<li wicket:id="list" class="task">
-			<span wicket:id="title"></span>
-			<span wicket:id="priority"></span>
+			<dl>
+				<dt>Title:</dt>
+				<dd><span wicket:id="title"></span></dd>
+				<dt>Priority:</dt>
+				<dd><span wicket:id="priority"></span></dd>
+			</dl>
 		</li>
 	</ul>
 </wicket:panel>
