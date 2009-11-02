@@ -23,6 +23,7 @@ public class DashBoard extends WebPage {
 		
 		dialog = new Dialog("window-details");
 		dialog.setAutoOpen(false);
+		dialog.setModal(true);
 		EmptyPanel emptyPanel = new EmptyPanel("dialog-contents");
 		emptyPanel.setOutputMarkupId(true);
 		dialog.add(emptyPanel);

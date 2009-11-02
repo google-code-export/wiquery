@@ -1,5 +1,21 @@
 body {
-	font-size: 12px;	
+	font-size: 12px;
+	color: #333333;
+	font-family: arial,helvetica,sans-serif;
+	font-size: 12px;
+	text-align: left;
+}
+
+#tasks {
+	background-image: url(../img/bg.png) !important;	
+	float: left;
+}
+
+#tasks h2 {
+	text-align: center;
+	font-size: 14px;
+	color: #777777;
+	margin: 0;
 }
 
 ul {
@@ -7,13 +23,15 @@ ul {
 }
 
 div.tasks-category {
+	border: 1px solid #777777;
 	float: left;	
 	width: 30%;
 	margin: 0 5px 0 0;
+	background-color: #f7f7f7;
+	padding: 8px;
 }
 
 ul.tasks {	
-	border: 1px solid black;
 	float: left;
 	padding: 0;
 	width: 100%;

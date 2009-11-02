@@ -31,7 +31,7 @@ public class TaskListView extends ListView<Task> {
 		Label label = new Label("title");
 		item.add(label);
 		item.add(new Label("priority"));
-		ThemeUiHelper.highlightedText(item);
+		ThemeUiHelper.buttonRounded(item);
 		label.add(new WiQueryAjaxEventBehavior(MouseEvent.DBLCLICK) {
 			
 			@Override

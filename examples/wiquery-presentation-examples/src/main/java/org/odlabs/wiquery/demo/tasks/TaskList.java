@@ -5,22 +5,26 @@ import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.odlabs.wiquery.demo.model.Task;
 import org.odlabs.wiquery.demo.model.Task.TaskState;
 import org.odlabs.wiquery.demo.service.TaskService;
 import org.odlabs.wiquery.ui.sortable.SortableAjaxBehavior;
+import org.odlabs.wiquery.ui.themes.ThemeUiHelper;
 
-public class TaskList extends WebMarkupContainer {
+public class TaskList extends Panel {
 
 	private TaskService taskService = new TaskService();	
 	
-	private TaskState taskState;
-	
 	public TaskList(String id, final TaskState taskState) {
 		super(id);
-		this.taskState = taskState;
-		TaskListView taskListView = new TaskListView(id + "-list", new LoadableDetachableModel<List<Task>>() {
+		Label label = new Label("title", Model.of(taskState.toString()));
+		ThemeUiHelper.titleComponent(label);
+		add(label);
+		TaskListView taskListView = new TaskListView("list", new LoadableDetachableModel<List<Task>>() {
 
 			@Override
 			protected List<Task> load() {
@@ -49,8 +53,10 @@ public class TaskList extends WebMarkupContainer {
 			
 		};
 		sortableAjaxBehavior.getSortableBehavior().setConnectWith(".tasks");
-		add(sortableAjaxBehavior);
-		add(taskListView);
+		WebMarkupContainer listContainer = new WebMarkupContainer("draggable");
+		add(listContainer);
+		listContainer.add(taskListView);
+		listContainer.add(sortableAjaxBehavior);
 	}
 
 }
