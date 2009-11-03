@@ -125,7 +125,7 @@
 				<configuration>
 					<wtpmanifest>true</wtpmanifest>
 					<wtpapplicationxml>true</wtpapplicationxml>
-					<wtpversion>2.0</wtpversion>
+					<wtpversion>1.0</wtpversion>
 					<downloadSources>true</downloadSources>
 					<downloadSources>true</downloadSources>
 				</configuration>

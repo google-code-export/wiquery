@@ -1,15 +1,15 @@
 package org.odlabs.wiquery.demo.filters;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
-import org.odlabs.wiquery.core.commons.WiQueryCoreHeaderContributor;
+import org.odlabs.wiquery.WicketApplication;
 import org.odlabs.wiquery.core.events.MouseEvent;
 import org.odlabs.wiquery.core.events.WiQueryAjaxEventBehavior;
 import org.odlabs.wiquery.demo.dashboard.DashBoard;
-import org.odlabs.wiquery.ui.behavior.IconBehavior;
 import org.odlabs.wiquery.ui.themes.ThemeUiHelper;
 import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 
@@ -27,7 +27,6 @@ public class FiltersPanel extends Panel {
 		Button toggleTodos = new Button("filter-toggle-todos");
 		add(toggleTodos);
 		ThemeUiHelper.buttonRounded(toggleTodos);
-		toggleTodos.add(new IconBehavior());
 
 		Button toggleProgress = new Button("filter-toggle-progress");
 		ThemeUiHelper.buttonRounded(toggleProgress);
@@ -50,7 +49,8 @@ public class FiltersPanel extends Panel {
 
 			@Override
 			protected void onEvent(AjaxRequestTarget target) {
-				WiQueryCoreHeaderContributor.setTheme(new WiQueryCoreThemeResourceReference("fusion"));
+				WicketApplication wicketApplication = (WicketApplication) Application.get();
+				wicketApplication.setTheme(new WiQueryCoreThemeResourceReference("fusion"));
 				setResponsePage(DashBoard.class);
 			}
 			
@@ -63,7 +63,8 @@ public class FiltersPanel extends Panel {
 
 			@Override
 			protected void onEvent(AjaxRequestTarget target) {
-				WiQueryCoreHeaderContributor.setTheme(new WiQueryCoreThemeResourceReference("mintchoc"));
+				WicketApplication wicketApplication = (WicketApplication) Application.get();
+				wicketApplication.setTheme(new WiQueryCoreThemeResourceReference("mintchoc"));
 				setResponsePage(DashBoard.class);
 			}
 			
