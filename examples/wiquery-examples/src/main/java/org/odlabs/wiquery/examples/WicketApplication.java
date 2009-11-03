@@ -1,9 +1,13 @@
 package org.odlabs.wiquery.examples;
 
-import java.net.URL;
-
 import groovy.lang.GroovyShell;
 
+import java.net.URL;
+
+import org.apache.wicket.ResourceReference;
+import org.apache.wicket.Session;
+import org.odlabs.wiquery.ui.themes.IThemableApplication;
+import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 import org.odlabs.wiquery.utils.WiQueryWebApplication;
 
 /**
@@ -12,7 +16,11 @@ import org.odlabs.wiquery.utils.WiQueryWebApplication;
  * 
  * @see war.Start#main(String[])
  */
-public class WicketApplication extends WiQueryWebApplication {
+public class WicketApplication extends WiQueryWebApplication implements IThemableApplication {
+	
+	// current theme
+	private ResourceReference theme;
+	
 	// Groovy Shell
 	private GroovyShell groovyShell;
 	
@@ -21,6 +29,7 @@ public class WicketApplication extends WiQueryWebApplication {
 	 */
 	public WicketApplication() {
 		super();
+		theme = new WiQueryCoreThemeResourceReference("fusion");
 	}
 
 	/**
@@ -50,6 +59,14 @@ public class WicketApplication extends WiQueryWebApplication {
 	@Override
 	public Class<HomePage> getHomePage() {
 		return HomePage.class;
+	}
+
+	public void setTheme(ResourceReference theme) {
+		this.theme = theme;
+	}
+	
+	public ResourceReference getTheme(Session session) {
+		return theme;
 	}
 
 }

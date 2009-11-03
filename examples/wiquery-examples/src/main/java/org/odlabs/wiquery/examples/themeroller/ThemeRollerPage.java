@@ -2,14 +2,15 @@ package org.odlabs.wiquery.examples.themeroller;
 
 import java.util.ArrayList;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.model.Model;
-import org.odlabs.wiquery.core.commons.WiQueryCoreHeaderContributor;
 import org.odlabs.wiquery.examples.AbstractExamplePage;
+import org.odlabs.wiquery.examples.WicketApplication;
 import org.odlabs.wiquery.ui.tabs.Tabs;
 import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 
@@ -57,7 +58,7 @@ public class ThemeRollerPage extends AbstractExamplePage {
 			 */
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				WiQueryCoreHeaderContributor.setTheme(themeSelect.getModelObject());
+				((WicketApplication) Application.get()).setTheme(themeSelect.getModelObject());
 				setResponsePage(ThemeRollerPage.this);
 			}
 		});
