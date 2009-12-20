@@ -2,14 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.odlabs.wiquery</groupId>
-	<artifactId>wiquery-examples</artifactId>
+	<artifactId>wiquery-examples-1.1</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
 	<name>myWiqueryApp</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jetty.version>6.1.17</jetty.version>
-		<wiquery.version>1.0</wiquery.version>
+		<wiquery.version>1.1-experiment</wiquery.version>
+		<wicket.version>1.4.3</wicket.version>
 		<groovy.version>1.6.4</groovy.version>
 	</properties>
 	<dependencies>
@@ -18,6 +19,12 @@
 			<groupId>org.odlabs.wiquery</groupId>
 			<artifactId>wiquery</artifactId>
 			<version>${wiquery.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket</artifactId>
+			<version>${wicket.version}</version>
 		</dependency>
 
 		<!-- LOGGING DEPENDENCIES - LOG4J -->

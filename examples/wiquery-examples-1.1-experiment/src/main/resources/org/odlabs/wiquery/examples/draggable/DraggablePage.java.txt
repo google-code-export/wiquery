@@ -14,6 +14,8 @@ import org.odlabs.wiquery.ui.draggable.DraggableContainment;
 import org.odlabs.wiquery.ui.draggable.DraggableRevert;
 import org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior.DraggableEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableContainment.ContainmentEnum;
+import org.odlabs.wiquery.ui.droppable.DroppableAccept;
+import org.odlabs.wiquery.ui.droppable.DroppableBehavior;
 
 /**
  * DraggablePage
@@ -113,12 +115,40 @@ public class DraggablePage extends AbstractExamplePage {
 					AjaxRequestTarget ajaxRequestTarget) {
 				ajaxRequestTarget.appendJavascript("alert('drag stop');");
 			}
+
+			/* (non-Javadoc)
+			 * @see org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior#onInvalid(org.apache.wicket.Component, org.apache.wicket.ajax.AjaxRequestTarget)
+			 */
+			@Override
+			public void onInvalid(Component component,
+					AjaxRequestTarget ajaxRequestTarget) {
+				ajaxRequestTarget.appendJavascript("alert('drag invalid');");
+			}
+
+			/* (non-Javadoc)
+			 * @see org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior#onValid(org.apache.wicket.Component, org.apache.wicket.ajax.AjaxRequestTarget)
+			 */
+			@Override
+			public void onValid(Component component,
+					AjaxRequestTarget ajaxRequestTarget) {
+				ajaxRequestTarget.appendJavascript("alert('drag valid');");
+			}
 		};
 		draggableAjaxBehavior.getDraggableBehavior().setContainment(
-				new DraggableContainment(ContainmentEnum.PARENT));
+				new DraggableContainment("'#ajaxContainer'"));
 		
 		dragAjaxPanel = new WebMarkupContainer("dragAjaxPanel");
 		dragAjaxPanel.add(draggableAjaxBehavior);
 		add(dragAjaxPanel);
+		
+		WebMarkupContainer droppableArea = new WebMarkupContainer("droppableArea");
+		droppableArea.add(new DroppableBehavior());
+		add(droppableArea);
+		
+		WebMarkupContainer droppableUnacceptArea = new WebMarkupContainer("droppableUnacceptArea");
+		DroppableBehavior droppableBehavior = new DroppableBehavior();
+		droppableBehavior.setAccept(new DroppableAccept(".classToDrop"));
+		droppableUnacceptArea.add(droppableBehavior);
+		add(droppableUnacceptArea);
 	}
 }

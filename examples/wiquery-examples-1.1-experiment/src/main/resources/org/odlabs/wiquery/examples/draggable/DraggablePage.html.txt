@@ -22,21 +22,33 @@
 							</span>
 						</td>
 						
-						<td style="border-left: 1px black solid; padding-left:15px;">
+						<td style="border-left: 1px black solid; padding-left:15px;" colspan="3">
 							<div wicket:id="dragPanel" style="background-color: lightgrey; height: 50px; width: 75px;">
 								Drag me !!
 							</div>
 						</td>
 					</tr>
 					
-					<tr>
-						<td style="width: 25%;">
+					<tr id="ajaxContainer">
+						<td>
 							&nbsp;
 						</td>
-						
+									
 						<td style="border-left: 1px black solid; border-top: 1px solid black; padding-left:15px;">
 							<div wicket:id="dragAjaxPanel" style="background-color: lightgreen; height: 50px; width: 75px;">
 								Drag me with Ajax !!
+							</div>
+						</td>
+						
+						<td style="background-color: grey; font-size: 8px; width: 100px;">
+							<div wicket:id="droppableArea">
+								Accept all;
+							</div>
+						</td>
+						
+						<td style="background-color:LightCoral; font-size: 8px; width: 100px;">
+							<div wicket:id="droppableUnacceptArea">
+								Accept only element with class 'classToDrop'
 							</div>
 						</td>
 					</tr>
