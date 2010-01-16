@@ -8,6 +8,7 @@ import org.odlabs.wiquery.examples.datepicker.DatePickerPage;
 import org.odlabs.wiquery.examples.dialog.DialogPage;
 import org.odlabs.wiquery.examples.draggable.DraggablePage;
 import org.odlabs.wiquery.examples.droppable.DroppablePage;
+import org.odlabs.wiquery.examples.effects.EffectsPage;
 import org.odlabs.wiquery.examples.javascript.JavascriptPage;
 import org.odlabs.wiquery.examples.progressbar.ProgressBarPage;
 import org.odlabs.wiquery.examples.resizable.ResizablePage;
@@ -37,6 +38,7 @@ public class HomePage extends WebPage {
 		add(new BookmarkablePageLink<ThemeRollerPage>("themeRollerLink", ThemeRollerPage.class));
 		add(new BookmarkablePageLink<ThemeDecoratorPage>("themeDecoratorLink", ThemeDecoratorPage.class));
 		add(new BookmarkablePageLink<JavascriptPage>("javascriptLink", JavascriptPage.class));
+		add(new BookmarkablePageLink<EffectsPage>("effectsLink", EffectsPage.class));
 		
 		add(new BookmarkablePageLink<AccordionPage>("accordionLink", AccordionPage.class));
 		add(new BookmarkablePageLink<DatePickerPage>("datePickerLink", DatePickerPage.class));

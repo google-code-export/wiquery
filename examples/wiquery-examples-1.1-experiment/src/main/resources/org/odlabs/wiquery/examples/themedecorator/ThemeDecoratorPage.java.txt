@@ -1,10 +1,10 @@
 package org.odlabs.wiquery.examples.themedecorator;
 
 import org.apache.wicket.PageParameters;
-import org.apache.wicket.behavior.AbstractBehavior;
-import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference;
+import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
+import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
+import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.examples.AbstractExamplePage;
 import org.odlabs.wiquery.ui.themes.ThemeUiHelper;
 import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
@@ -13,7 +13,7 @@ import org.odlabs.wiquery.ui.themes.ThemeUiHelper.IconEnum;
 /**
  * ThemeRollerPage
  */
-public class ThemeDecoratorPage extends AbstractExamplePage {
+public class ThemeDecoratorPage extends AbstractExamplePage implements IWiQueryPlugin {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -28,24 +28,6 @@ public class ThemeDecoratorPage extends AbstractExamplePage {
 	 */
 	public ThemeDecoratorPage(final PageParameters parameters) {
 		super("Theme Decorator with the fusion theme");
-		
-		add(new AbstractBehavior() {
-			private static final long serialVersionUID = 1L;
-
-			/* (non-Javadoc)
-			 * @see org.apache.wicket.behavior.AbstractBehavior#renderHead(org.apache.wicket.markup.html.IHeaderResponse)
-			 */
-			@Override
-			public void renderHead(IHeaderResponse response) {
-				super.renderHead(response);
-				
-				// Add needed resources
-				response.renderJavascriptReference(CoreJavaScriptResourceReference.get());
-				response.renderCSSReference(
-						new WiQueryCoreThemeResourceReference("fusion"));
-				response.renderOnDomReadyJavascript(ThemeUiHelper.hover(buttonOver).render().toString());
-			}
-		});
 		
 		// Decorate your components
 		WebMarkupContainer buttonCorned = new WebMarkupContainer("buttonCorned");
@@ -87,5 +69,21 @@ public class ThemeDecoratorPage extends AbstractExamplePage {
 		WebMarkupContainer calendar = new WebMarkupContainer("calendar");
 		ThemeUiHelper.iconComponent(calendar, IconEnum.CALENDAR);
 		add(calendar);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	 */
+	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+		wiQueryResourceManager.addCssResource(new WiQueryCoreThemeResourceReference("fusion"));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#statement()
+	 */
+	public JsStatement statement() {
+		return ThemeUiHelper.hover(buttonOver);
 	}
 }
