@@ -119,7 +119,6 @@ public class DraggablePage extends AbstractExamplePage {
 			/* (non-Javadoc)
 			 * @see org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior#onInvalid(org.apache.wicket.Component, org.apache.wicket.ajax.AjaxRequestTarget)
 			 */
-			@Override
 			public void onInvalid(Component component,
 					AjaxRequestTarget ajaxRequestTarget) {
 				ajaxRequestTarget.appendJavascript("alert('drag invalid');");
@@ -128,7 +127,6 @@ public class DraggablePage extends AbstractExamplePage {
 			/* (non-Javadoc)
 			 * @see org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior#onValid(org.apache.wicket.Component, org.apache.wicket.ajax.AjaxRequestTarget)
 			 */
-			@Override
 			public void onValid(Component component,
 					AjaxRequestTarget ajaxRequestTarget) {
 				ajaxRequestTarget.appendJavascript("alert('drag valid');");
