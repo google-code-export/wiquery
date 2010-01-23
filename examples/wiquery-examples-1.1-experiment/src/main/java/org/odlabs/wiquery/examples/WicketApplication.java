@@ -4,9 +4,9 @@ import groovy.lang.GroovyShell;
 
 import java.net.URL;
 
+import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.Session;
-import org.odlabs.wiquery.core.commons.merge.WiQueryMergedResources;
 import org.odlabs.wiquery.ui.themes.IThemableApplication;
 import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 import org.odlabs.wiquery.utils.WiQueryWebApplication;
@@ -17,13 +17,18 @@ import org.odlabs.wiquery.utils.WiQueryWebApplication;
  * 
  * @see war.Start#main(String[])
  */
-@WiQueryMergedResources(enable=true)
+//@WiQueryMergedResources(enable=true)
 public class WicketApplication extends WiQueryWebApplication implements IThemableApplication {
+	// Constants
+	/** 
+	 * meta data for WiQueryCoreHeaderContributor. 
+	 */
+	private static final MetaDataKey<ResourceReference> WIQUERY_THEME_KEY = new MetaDataKey<ResourceReference>() {
+		private static final long serialVersionUID = 1L;
+	};
 	
-	// current theme
-	private ResourceReference theme;
-	
-	// Groovy Shell
+	// Properties
+	/** Groovy Shell */
 	private GroovyShell groovyShell;
 	
 	/**
@@ -31,7 +36,33 @@ public class WicketApplication extends WiQueryWebApplication implements IThemabl
 	 */
 	public WicketApplication() {
 		super();
-		theme = new WiQueryCoreThemeResourceReference("fusion");
+	}
+
+	/**
+	 * @return the Groovy Shell
+	 */
+	public GroovyShell getGroovyShell() {
+		return groovyShell;
+	}
+	
+	/**
+	 * @see org.apache.wicket.Application#getHomePage()
+	 */
+	@Override
+	public Class<HomePage> getHomePage() {
+		return HomePage.class;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.ui.themes.IThemableApplication#getTheme(org.apache.wicket.Session)
+	 */
+	public ResourceReference getTheme(Session session) {
+		if(session.getMetaData(WIQUERY_THEME_KEY) == null){
+			session.setMetaData(WIQUERY_THEME_KEY, new WiQueryCoreThemeResourceReference("fusion"));
+		}
+		
+		return session.getMetaData(WIQUERY_THEME_KEY);
 	}
 
 	/**
@@ -49,26 +80,10 @@ public class WicketApplication extends WiQueryWebApplication implements IThemabl
 	}
 	
 	/**
-	 * @return the Groovy Shell
+	 * Change the current theme
+	 * @param theme
 	 */
-	public GroovyShell getGroovyShell() {
-		return groovyShell;
-	}
-
-	/**
-	 * @see org.apache.wicket.Application#getHomePage()
-	 */
-	@Override
-	public Class<HomePage> getHomePage() {
-		return HomePage.class;
-	}
-
 	public void setTheme(ResourceReference theme) {
-		this.theme = theme;
+		Session.get().setMetaData(WIQUERY_THEME_KEY, theme);
 	}
-	
-	public ResourceReference getTheme(Session session) {
-		return theme;
-	}
-
 }
