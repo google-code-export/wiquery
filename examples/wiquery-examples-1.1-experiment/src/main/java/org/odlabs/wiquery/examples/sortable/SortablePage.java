@@ -79,7 +79,7 @@ public class SortablePage extends AbstractExamplePage {
 	    };
 	    
 	    WebMarkupContainer sortableAjaxWicket = new WebMarkupContainer("sortableAjaxWicket");
-	    SortableAjaxBehavior sortableAjaxBehavior = new SortableAjaxBehavior() {
+	    SortableAjaxBehavior<Component> sortableAjaxBehavior = new SortableAjaxBehavior<Component> () {
 	    	private static final long serialVersionUID = 1L;
 	    	
 			/* (non-Javadoc)

@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.wicket.Component;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -71,20 +70,18 @@ public class DroppablePage extends AbstractExamplePage {
 	 
 	    // Add the Ajax drop zone
 	    WebMarkupContainer dropZone = new WebMarkupContainer("dropZone");
-	    dropZone.add(new DroppableAjaxBehavior() {
+	    dropZone.add(new DroppableAjaxBehavior<ListItem<Fruit>>() {
 	    	private static final long serialVersionUID = 1L;
 	    	
 			/* (non-Javadoc)
 			 * @see org.odlabs.wiquery.ui.droppable.DroppableAjaxBehavior#onDrop(org.apache.wicket.Component, org.apache.wicket.ajax.AjaxRequestTarget)
 			 */
-			@SuppressWarnings("unchecked")
 			@Override
-			public void onDrop(Component droppedComponent,
+			public void onDrop(ListItem<Fruit> droppedComponent,
 					AjaxRequestTarget ajaxRequestTarget) {
 				
 				if(droppedComponent != null){
-					ListItem<Fruit> item = (ListItem<Fruit>)droppedComponent;
-					Fruit fruit = item.getModelObject();
+					Fruit fruit = droppedComponent.getModelObject();
 					Integer nb = 1;
 					if(selection.containsKey(fruit.getName())){
 						nb = selection.get(fruit.getName()) + 1;
