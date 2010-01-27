@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+        <modelVersion>4.0.0</modelVersion>
+
+        <!-- Identification -->
+        <groupId>org.odlabs.wiquery</groupId>
+        <artifactId>wiquery</artifactId>
+        <packaging>jar</packaging>
+        <version>1.0</version>
+
+        <name>WiQuery project</name>
+
+        <scm>
+                <developerConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/1.0-m2/</developerConnection>
+        </scm>
+
+        <properties>
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+                <wicket.version>1.4.3</wicket.version>
+        </properties>
+
+
+        <dependencies>
+
+                <dependency>
+                        <groupId>org.apache.wicket</groupId>
+                        <artifactId>wicket</artifactId>
+                        <version>${wicket.version}</version>
+                </dependency>
+
+        </dependencies>
+
+</project>
