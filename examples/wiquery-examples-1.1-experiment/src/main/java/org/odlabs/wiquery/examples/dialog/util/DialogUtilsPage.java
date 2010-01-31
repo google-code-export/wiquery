@@ -7,8 +7,7 @@ import org.odlabs.wiquery.core.events.MouseEvent;
 import org.odlabs.wiquery.core.events.WiQueryEventBehavior;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.examples.AbstractExamplePage;
-import org.odlabs.wiquery.ui.dialog.util.DialogResourcesBehavior;
-import org.odlabs.wiquery.ui.dialog.util.DialogUtils;
+import org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior;
 import org.odlabs.wiquery.ui.dialog.util.WaitDialogStatements;
 
 /**
@@ -18,6 +17,9 @@ public class DialogUtilsPage extends AbstractExamplePage {
 
 	private static final long serialVersionUID = 1L;
 	
+	// Properties
+	private DialogUtilsBehavior dialogUtilsBehavior;
+	
 	/**
 	 * Constructor that is invoked when page is invoked without a session.
 	 * 
@@ -26,7 +28,8 @@ public class DialogUtilsPage extends AbstractExamplePage {
 	 */
 	public DialogUtilsPage(final PageParameters parameters) {
 		super("DialogUtils example");
-		add(new DialogResourcesBehavior());
+		dialogUtilsBehavior = new DialogUtilsBehavior();
+		add(dialogUtilsBehavior);
 		
 		WebMarkupContainer simpleDialog = new WebMarkupContainer("simpleDialog");
 		simpleDialog.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
@@ -38,7 +41,7 @@ public class DialogUtilsPage extends AbstractExamplePage {
 			 */
 			@Override
 			public JsScope callback() {
-				return JsScope.quickScope(DialogUtils.simpleDialog(getLocale(), "A title", "My message"));
+				return JsScope.quickScope(dialogUtilsBehavior.simpleDialog("A title", "My message"));
 			}
 		}));
 		add(simpleDialog);
@@ -53,7 +56,7 @@ public class DialogUtilsPage extends AbstractExamplePage {
 			 */
 			@Override
 			public JsScope callback() {
-				return JsScope.quickScope(DialogUtils.errorDialog(getLocale(), "An error message"));
+				return JsScope.quickScope(dialogUtilsBehavior.errorDialog("An error message"));
 			}
 		}));
 		add(errorDialog);
@@ -68,7 +71,7 @@ public class DialogUtilsPage extends AbstractExamplePage {
 			 */
 			@Override
 			public JsScope callback() {
-				return JsScope.quickScope(DialogUtils.questionDialog(getLocale(), "A question message"));
+				return JsScope.quickScope(dialogUtilsBehavior.questionDialog("A question message"));
 			}
 		}));
 		add(questionDialog);
@@ -83,7 +86,7 @@ public class DialogUtilsPage extends AbstractExamplePage {
 			 */
 			@Override
 			public JsScope callback() {
-				return JsScope.quickScope(DialogUtils.warningDialog(getLocale(), "A warning message"));
+				return JsScope.quickScope(dialogUtilsBehavior.warningDialog("A warning message"));
 			}
 		}));
 		add(warningDialog);
@@ -98,7 +101,7 @@ public class DialogUtilsPage extends AbstractExamplePage {
 			 */
 			@Override
 			public JsScope callback() {
-				WaitDialogStatements wait = DialogUtils.waitDialog(getLocale());
+				WaitDialogStatements wait = dialogUtilsBehavior.waitDialog();
 				return JsScope.quickScope(wait.getOpen().render()
 						+ "setTimeout(function() {"
 						+ wait.getClose().render()
