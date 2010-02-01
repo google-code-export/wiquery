@@ -37,13 +37,25 @@ public class ThemeRollerPage extends AbstractExamplePage {
 		themes.add(new WiQueryCoreThemeResourceReference("black-tie"));
 		themes.add(new WiQueryCoreThemeResourceReference("blitzer"));
 		themes.add(new WiQueryCoreThemeResourceReference("cupertino"));
+		themes.add(new WiQueryCoreThemeResourceReference("dark-hive"));
+		themes.add(new WiQueryCoreThemeResourceReference("dot-luv"));
+		themes.add(new WiQueryCoreThemeResourceReference("eggplant"));
 		themes.add(new WiQueryCoreThemeResourceReference("excite-bike"));
-		themes.add(new WiQueryCoreThemeResourceReference("humanity"));
+		themes.add(new WiQueryCoreThemeResourceReference("flick"));
 		themes.add(new WiQueryCoreThemeResourceReference("fusion"));
-		themes.add(new WiQueryCoreThemeResourceReference("redmond"));
+		themes.add(new WiQueryCoreThemeResourceReference("hot-sneaks"));
+		themes.add(new WiQueryCoreThemeResourceReference("humanity"));
+		themes.add(new WiQueryCoreThemeResourceReference("le-frog"));
+		themes.add(new WiQueryCoreThemeResourceReference("mint-choc"));
+		themes.add(new WiQueryCoreThemeResourceReference("overcast"));
+		themes.add(new WiQueryCoreThemeResourceReference("pepper-grinder"));
+		themes.add(new WiQueryCoreThemeResourceReference("south-street"));
+		themes.add(new WiQueryCoreThemeResourceReference("start"));
+		themes.add(new WiQueryCoreThemeResourceReference("sunny"));
+		themes.add(new WiQueryCoreThemeResourceReference("swanky-purse"));
+		themes.add(new WiQueryCoreThemeResourceReference("trontastic"));
 		themes.add(new WiQueryCoreThemeResourceReference("ui-darkness"));
 		themes.add(new WiQueryCoreThemeResourceReference("ui-lightness"));
-		themes.add(new WiQueryCoreThemeResourceReference("vader"));
 		
 		themeSelect = new DropDownChoice<WiQueryCoreThemeResourceReference>(
 				"themeSelect", 

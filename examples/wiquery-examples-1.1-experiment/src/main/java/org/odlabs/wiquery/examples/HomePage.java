@@ -4,12 +4,15 @@ import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.odlabs.wiquery.examples.accordion.AccordionPage;
+import org.odlabs.wiquery.examples.autocomplete.AutocompletePage;
+import org.odlabs.wiquery.examples.button.ButtonPage;
 import org.odlabs.wiquery.examples.datepicker.DatePickerPage;
 import org.odlabs.wiquery.examples.dialog.DialogPage;
 import org.odlabs.wiquery.examples.dialog.util.DialogUtilsPage;
 import org.odlabs.wiquery.examples.draggable.DraggablePage;
 import org.odlabs.wiquery.examples.droppable.DroppablePage;
 import org.odlabs.wiquery.examples.effects.EffectsPage;
+import org.odlabs.wiquery.examples.events.EventsPage;
 import org.odlabs.wiquery.examples.javascript.JavascriptPage;
 import org.odlabs.wiquery.examples.progressbar.ProgressBarPage;
 import org.odlabs.wiquery.examples.resizable.ResizablePage;
@@ -40,8 +43,11 @@ public class HomePage extends WebPage {
 		add(new BookmarkablePageLink<ThemeDecoratorPage>("themeDecoratorLink", ThemeDecoratorPage.class));
 		add(new BookmarkablePageLink<JavascriptPage>("javascriptLink", JavascriptPage.class));
 		add(new BookmarkablePageLink<EffectsPage>("effectsLink", EffectsPage.class));
+		add(new BookmarkablePageLink<EventsPage>("eventsLink", EventsPage.class));
 		
 		add(new BookmarkablePageLink<AccordionPage>("accordionLink", AccordionPage.class));
+		add(new BookmarkablePageLink<AutocompletePage>("autocompleteLink", AutocompletePage.class));
+		add(new BookmarkablePageLink<ButtonPage>("buttonLink", ButtonPage.class));
 		add(new BookmarkablePageLink<DatePickerPage>("datePickerLink", DatePickerPage.class));
 		add(new BookmarkablePageLink<DialogPage>("dialogLink", DialogPage.class));
 		add(new BookmarkablePageLink<DialogUtilsPage>("dialogUtilsLink", DialogUtilsPage.class));
