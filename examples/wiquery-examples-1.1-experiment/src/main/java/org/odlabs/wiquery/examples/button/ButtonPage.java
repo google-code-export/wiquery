@@ -1,11 +1,18 @@
 package org.odlabs.wiquery.examples.button;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.model.Model;
 import org.odlabs.wiquery.examples.AbstractExamplePage;
 import org.odlabs.wiquery.ui.button.Button;
 import org.odlabs.wiquery.ui.button.ButtonAjax;
+import org.odlabs.wiquery.ui.button.ButtonCheckSet;
+import org.odlabs.wiquery.ui.button.ButtonElement;
 import org.odlabs.wiquery.ui.button.ButtonIcon;
+import org.odlabs.wiquery.ui.button.ButtonRadioSet;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 
 /**
@@ -24,6 +31,7 @@ public class ButtonPage extends AbstractExamplePage {
 	public ButtonPage(final PageParameters parameters) {
 		super("Button example");
 		
+		// Classic buttons
 		add(new Button("firstButton", "A button element"));
 		add(new Button("secondButton"));
 		add(new Button("thirdButton", "An anchor"));
@@ -33,6 +41,7 @@ public class ButtonPage extends AbstractExamplePage {
 		fourthButton.setClickEvent(JsScopeUiEvent.quickScope("alert('you click me');"));
 		add(fourthButton);
 		
+		// Ajax button
 		add(new ButtonAjax("fifthButton", "An ajax button") {
 			private static final long serialVersionUID = 1L;
 
@@ -45,5 +54,14 @@ public class ButtonPage extends AbstractExamplePage {
 				target.appendJavascript("alert('Ajax call !!');");
 			}
 		});
+		
+		// Radio & check set
+		List<ButtonElement<String>> elements = new ArrayList<ButtonElement<String>>();
+		elements.add(new ButtonElement<String>(new Model<String>("button1"), new Model<String>("Button One")));
+		elements.add(new ButtonElement<String>(new Model<String>("button2"), new Model<String>("Button Two")));
+		elements.add(new ButtonElement<String>(new Model<String>("button3"), new Model<String>("Button Three")));
+		
+		add(new ButtonRadioSet<String>("radioSet", elements));
+		add(new ButtonCheckSet<String>("checkSet", elements));
 	}
 }

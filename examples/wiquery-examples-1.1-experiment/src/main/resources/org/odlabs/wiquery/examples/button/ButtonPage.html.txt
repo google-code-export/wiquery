@@ -11,11 +11,44 @@
 				<tbody>
 					<tr>
 						<td>
-							<button wicket:id="firstButton">A button element</button>
+							Classic buttons
+						</td>
+						
+						<td>
+							<button wicket:id="firstButton">[A button element]</button>
 							<input value="A submit button" type="submit" wicket:id="secondButton" />
-							<a href="#" wicket:id="thirdButton">An anchor</a>
-							<button wicket:id="fourthButton">[A button element]</button>
-							<button wicket:id="fifthButton">An ajax button</button>
+							<a href="#" wicket:id="thirdButton">[An anchor]</a>
+							<button wicket:id="fourthButton">[An other button element]</button>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							Ajax button
+						</td>
+						
+						<td>
+							<button wicket:id="fifthButton">[An ajax button]</button>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							Set of radios button
+						</td>
+						
+						<td>
+							<wicket:container wicket:id="radioSet"></wicket:container>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							Set of checks button
+						</td>
+						
+						<td>
+							<wicket:container wicket:id="checkSet"></wicket:container>
 						</td>
 					</tr>
 				</tbody>
