@@ -7,11 +7,38 @@
 	
 	<body>
 		<wicket:extend>
-			<table style="height: 100%; width: 100%;">				
+			<table style="height: 100%; width: 100%;">
+				<thead>
+					<tr>
+						<th>Classic autocomplete</th>
+					</tr>
+				</thead>
+				
 				<tbody>
 					<tr>
 						<td>
 							<input type="text" wicket:id="autocomplete" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<p>Possible values :</p>
+							<ul>
+								<li>c++</li>
+								<li>java</li>
+								<li>php</li>
+								<li>coldfusion</li>
+								<li>javascript</li>
+								<li>asp</li>
+								<li>ruby</li>
+								<li>python</li>
+								<li>c</li>
+								<li>scala</li>
+								<li>groovy</li>
+								<li>haskell</li>
+								<li>perl</li>
+							</ul>
 						</td>
 					</tr>
 				</tbody>
