@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.model.Model;
 import org.odlabs.wiquery.examples.AbstractExamplePage;
 import org.odlabs.wiquery.ui.button.Button;
 import org.odlabs.wiquery.ui.button.ButtonAjax;
+import org.odlabs.wiquery.ui.button.ButtonBehavior;
 import org.odlabs.wiquery.ui.button.ButtonCheckSet;
 import org.odlabs.wiquery.ui.button.ButtonElement;
 import org.odlabs.wiquery.ui.button.ButtonIcon;
@@ -30,6 +32,24 @@ public class ButtonPage extends AbstractExamplePage {
 	 */
 	public ButtonPage(final PageParameters parameters) {
 		super("Button example");
+		
+		// Behavior button
+		AjaxLink<String> wicketLink = new AjaxLink<String> ("wicketLink") {
+			private static final long serialVersionUID = 1L;
+
+			/**
+			 * {@inheritDoc}
+			 * @see org.apache.wicket.ajax.markup.html.AjaxLink#onClick(org.apache.wicket.ajax.AjaxRequestTarget)
+			 */
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				target.appendJavascript("alert('Ajax link');");
+			}
+		};
+		ButtonBehavior buttonBehavior = new ButtonBehavior();
+		buttonBehavior.setLabel("An ajax link with wicket");
+		wicketLink.add(buttonBehavior);
+		add(wicketLink);
 		
 		// Classic buttons
 		add(new Button("firstButton", "A button element"));

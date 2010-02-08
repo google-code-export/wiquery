@@ -11,6 +11,16 @@
 				<tbody>
 					<tr>
 						<td>
+							Behavior button
+						</td>
+						
+						<td>
+							<a href="#" wicket:id="wicketLink">A wicket ajax link</a>
+						</td>
+					</tr>
+				
+					<tr>
+						<td>
 							Classic buttons
 						</td>
 						
