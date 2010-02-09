@@ -14,6 +14,7 @@ import org.odlabs.wiquery.examples.droppable.DroppablePage;
 import org.odlabs.wiquery.examples.effects.EffectsPage;
 import org.odlabs.wiquery.examples.events.EventsPage;
 import org.odlabs.wiquery.examples.javascript.JavascriptPage;
+import org.odlabs.wiquery.examples.position.PositionPage;
 import org.odlabs.wiquery.examples.progressbar.ProgressBarPage;
 import org.odlabs.wiquery.examples.resizable.ResizablePage;
 import org.odlabs.wiquery.examples.selectable.SelectablePage;
@@ -60,5 +61,7 @@ public class HomePage extends WebPage {
 		add(new BookmarkablePageLink<ResizablePage>("resizableLink", ResizablePage.class));
 		add(new BookmarkablePageLink<SelectablePage>("selectableLink", SelectablePage.class));
 		add(new BookmarkablePageLink<SortablePage>("sortableLink", SortablePage.class));
+		
+		add(new BookmarkablePageLink<PositionPage>("positionLink", PositionPage.class));
 	}
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:wicket="http://wicket.apache.org/">
+	<wicket:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>WiQuery application</title>
+		
+		<style type="text/css">
+			#targetElement { 
+				width:240px;
+				height:200px;
+				background-color:#999;
+				margin:30px auto; 
+			}
+			
+			.positionDiv { 
+				width:50px;
+				height:50px;
+				opacity:0.6; 
+			}
+			
+			#position1 {
+				background-color:#F00;
+			}
+			
+			#position2 {
+				background-color:#0F0;
+			}
+			
+			#position3 {
+				background-color:#00F;
+			}
+			
+			#position4 {
+				background-color:#FF0;
+			}
+		</style>
+	</wicket:head>
+	
+	<body>
+		<wicket:extend>
+			<div id="targetElement" style="font-size:62.5%;">
+			  <div class="positionDiv" wicket:id="position1"></div>
+			  <div class="positionDiv" wicket:id="position2"></div>
+			  <div class="positionDiv" wicket:id="position3"></div>
+			  <div class="positionDiv" wicket:id="position4"></div>
+			</div>
+		</wicket:extend>
+	</body>
+</html>
