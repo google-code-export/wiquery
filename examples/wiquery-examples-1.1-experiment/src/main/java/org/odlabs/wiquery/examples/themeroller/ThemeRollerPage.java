@@ -49,6 +49,8 @@ public class ThemeRollerPage extends AbstractExamplePage {
 		themes.add(new WiQueryCoreThemeResourceReference("mint-choc"));
 		themes.add(new WiQueryCoreThemeResourceReference("overcast"));
 		themes.add(new WiQueryCoreThemeResourceReference("pepper-grinder"));
+		themes.add(new WiQueryCoreThemeResourceReference("redmond"));
+		themes.add(new WiQueryCoreThemeResourceReference("smoothness"));
 		themes.add(new WiQueryCoreThemeResourceReference("south-street"));
 		themes.add(new WiQueryCoreThemeResourceReference("start"));
 		themes.add(new WiQueryCoreThemeResourceReference("sunny"));
@@ -56,6 +58,7 @@ public class ThemeRollerPage extends AbstractExamplePage {
 		themes.add(new WiQueryCoreThemeResourceReference("trontastic"));
 		themes.add(new WiQueryCoreThemeResourceReference("ui-darkness"));
 		themes.add(new WiQueryCoreThemeResourceReference("ui-lightness"));
+		themes.add(new WiQueryCoreThemeResourceReference("vader"));
 		
 		themeSelect = new DropDownChoice<WiQueryCoreThemeResourceReference>(
 				"themeSelect", 
