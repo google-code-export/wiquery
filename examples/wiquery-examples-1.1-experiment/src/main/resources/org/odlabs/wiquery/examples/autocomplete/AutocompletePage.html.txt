@@ -11,13 +11,22 @@
 				<thead>
 					<tr>
 						<th>Classic autocomplete</th>
+						<th>Autocomplete with Wicket model</th>
 					</tr>
 				</thead>
 				
 				<tbody>
 					<tr>
-						<td>
+						<td style="border-right: 1px black solid;">
 							<input type="text" wicket:id="autocomplete" />
+						</td>
+						
+						<td>
+							<form action="#" method="post" wicket:id="form">
+								<div wicket:id="autocompleteComponent"></div>
+								<input type="submit" wicket:id="submit"  value="submit"/>
+								<div wicket:id="feedback"></div>
+							</form>
 						</td>
 					</tr>
 					
@@ -38,6 +47,19 @@
 								<li>groovy</li>
 								<li>haskell</li>
 								<li>perl</li>
+							</ul>
+						</td>
+						
+						<td>
+							<p>Possible values :</p>
+							<ul>
+								<li>bob</li>
+								<li>thomas</li>
+								<li>teddy</li>
+								<li>patrick</li>
+								<li>kevin</li>
+								<li>john</li>
+								<li>chris</li>
 							</ul>
 						</td>
 					</tr>

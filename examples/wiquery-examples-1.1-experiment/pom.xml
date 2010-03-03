@@ -12,6 +12,7 @@
 		<wiquery.version>1.1-experiment</wiquery.version>
 		<wicket.version>1.4.6</wicket.version>
 		<groovy.version>1.6.4</groovy.version>
+		<jackson.version>1.4.2</jackson.version>
 	</properties>
 	<dependencies>
 		<!--  WIQUERY DEPENDENCIES -->
@@ -74,7 +75,15 @@
 			<artifactId>groovy-all</artifactId>
 			<version>${groovy.version}</version>
 	    </dependency>
+	    
+	    <!-- JACKSON DEPENDENCIES -->
+	    <dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
 	</dependencies>
+	
 	<build>
 		<resources>
 			<resource>
