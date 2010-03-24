@@ -1,9 +1,13 @@
 package org.odlabs.wiquery.examples.autocomplete;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.wicket.PageParameters;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -13,6 +17,7 @@ import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.examples.AbstractExamplePage;
 import org.odlabs.wiquery.ui.autocomplete.Autocomplete;
+import org.odlabs.wiquery.ui.autocomplete.AutocompleteAjaxComponent;
 import org.odlabs.wiquery.ui.autocomplete.AutocompleteComponent;
 import org.odlabs.wiquery.ui.autocomplete.AutocompleteSource;
 
@@ -77,10 +82,20 @@ public class AutocompletePage extends AbstractExamplePage {
 		}
 	}
 
+	// Constantes
+	/** Constant of serialization */
 	private static final long serialVersionUID = 1L;
+	
+	/** Collection of languages */
+	private static final List<String> languages = new ArrayList<String>(
+				Arrays.asList(
+						"asp", "c", "c++", "coldfusion", "groovy", "haskell", "java", 
+						"javascript", "perl", "php", "python", "ruby", "scala")
+			);
 	
 	// Wicket components
 	private AutocompleteComponent<UserBean> autocompleteComponent;
+	private AutocompleteAjaxComponent<String> autocompleteAjaxComponent;
 	
 	/**
 	 * Constructor that is invoked when page is invoked without a session.
@@ -162,5 +177,62 @@ public class AutocompletePage extends AbstractExamplePage {
 							}
 		};
 		form.add(autocompleteComponent);
+		
+		// AutocompleteAjaxComponent
+		Form<String> formAjax = new Form<String>("formAjax");
+		final FeedbackPanel feedbackAjax = new FeedbackPanel("feedbackAjax");
+		feedbackAjax.setOutputMarkupId(true);
+		add(formAjax);
+		formAjax.add(feedbackAjax);
+		formAjax.add(new AjaxSubmitLink("submitAjax", formAjax) {
+			private static final long serialVersionUID = 1L;
+			
+			/**
+			 * {@inheritDoc}
+			 * @see org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink#onSubmit(org.apache.wicket.ajax.AjaxRequestTarget, org.apache.wicket.markup.html.form.Form)
+			 */
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				String langague = autocompleteAjaxComponent.getModelObject();
+				
+				if(langague == null){
+					info("No language was specified");
+					
+				} else {
+					info("The language selected was :  '" + langague);
+				}
+				
+				target.addComponent(feedbackAjax);
+			}
+		});
+		
+		autocompleteAjaxComponent = new AutocompleteAjaxComponent<String>("autocompleteAjaxComponent", new Model<String>()) {
+			private static final long serialVersionUID = 1L;
+
+			/**
+			 * {@inheritDoc}
+			 * @see org.odlabs.wiquery.ui.autocomplete.AutocompleteAjaxComponent#getValues(java.lang.String)
+			 */
+			@Override
+			public List<String> getValues(String term) {
+				ArrayList<String> values = new ArrayList<String>();
+				for(String l : languages){
+					if(l.contains(term)){
+						values.add(l);
+					}
+				}
+				return values;
+			}
+			
+			/**
+			 * {@inheritDoc}
+			 * @see org.odlabs.wiquery.ui.autocomplete.AutocompleteAjaxComponent#getValueOnSearchFail(java.lang.String)
+			 */
+			@Override
+			public String getValueOnSearchFail(String input) {
+				return input;
+			}
+		};
+		formAjax.add(autocompleteAjaxComponent);
 	}
 }

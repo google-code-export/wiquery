@@ -21,11 +21,19 @@
 							<input type="text" wicket:id="autocomplete" />
 						</td>
 						
-						<td>
+						<td style="border-right: 1px black solid;">
 							<form action="#" method="post" wicket:id="form">
 								<div wicket:id="autocompleteComponent"></div>
 								<input type="submit" wicket:id="submit"  value="submit"/>
 								<div wicket:id="feedback"></div>
+							</form>
+						</td>
+						
+						<td>
+							<form action="#" method="post" wicket:id="formAjax">
+								<div wicket:id="autocompleteAjaxComponent"></div>
+								<input type="submit" wicket:id="submitAjax"  value="submit"/>
+								<div wicket:id="feedbackAjax"></div>
 							</form>
 						</td>
 					</tr>
@@ -60,6 +68,25 @@
 								<li>kevin</li>
 								<li>john</li>
 								<li>chris</li>
+							</ul>
+						</td>
+						
+						<td>
+							<p>Possible values :</p>
+							<ul>
+								<li>c++</li>
+								<li>java</li>
+								<li>php</li>
+								<li>coldfusion</li>
+								<li>javascript</li>
+								<li>asp</li>
+								<li>ruby</li>
+								<li>python</li>
+								<li>c</li>
+								<li>scala</li>
+								<li>groovy</li>
+								<li>haskell</li>
+								<li>perl</li>
 							</ul>
 						</td>
 					</tr>
