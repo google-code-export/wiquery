@@ -6,29 +6,29 @@ import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
-import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 
 @WiQueryUIPlugin
-public class TableSorter extends WebMarkupContainer implements IWiQueryPlugin{
+public class TableSorter extends WebMarkupContainer implements IWiQueryPlugin {
 
-	
-	private static final long serialVersionUID = 1L;
-	
-	 private JsStatement statement = new JsStatement();
 
-	public TableSorter(String id) {
-		super(id);
-		
-	}
+    private static final long serialVersionUID = 1L;
 
-	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		  wiQueryResourceManager.addJavaScriptResource(TableSorterJavaScriptResourceReference.get());
-	}
+    private JsStatement statement = new JsStatement();
 
-	public JsStatement statement() {
-		this.statement.append( new JsQuery(this).$().append(".tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']})").render() );
-		return this.statement;
-		
-	}
+    public TableSorter(String id) {
+        super(id);
+
+
+    }
+
+    public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+        wiQueryResourceManager.addJavaScriptResource(TableSorterJavaScriptResourceReference.get());
+    }
+
+    public JsStatement statement() {
+        this.statement.append(new JsQuery(this).$().append(".tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']})").render());
+        return this.statement;
+
+    }
 
 }
