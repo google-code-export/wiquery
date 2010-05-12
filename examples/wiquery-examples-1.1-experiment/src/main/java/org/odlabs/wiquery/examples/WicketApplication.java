@@ -7,7 +7,7 @@ import java.net.URL;
 import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.Session;
-import org.odlabs.wiquery.core.commons.merge.WiQueryMergedResources;
+import org.odlabs.wiquery.core.commons.WiQueryOptions;
 import org.odlabs.wiquery.ui.themes.IThemableApplication;
 import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 import org.odlabs.wiquery.utils.WiQueryWebApplication;
@@ -18,7 +18,7 @@ import org.odlabs.wiquery.utils.WiQueryWebApplication;
  * 
  * @see war.Start#main(String[])
  */
-@WiQueryMergedResources(enable=true)
+@WiQueryOptions(enableResourcesMerging=true)
 public class WicketApplication extends WiQueryWebApplication implements IThemableApplication {
 	// Constants
 	/** 
