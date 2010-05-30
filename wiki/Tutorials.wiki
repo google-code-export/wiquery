@@ -7,7 +7,7 @@ This section provides some tutorials to use wiQuery or to create some wiQuery co
 
 = WiQuery Accordion Tutorial - from Nivedan Nadaraj =
 
-The  objective of the blog is to address how the Wiqery Accordion can be built dynamically. There has been an  earlier post in Wiquery on the same but I thought it would nice to add a little more and also provide a maven project for download.
+The  objective of the blog is to address how the Wiqery Accordion can be built dynamically. There has been an  earlier post in Wiquery on the same but I thought it would nice to add a little more and also provide a maven project for download: http://wiquery.googlecode.com/files/wiaccordion.zip.
 
 The Problem:
 
@@ -15,13 +15,13 @@ When I first looked at the Wiquery Accordion control it looked great but I could
 
 Possible Solution:
 
-* Use a repeater like org.apache.wicket.markup.html.list.ListView to render the Accordion so that the markup of the Accordion is generated appropriately.
+# Use a repeater like org.apache.wicket.markup.html.list.ListView to render the Accordion so that the markup of the Accordion is generated appropriately.
 
-* Use the wicket:container tag to keep the generated markup clean
+# Use the wicket:container tag to keep the generated markup clean
 
-* Use a Label control that will represent the section name. Technically the ListItem of the ListView will contain the Label.
+# Use a Label control that will represent the section name. Technically the ListItem of the ListView will contain the Label.
 
-* Finally the data source can be retrieved from a back-end database table. Assuming that the persistence layer is implemented and returns a List`<String>..
+# Finally the data source can be retrieved from a back-end database table. Assuming that the persistence layer is implemented and returns a List<String>..
 
 
 For the sake of a simple example, we build this Accordion on a Page. The accordion can be added into  a Panel as well.
