@@ -28,6 +28,7 @@ For the sake of a simple example, we build this Accordion on a Page. The accordi
 
 The HTML mark up of the Accordion is a follows.
 
+{{{
 <html>
 
   <head>
@@ -56,13 +57,12 @@ The HTML mark up of the Accordion is a follows.
         </body>
 
 </html>
-
- 
-
+}}}
  
 
 On the Java side of things, we create an instance of the Wiquery Accordion control.
 
+{{{
 Accordion accordion = new Accordion(“wiAccordion”);
 
 //A private method that returns a list of Strings getSections
@@ -90,21 +90,19 @@ new Label("sectionNameLbl",sectionName).setRenderBodyOnly(true));
               }
 
   };
-
+}}}
  
 
 Within the ListView's overriden populateItem() we set the Section name with the value in the carModelList into the Label. The ListItem.setRenderBodyOnly is set to true, which I found that when added renders the control without any issue. Although this can be avoid when using the wicket:container, I was not successful using it. I have also used the same set() on the Label, which is not necessary unless you want to get rid of span tags on the final rendered markup.
 
  
+Add the ListView instance into the accordion as a child.
 
-  Add the ListView instance into the accordion as a child.
-
- 
-
+{{{
   accordion.add(  accordionListView);
 
   add(accordion);//Finally add it to the Page
-
+}}}
 
 Note that the for clarity I have used the accordionListView as the identifier on the markup to give an idea that it is a repeater that renders the items of the accordion(sections).The section name is rendered by the Model linked to the Label control, which is the ListItem of the ListView.
 
