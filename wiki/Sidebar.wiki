@@ -9,6 +9,7 @@
       * [QuickStart Quickstart]
       * [UsingWiqueryAppArchetype  WiQuery Maven archtetype]
     * Examples
+    * Tutorials
     * Components
       * Core
       * UI
