@@ -1,13 +1,12 @@
   * [DocumentationHome Home]
   * Information
     * [WhatsNew What's new ?]
-    * [WhatIsWiQuery What is WiQuery ?]
     * [TheCoreTeam The core team]
-    * [ContactMailing Contact / Mailing list]
   * !WiQuery 1.0  
     * Getting started
       * [QuickStart Quickstart]
       * [UsingWiqueryAppArchetype  WiQuery Maven archtetype]
+      * [Plugins Create your own plugins]
     * [Tutorials]
     * Components
       * Core
