@@ -8,8 +8,7 @@
     * Getting started
       * [QuickStart Quickstart]
       * [UsingWiqueryAppArchetype  WiQuery Maven archtetype]
-    * Examples
-    * Tutorials
+    * [Tutorials]
     * Components
       * Core
       * UI
