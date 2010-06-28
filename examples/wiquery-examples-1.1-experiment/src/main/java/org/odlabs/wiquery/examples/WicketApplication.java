@@ -7,7 +7,8 @@ import java.net.URL;
 import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.Session;
-import org.odlabs.wiquery.core.commons.WiQueryOptions;
+import org.odlabs.wiquery.core.commons.IWiQuerySettings;
+import org.odlabs.wiquery.core.commons.WiQuerySettings;
 import org.odlabs.wiquery.ui.themes.IThemableApplication;
 import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 import org.odlabs.wiquery.utils.WiQueryWebApplication;
@@ -18,8 +19,7 @@ import org.odlabs.wiquery.utils.WiQueryWebApplication;
  * 
  * @see war.Start#main(String[])
  */
-@WiQueryOptions(enableResourcesMerging=true)
-public class WicketApplication extends WiQueryWebApplication implements IThemableApplication {
+public class WicketApplication extends WiQueryWebApplication implements IThemableApplication, IWiQuerySettings {
 	// Constants
 	/** 
 	 * meta data for WiQueryCoreHeaderContributor. 
@@ -45,7 +45,7 @@ public class WicketApplication extends WiQueryWebApplication implements IThemabl
 	public GroovyShell getGroovyShell() {
 		return groovyShell;
 	}
-	
+
 	/**
 	 * @see org.apache.wicket.Application#getHomePage()
 	 */
@@ -53,7 +53,7 @@ public class WicketApplication extends WiQueryWebApplication implements IThemabl
 	public Class<HomePage> getHomePage() {
 		return HomePage.class;
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.ui.themes.IThemableApplication#getTheme(org.apache.wicket.Session)
@@ -64,6 +64,17 @@ public class WicketApplication extends WiQueryWebApplication implements IThemabl
 		}
 		
 		return session.getMetaData(WIQUERY_THEME_KEY);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.commons.IWiQuerySettings#getWiQuerySettings()
+	 */
+	public WiQuerySettings getWiQuerySettings() {
+		WiQuerySettings settings = new WiQuerySettings();
+		settings.setEnableResourcesMerging(true);
+		
+		return settings;
 	}
 
 	/**
@@ -79,7 +90,7 @@ public class WicketApplication extends WiQueryWebApplication implements IThemabl
 		System.setProperty("java.security.policy", file.toString());
 		System.setSecurityManager(new SecurityManager());
 	}
-	
+
 	/**
 	 * Change the current theme
 	 * @param theme
