@@ -6,6 +6,8 @@ import java.net.URL;
 
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.Session;
+import org.apache.wicket.protocol.http.HttpSessionStore;
+import org.apache.wicket.session.ISessionStore;
 import org.odlabs.wiquery.ui.themes.IThemableApplication;
 import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 import org.odlabs.wiquery.utils.WiQueryWebApplication;
@@ -40,10 +42,18 @@ public class WicketApplication extends WiQueryWebApplication implements IThemabl
 		super.init();
 		groovyShell = new GroovyShell();
 		
-		ClassLoader myClassLoader = Thread.currentThread().getContextClassLoader();
-		URL file = myClassLoader.getResource("groovy/security/groovy.policy");
-		System.setProperty("java.security.policy", file.toString());
-		System.setSecurityManager(new SecurityManager());
+		try{
+			ClassLoader myClassLoader = Thread.currentThread().getContextClassLoader();
+			URL file = myClassLoader.getResource("groovy/security/groovy.policy");
+			System.setProperty("java.security.policy", file.toString());
+			System.setSecurityManager(new SecurityManager());
+			
+		} catch(Exception e){
+			System.out.println("Can't apply security policy");
+		}
+		
+		//remove thread monitoring from resource watcher
+		this.getResourceSettings().setResourcePollFrequency(null);
 	}
 	
 	/**
@@ -61,12 +71,28 @@ public class WicketApplication extends WiQueryWebApplication implements IThemabl
 		return HomePage.class;
 	}
 
+	/**
+	 * Method to set a wiquery theme
+	 * @param theme
+	 */
 	public void setTheme(ResourceReference theme) {
 		this.theme = theme;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.ui.themes.IThemableApplication#getTheme(org.apache.wicket.Session)
+	 */
 	public ResourceReference getTheme(Session session) {
 		return theme;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @see org.apache.wicket.protocol.http.WebApplication#newSessionStore()
+	 */
+	@Override
+	protected ISessionStore newSessionStore() {
+		return new HttpSessionStore(this);
+	}
 }
