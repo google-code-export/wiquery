@@ -9,3 +9,5 @@ Wiki: http://wiki.github.com/lionelarmanet/wiquery-plugin/
 = Current plugins=
 
   * CKEditor: in current developpement -> http://github.com/rochejul/wiquery-ckeditor
+
+http://wiquery.googlecode.com/svn/examples/wiquery-examples/src/main/java/org/odlabs/wiquery/examples/HomePage.html
