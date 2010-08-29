@@ -2,12 +2,14 @@
   * Information
     * [WhatsNew What's new ?]
     * [TheCoreTeam The core team]
-  * !WiQuery 1.0  
+  * !WiQuery 1.0.1  
     * Getting started
       * [QuickStart Quickstart]
       * [UsingWiqueryAppArchetype  WiQuery Maven archtetype]
       * [Plugins Create your own plugins]
     * [Maven Repository]
+    * Javadoc
+      * [http://wiquery.googlecode.com/svn/javadoc/1.0.1/index.html 1.0.1]
     * [Tutorials]
     * Components
       * Core
