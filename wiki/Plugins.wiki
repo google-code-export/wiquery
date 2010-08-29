@@ -9,3 +9,4 @@ Wiki: http://wiki.github.com/lionelarmanet/wiquery-plugin/
 = Current plugins=
 
   * CKEditor: in current developpement -> http://github.com/rochejul/wiquery-ckeditor
+  * HotKeys: http://github.com/rochejul/wiquery-hotkeys
