@@ -1,0 +1,39 @@
+#summary This pages contains the wish list for future versions of wiQuery.
+#labels Phase-Requirements
+
+= wiQuery 1.0.2 =
+
+   
+
+= wiQuery 1.1.experiment =
+
+-Re-factor Options class to allow the use of IModels for property values. This would allow components (e.g. Dialog) to be more compatible with Wicket as well as use dynamic values for properties. Make options a wicket model so that Wicket itself takes care of detaching? Recursive detaching of IModel values for Option properties?
+
+- Re-factor AJAX behavior event usage pattern. Right now it is
+{{{
+new XXXAjaxBehavior(EnumXXX.EVENT1, EnumXXX.EVENT2) {
+   onEvent1() {
+   }
+
+   onEvent2() {
+   }
+
+   ....
+   onEventN() {
+   }
+} 
+}}}
+which is a bit odd because you have methods onEventX() event if you are not using them. Replace it with a pattern
+{{{
+new XXXAjaxBehavior().addYYYEventHandler(
+ new IXXXEventHandler() {
+    onOvent() {
+    } 
+ }
+); 
+}}}
+So that only needed events should be added.
+
+- Provide versions of widgets that generate "in-line" JavaScripts. Current versions of widgets use Wicket machinery for contributing JS so widgets are not usable in components like jqGrid that not use Wicket's AJAX to retrieve server side content.
+
+-Provide a list of new widgets and features to implement?
