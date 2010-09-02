@@ -3,9 +3,13 @@
 
 = wiQuery 1.0.2 =
 
-   
+- Extract the plugins from thecore api into an external project (or remove it). See issue 74 (http://code.google.com/p/wiquery/issues/detail?id=74)
 
 = wiQuery 1.1.experiment =
+
+- Create a github project with all the current ui themes (jquery ui 1.8.4)
+
+- look on the css / js merger
 
 -Re-factor Options class to allow the use of IModels for property values. This would allow components (e.g. Dialog) to be more compatible with Wicket as well as use dynamic values for properties. Make options a wicket model so that Wicket itself takes care of detaching? Recursive detaching of IModel values for Option properties?
 
