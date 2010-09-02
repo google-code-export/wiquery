@@ -5,8 +5,8 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.odlabs.wiquery.examples.AbstractExamplePage;
 import org.odlabs.wiquery.ui.position.PositionBehavior;
 import org.odlabs.wiquery.ui.position.PositionOffset;
-import org.odlabs.wiquery.ui.position.PositionBehavior.Collision;
-import org.odlabs.wiquery.ui.position.PositionBehavior.Position;
+import org.odlabs.wiquery.ui.position.PositionOptions.Collision;
+import org.odlabs.wiquery.ui.position.PositionOptions.Position;
 
 /**
  * PositionPage
