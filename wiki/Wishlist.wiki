@@ -3,13 +3,25 @@
 
 = wiQuery 1.0.2 =
 
-- Extract the plugins from thecore api into an external project (or remove it). See issue 74 (http://code.google.com/p/wiquery/issues/detail?id=74)
+- Fix issue 60 (apply richard's patch ?)
+
+- Offer more wiQuery options for the configuration. Like issue 67: an option to specify if we use minified script (or compress on the fly) or not. 
+
+- Extract the plugins from the core api into an external project (or remove it). See issue 74 (http://code.google.com/p/wiquery/issues/detail?id=74)
+
+- Merge the jweekend examples with the wiQuery examples ?
+
+- See for the jquery namespaces conflict ? Check if the issue is still available and in which cases (issue 34)
 
 = wiQuery 1.1.experiment =
 
 - Create a github project with all the current ui themes (jquery ui 1.8.4)
 
-- look on the css / js merger
+- look on the css / js merger (test and improve it)
+
+- Use of IModel into the Options
+
+- Improve the examples (see Ernesto examples, with a jQuery UI theme, plugins samples and with the code explorer)
 
 -Re-factor Options class to allow the use of IModels for property values. This would allow components (e.g. Dialog) to be more compatible with Wicket as well as use dynamic values for properties. Make options a wicket model so that Wicket itself takes care of detaching? Recursive detaching of IModel values for Option properties?
 
@@ -41,3 +53,5 @@ So that only needed events should be added.
 - Provide versions of widgets that generate "in-line" JavaScripts. Current versions of widgets use Wicket machinery for contributing JS so widgets are not usable in components like jqGrid that not use Wicket's AJAX to retrieve server side content.
 
 -Provide a list of new widgets and features to implement?
+
+- More documentations
