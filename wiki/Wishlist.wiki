@@ -5,7 +5,7 @@
 
 - Fix issue 60 (apply richard's patch ?)
 
-- Offer more wiQuery options for the configuration. Like issue 67: an option to specify if we use minified script (or compress on the fly) or not. 
+- Offer more wiQuery options for the configuration. Like issue 67: an option to specify if we use minified script (or compress on the fly) or not.  And issue 89, where the user can specify the jquery version to inject into the CoreJavascriptResourceReference
 
 - Extract the plugins from the core api into an external project (or remove it). See issue 74 (http://code.google.com/p/wiquery/issues/detail?id=74)
 
