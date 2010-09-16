@@ -19,8 +19,6 @@
 
 - look on the css / js merger (test and improve it)
 
-- Use of IModel into the Options
-
 - Improve the examples (see Ernesto examples, with a jQuery UI theme, plugins samples and with the code explorer)
 
 -Re-factor Options class to allow the use of IModels for property values. This would allow components (e.g. Dialog) to be more compatible with Wicket as well as use dynamic values for properties. Make options a wicket model so that Wicket itself takes care of detaching? Recursive detaching of IModel values for Option properties?
