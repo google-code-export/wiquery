@@ -28,9 +28,8 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
+import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id$
@@ -99,14 +98,13 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 		 options = new Options();
 	}
 
-	/**
-	 * {@inheritDoc}
+	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	@Override
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
+		wiQueryResourceManager
+				.addJavaScriptResource(CoreUIJavaScriptResourceReference.get());
 		wiQueryResourceManager
 				.addJavaScriptResource(SelectableJavaScriptResourceReference.get());
 	}
@@ -161,7 +159,7 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public ToleranceEnum getTolerance() {
 		String tolerance = this.options.getLiteral("tolerance");
-		return tolerance == null ? ToleranceEnum.TOUCH : ToleranceEnum.valueOf(tolerance.toUpperCase());
+		return tolerance == null ? null : ToleranceEnum.valueOf(tolerance.toUpperCase());
 	}
 
 	/**
@@ -185,27 +183,6 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 	public SelectableBehavior setAutoRefresh(boolean autoRefresh) {
 		this.options.put("autoRefresh", autoRefresh);
 		return this;
-	}
-	
-	/**Disables (true) or enables (false) the selectable. Can be set when 
-	 * initialising (first creating) the selectable.
-	 * @param disabled
-	 * @return instance of the current behavior
-	 */
-	public SelectableBehavior setDisabled(boolean disabled) {
-		this.options.put("disabled", disabled);
-		return this;
-	}
-	
-	/**
-	 * @return the disabled option
-	 */
-	public boolean isDisabled() {
-		if(this.options.containsKey("disabled")){
-			return this.options.getBoolean("disabled");
-		}
-		
-		return false;
 	}
 
 	/** Set's the prevent selecting if you start on elements matching the selector
@@ -257,8 +234,7 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 		return this;
 	}
 
-	/**
-	 * {@inheritDoc}
+	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
 	 */
 	@Override
@@ -388,19 +364,5 @@ public class SelectableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public void refresh(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.refresh().render().toString());
-	}
-	
-	/**Method to returns the .ui-selectable  element
-	 * @return the associated JsStatement
-	 */
-	public JsStatement widget() {
-		return new JsQuery(getComponent()).$().chain("selectable", "'widget'");
-	}
-
-	/**Method to returns the .ui-selectable  element within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

@@ -45,7 +45,7 @@ public class ShakeEffectJavaScriptResourceReference extends JavascriptResourceRe
 	 * Default constructor
 	 */
 	private ShakeEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.shake.min.js");
+		super(CoreEffectJavaScriptResourceReference.class, "effects.shake.js");
 	}
 
 	/**

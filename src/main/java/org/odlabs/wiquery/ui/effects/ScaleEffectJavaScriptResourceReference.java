@@ -45,7 +45,7 @@ public class ScaleEffectJavaScriptResourceReference extends JavascriptResourceRe
 	 * Default constructor
 	 */
 	private ScaleEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.scale.min.js");
+		super(CoreEffectJavaScriptResourceReference.class, "effects.scale.js");
 	}
 
 	/**

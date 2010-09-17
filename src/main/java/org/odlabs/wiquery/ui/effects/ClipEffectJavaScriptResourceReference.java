@@ -45,7 +45,7 @@ public class ClipEffectJavaScriptResourceReference extends JavascriptResourceRef
 	 * Default constructor
 	 */
 	private ClipEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.clip.min.js");
+		super(CoreEffectJavaScriptResourceReference.class, "effects.clip.js");
 	}
 
 	/**

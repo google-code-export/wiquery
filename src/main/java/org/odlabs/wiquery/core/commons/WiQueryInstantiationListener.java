@@ -1,16 +1,16 @@
 /*
  * Copyright (c) 2009 WiQuery team
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -40,12 +40,12 @@ import org.apache.wicket.behavior.HeaderContributor;
  * The added header contributor will generated the needed JavaScript code and
  * will import all needed resources (e.g. CSS/JavaScript files).
  * </p>
- *
+ * 
  * @author Lionel Armanet
  * @since 0.6
  */
 public class WiQueryInstantiationListener implements
-		IComponentInstantiationListener, Serializable {
+IComponentInstantiationListener, Serializable {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -7398777039788778234L;
@@ -61,7 +61,7 @@ public class WiQueryInstantiationListener implements
 
 			if(app.getMetaData(WiQueryInitializer.WIQUERY_INSTANCE_KEY) != null) {
 				throw new WicketRuntimeException(
-						"There is an existed WiQueryInstantiationListener attached to the application " +
+						"There is an existed WiQueryInstantiationListener attached to the application " + 
 						Thread.currentThread().getName());
 			}
 
@@ -77,7 +77,6 @@ public class WiQueryInstantiationListener implements
 	public void onInstantiation(final Component component) {
 		// theme management
 		if (component instanceof IWiQueryPlugin) {
-			// binding component as a plugin
 			component.add(new HeaderContributor(new WiQueryCoreHeaderContributor()));
 		}
 	}

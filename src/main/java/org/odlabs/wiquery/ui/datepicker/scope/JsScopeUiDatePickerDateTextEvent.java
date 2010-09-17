@@ -22,8 +22,6 @@
 package org.odlabs.wiquery.ui.datepicker.scope;
 
 import org.odlabs.wiquery.core.javascript.JsScope;
-import org.odlabs.wiquery.core.javascript.JsScopeContext;
-import org.odlabs.wiquery.core.javascript.JsStatement;
 
 
 /**
@@ -45,50 +43,5 @@ public abstract class JsScopeUiDatePickerDateTextEvent extends JsScope {
 	 */
 	public JsScopeUiDatePickerDateTextEvent() {
 		super("dateText", "inst");
-	}
-	
-	/**
-	 * Creates a default {@link JsScopeUiDatePickerDateTextEvent} to execute the given statement.
-	 * 
-	 * @param javascriptCode
-	 *            the JavaScript statement to execute with the scope.
-	 * @return the created {@link JsScopeUiDatePickerDateTextEvent}.
-	 */
-	public static JsScopeUiDatePickerDateTextEvent quickScope(final CharSequence javascriptCode) {
-		return new JsScopeUiDatePickerDateTextEvent() {
-			private static final long serialVersionUID = 1L;
-
-			/**
-			 * {@inheritDoc}
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
-			@Override
-			protected void execute(JsScopeContext scopeContext) {
-				scopeContext.append(javascriptCode);
-			}
-
-		};
-	}
-	
-	/**
-	 * Creates a default {@link JsScopeUiDatePickerDateTextEvent} to execute the given statement.
-	 * 
-	 * @param jsStatement
-	 *            the JavaScript statement to execute with the scope.
-	 * @return the created {@link JsScopeUiDatePickerDateTextEvent}.
-	 */
-	public static JsScopeUiDatePickerDateTextEvent quickScope(final JsStatement jsStatement) {
-		return new JsScopeUiDatePickerDateTextEvent() {
-			private static final long serialVersionUID = 1L;
-
-			/**
-			 * {@inheritDoc}
-			 * @see org.odlabs.wiquery.core.javascript.JsScope#execute(org.odlabs.wiquery.core.javascript.JsScopeContext)
-			 */
-			@Override
-			protected void execute(JsScopeContext scopeContext) {
-				scopeContext.append(jsStatement == null ? "" : jsStatement.render());
-			}
-		};
 	}
 }

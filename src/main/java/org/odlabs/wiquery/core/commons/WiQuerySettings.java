@@ -64,7 +64,6 @@ public class WiQuerySettings implements Serializable {
 
 	// Properties
 	private boolean autoImportJQueryResource;
-	private boolean enableResourcesMerging;
 	private List<WiQueryPluginRenderingListener> listeners;
 	
 	/**
@@ -74,7 +73,6 @@ public class WiQuerySettings implements Serializable {
 		super();
 		
 		autoImportJQueryResource = true;
-		enableResourcesMerging = false;
 		listeners = new ArrayList<WiQueryPluginRenderingListener>();
 	}
 	
@@ -102,25 +100,10 @@ public class WiQuerySettings implements Serializable {
 	}
 	
 	/**
-	 * @return the state of the enableResourcesMerging option
-	 */
-	public boolean isEnableResourcesMerging() {
-		return enableResourcesMerging;
-	}
-	
-	/**
 	 * Set the autoImportJQueryResource option
 	 * @param autoImportJQueryResource
 	 */
 	public void setAutoImportJQueryResource(boolean autoImportJQueryResource) {
 		this.autoImportJQueryResource = autoImportJQueryResource;
-	}
-	
-	/**
-	 * Set the enableResourcesMerging option
-	 * @param enableResourcesMerging
-	 */
-	public void setEnableResourcesMerging(boolean enableResourcesMerging) {
-		this.enableResourcesMerging = enableResourcesMerging;
 	}
 }

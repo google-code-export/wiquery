@@ -31,7 +31,6 @@ import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.options.UiOptionsRenderer;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id$
@@ -65,7 +64,6 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(ProgressBarJavaScriptResourceReference.get());
 	}
 
@@ -97,27 +95,6 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	}
 
 	/*---- Options section ---*/
-	
-	/**Disables (true) or enables (false) the progressBar. Can be set when 
-	 * initialising (first creating) the progressBar.
-	 * @param disabled
-	 * @return instance of the current behavior
-	 */
-	public ProgressBar setDisabled(boolean disabled) {
-		this.options.put("disabled", disabled);
-		return this;
-	}
-	
-	/**
-	 * @return the disabled option
-	 */
-	public boolean isDisabled() {
-		if(this.options.containsKey("disabled")){
-			return this.options.getBoolean("disabled");
-		}
-		
-		return false;
-	}
 	
 	/**Sets the current value of the progressBar
 	 * @param value
@@ -232,12 +209,14 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @return the associated JsStatement
 	 */
 	public JsStatement increment(int increment) {
+		String varValue = "value_inc_" + getMarkupId(true);
+		
 		JsStatement statement = new JsStatement();
+		statement.append("var " + varValue + "= " + Math.abs(increment) 
+				+ " + " + value().render());
 		statement.append(new JsQuery(this).$().chain(
 								"progressbar", "'value'", 
-								new JsQuery(this).$().chain(
-										"progressbar", "'value'").render(false) + " + " + increment
-								).render());
+								varValue).render());
 		
 		return statement;
 	}
@@ -269,12 +248,14 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @return the associated JsStatement
 	 */
 	public JsStatement decrement(int decrement) {
+		String varValue = "value_dec_" + getMarkupId(true);
+		
 		JsStatement statement = new JsStatement();
+		statement.append("var " + varValue + "= -" + Math.abs(decrement) +
+				" + " + value().render());
 		statement.append(new JsQuery(this).$().chain(
 								"progressbar", "'value'", 
-								new JsQuery(this).$().chain(
-										"progressbar", "'value'").render(false) + " - " + decrement
-								).render());
+								varValue).render());
 		
 		return statement;
 	}
@@ -292,19 +273,5 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public void decrement(AjaxRequestTarget ajaxRequestTarget, int decrement) {
 		ajaxRequestTarget.appendJavascript(this.decrement(decrement).render().toString());
-	}
-	
-	/**Method to returns the .ui-progressbar  element
-	 * @return the associated JsStatement
-	 */
-	public JsStatement widget() {
-		return new JsQuery(this).$().chain("progressbar", "'widget'");
-	}
-
-	/**Method to returns the .ui-progressbar element within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

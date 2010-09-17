@@ -42,7 +42,7 @@ public class CoreJavaScriptResourceReference extends
 	/**
 	 * Singleton instance.
 	 */
-	private static CoreJavaScriptResourceReference instance = new CoreJavaScriptResourceReference();;
+	private static CoreJavaScriptResourceReference instance = new CoreJavaScriptResourceReference();
 
 	/**
 	 * Returns the {@link CoreJavaScriptResourceReference} instance.
@@ -54,12 +54,11 @@ public class CoreJavaScriptResourceReference extends
 	private static String resolveLibrary() {
 		// returns a full version when application isn't in production mode
 		Application application = Application.get();
-		
 		if (Application.DEVELOPMENT.equals(application.getConfigurationType())) {
 			return "jquery/jquery-1.4.2.js";	
+		} else {
+			return "jquery/jquery-1.4.2.min.js";			
 		}
-		
-		return "jquery/jquery-1.4.2.min.js";
 	}
 
 	/**

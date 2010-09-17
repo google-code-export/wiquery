@@ -22,7 +22,7 @@
 package org.odlabs.wiquery.core.options;
 
 import java.io.Serializable;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -59,7 +59,7 @@ public class Options implements Serializable {
 	 * The internal structure is a map associating each option label with each
 	 * option value.
 	 */
-	protected Map<String, Object> options = new LinkedHashMap<String, Object>();
+	protected Map<String, Object> options = new HashMap<String, Object>();
 
 	/**
 	 * The {@link IOptionsRenderer} to use.
@@ -77,15 +77,10 @@ public class Options implements Serializable {
 	}
 
 	/**
-	 * <p>
-	 * Returns if the given option is defined or not.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
+	 * @return true if no options are defined, false otherwise.
 	 */
-	public boolean containsKey(Object key) {
-		return options.containsKey(key);
+	public boolean isEmpty() {
+		return this.options.isEmpty();
 	}
 
 	/**
@@ -98,7 +93,7 @@ public class Options implements Serializable {
 	 */
 	public String get(String key) {
 		Object object = options.get(key);
-		return object == null ? null : object.toString();
+		return object.toString();
 	}
 
 	/**
@@ -109,10 +104,10 @@ public class Options implements Serializable {
 	 * @param key
 	 *            the option name.
 	 */
-	public boolean getBoolean(String key) {
+	public int getInt(String key) {
 		Object object = this.options.get(key);
-		assert (object instanceof Boolean);
-		return ((Boolean) this.options.get(key)).booleanValue();
+		assert (object instanceof Integer);
+		return ((Integer) object).intValue();
 	}
 
 	/**
@@ -120,16 +115,13 @@ public class Options implements Serializable {
 	 * Returns the given option value.
 	 * </p>
 	 * 
-	 * @param key the option name.
-	 * @return the complex option
+	 * @param key
+	 *            the option name.
 	 */
-	public IComplexOption getComplexOption(String key) {
+	public short getShort(String key) {
 		Object object = this.options.get(key);
-		if (object == null) {
-			return null;
-		}
-		assert (object instanceof IComplexOption);
-		return (IComplexOption) object;
+		assert (object instanceof Short);
+		return ((Short) object).shortValue();
 	}
 	
 	/**
@@ -168,10 +160,168 @@ public class Options implements Serializable {
 	 * @param key
 	 *            the option name.
 	 */
-	public int getInt(String key) {
+	public boolean getBoolean(String key) {
 		Object object = this.options.get(key);
-		assert (object instanceof Integer);
-		return ((Integer) object).intValue();
+		assert (object instanceof Boolean);
+		return ((Boolean) this.options.get(key)).booleanValue();
+	}
+
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 */
+	public String getLiteral(String key) {
+		Object object = this.options.get(key);
+		if (object == null) {
+			return null;
+		}
+		assert (object instanceof LiteralOption);
+		return ((LiteralOption) object).getLiteral();
+	}
+	
+	/**
+	 * <p>
+	 * Puts a complex option value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the IComplexOption.
+	 */
+	public Options put(String key, IComplexOption value){
+		options.put(key, value);
+		return this;
+	}
+	
+	/**
+	 * <p>
+	 * Puts a list of IListItemOption value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the IListItemOption list.
+	 */
+	public Options put(String key, ICollectionItemOptions value){
+		options.put(key, value);
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Puts a {@link String} value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the {@link String} value.
+	 */
+	public Options put(String key, String value) {
+		options.put(key, value);
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Puts a {@link JsScope} value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the {@link JsScope} value.
+	 */
+	public Options put(String key, JsScope value) {
+		options.put(key, value);
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Puts a {@link String} value as a JavaScript literal for the given name.
+	 * <p>
+	 * Note that the JavaScript resulting from this options will be
+	 * <code>'value'</code>
+	 * </p>
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the {@link LiteralOption} value.
+	 */
+	public Options putLiteral(String key, String value) {
+		options.put(key, new LiteralOption(value));
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Puts an int value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the int value.
+	 */
+	public Options put(String key, int value) {
+		options.put(key, value);
+		return this;
+	}
+	
+	/**
+	 * <p>
+	 * Puts an double value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the float double.
+	 */
+	public Options put(String key, double value) {
+		options.put(key, value);
+		return this;
+	}
+
+	public Options put(String key, float value) {
+		options.put(key, value);
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Put an boolean value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the boolean value.
+	 */
+	public Options put(String key, boolean value) {
+		options.put(key, value);
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Removes an option for a given name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option's key to remove.
+	 */
+	public void removeOption(String key) {
+		this.options.remove(key);
 	}
 
 	/**
@@ -216,6 +366,23 @@ public class Options implements Serializable {
 	 * </p>
 	 * 
 	 * @param key the option name.
+	 * @return the complex option
+	 */
+	public IComplexOption getComplexOption(String key) {
+		Object object = this.options.get(key);
+		if (object == null) {
+			return null;
+		}
+		assert (object instanceof IComplexOption);
+		return (IComplexOption) object;
+	}
+	
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key the option name.
 	 * @return the list
 	 */
 	public ICollectionItemOptions getListItemOptions(String key) {
@@ -226,199 +393,17 @@ public class Options implements Serializable {
 		assert (object instanceof ICollectionItemOptions);
 		return (ICollectionItemOptions) object;
 	}
-	
-	/**
-	 * <p>
-	 * Returns the given option value.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 */
-	public String getLiteral(String key) {
-		Object object = this.options.get(key);
-		if (object == null) {
-			return null;
-		}
-		assert (object instanceof LiteralOption);
-		return ((LiteralOption) object).getLiteral();
-	}
 
 	/**
 	 * <p>
-	 * Returns the given option value.
+	 * Returns if the given option is defined or not.
 	 * </p>
 	 * 
 	 * @param key
 	 *            the option name.
 	 */
-	public short getShort(String key) {
-		Object object = this.options.get(key);
-		assert (object instanceof Short);
-		return ((Short) object).shortValue();
-	}
-
-	/**
-	 * @return true if no options are defined, false otherwise.
-	 */
-	public boolean isEmpty() {
-		return this.options.isEmpty();
-	}
-
-	/**
-	 * <p>
-	 * Put an boolean value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the boolean value.
-	 */
-	public Options put(String key, boolean value) {
-		options.put(key, value);
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * Puts an double value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the float double.
-	 */
-	public Options put(String key, double value) {
-		options.put(key, value);
-		return this;
-	}
-	
-	public Options put(String key, float value) {
-		options.put(key, value);
-		return this;
-	}
-	
-	/**
-	 * <p>
-	 * Puts a list of IListItemOption value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the IListItemOption list.
-	 */
-	public Options put(String key, ICollectionItemOptions value){
-		options.put(key, value);
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * Puts a complex option value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the IComplexOption.
-	 */
-	public Options put(String key, IComplexOption value){
-		options.put(key, value);
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * Puts an int value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the int value.
-	 */
-	public Options put(String key, int value) {
-		options.put(key, value);
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * Puts a {@link JsScope} value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the {@link JsScope} value.
-	 */
-	public Options put(String key, JsScope value) {
-		options.put(key, value);
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * Puts an short value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the short value.
-	 */
-	public Options put(String key, short value) {
-		options.put(key, value);
-		return this;
-	}
-	
-	/**
-	 * <p>
-	 * Puts a {@link String} value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the {@link String} value.
-	 */
-	public Options put(String key, String value) {
-		options.put(key, value);
-		return this;
-	}
-	
-	/**
-	 * <p>
-	 * Puts a {@link String} value as a JavaScript literal for the given name.
-	 * <p>
-	 * Note that the JavaScript resulting from this options will be
-	 * <code>'value'</code>
-	 * </p>
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the {@link LiteralOption} value.
-	 */
-	public Options putLiteral(String key, String value) {
-		options.put(key, new LiteralOption(value));
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * Removes an option for a given name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option's key to remove.
-	 */
-	public void removeOption(String key) {
-		this.options.remove(key);
+	public boolean containsKey(Object key) {
+		return options.containsKey(key);
 	}
 
 	/**

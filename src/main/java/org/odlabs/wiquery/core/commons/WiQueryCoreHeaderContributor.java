@@ -1,16 +1,16 @@
 /*
  * Copyright (c) 2009 WiQuery team
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,7 +32,6 @@ import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.Page;
 import org.apache.wicket.RequestCycle;
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.Component.IVisitor;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.IBehavior;
@@ -41,9 +40,6 @@ import org.apache.wicket.markup.html.IHeaderResponse;
 import org.odlabs.wiquery.core.commons.listener.JQueryCoreRenderingListener;
 import org.odlabs.wiquery.core.commons.listener.JQueryUICoreRenderingListener;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
-import org.odlabs.wiquery.core.commons.merge.WiQueryHeaderResponse;
-import org.odlabs.wiquery.core.commons.merge.WiQueryMergedJavaScriptResourceReference;
-import org.odlabs.wiquery.core.commons.merge.WiQueryMergedStyleSheetResourceReference;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
@@ -57,9 +53,10 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  * a "dom ready" statement. Otherwise (in Ajax contexts, the generated
  * JavaScript is directly append to the given {@link AjaxRequestTarget}.
  * </p>
- *
+ * 
  * @author Benoit Bouchez
  * @author Lionel Armanet
+ * @author Richard Wilkinson
  */
 public class WiQueryCoreHeaderContributor implements Serializable,
 IHeaderContributor {
@@ -101,8 +98,6 @@ IHeaderContributor {
 				pluginRenderingListeners.add(iterator.next());
 			}
 
-			// Shall we merge ?
-			boolean enableResourcesMerging = instanciation.isEnableResourcesMerging();
 
 			// the response is a unique statement containing all statements
 			// to call
@@ -110,7 +105,6 @@ IHeaderContributor {
 			JsStatement jsStatement = new JsStatement();
 			JsStatement tempStatement = null;
 			IRequestTarget target = RequestCycle.get().getRequestTarget();
-			IHeaderResponse headerResponse = null;
 			IWiQueryPlugin plugin = null;
 
 			final List<IWiQueryPlugin> plugins = new ArrayList<IWiQueryPlugin>();
@@ -170,13 +164,6 @@ IHeaderContributor {
 				}
 			}
 
-			WiQueryHeaderResponse wiQueryHeaderResponse = new WiQueryHeaderResponse();
-			if(enableResourcesMerging){
-				wiQueryHeaderResponse.setIHeaderResponse(response);
-				headerResponse = wiQueryHeaderResponse;
-			} else {
-				headerResponse = response;
-			}
 
 			WiQueryResourceManager manager = new WiQueryResourceManager();
 
@@ -191,36 +178,13 @@ IHeaderContributor {
 
 				// calling listeners to compute specific stuff
 				for (WiQueryPluginRenderingListener listener : pluginRenderingListeners) {
-					listener.onRender(plugin, manager, headerResponse);
+					listener.onRender(plugin, manager, response);
 				}
 				plugin.contribute(manager);
 			}
 
-			manager.initialize(headerResponse);
+			manager.initialize(response);
 
-			if(enableResourcesMerging){
-				// Merging of stylesheet resources
-				if(!wiQueryHeaderResponse.getStylesheet().isEmpty()){
-					response.renderCSSReference(
-							new WiQueryMergedStyleSheetResourceReference(wiQueryHeaderResponse));
-				}
-
-				// Insertion of non mergeable stylesheet
-				for(ResourceReference ref : wiQueryHeaderResponse.getStylesheetUnmergeable()){
-					response.renderCSSReference(ref);
-				}
-
-				// Merging of javascript resources
-				if(!wiQueryHeaderResponse.getJavascript().isEmpty()){
-					response.renderJavascriptReference(
-							new WiQueryMergedJavaScriptResourceReference(wiQueryHeaderResponse));
-				}
-
-				// Insertion of non mergeable javascript
-				for(ResourceReference ref : wiQueryHeaderResponse.getJavascriptUnmergeable()){
-					response.renderJavascriptReference(ref);
-				}
-			}
 
 			jsq.setStatement(jsStatement);
 			jsq.renderHead(response, target);

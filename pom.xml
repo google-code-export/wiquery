@@ -8,14 +8,19 @@
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery</artifactId>
 	<packaging>jar</packaging>
-	<version>1.1-alpha</version>
+	<version>1.0.2</version>
 
 	<name>WiQuery project</name>
 
 	<scm>
-		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/wiquery-1.1-experiment/</developerConnection>
+		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/1.0.2/</developerConnection>
 	</scm>
-	
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<wicket.version>1.4.9</wicket.version>
+	</properties>
+
 	<distributionManagement>
 		<repository>
 			<uniqueVersion>false</uniqueVersion>
@@ -23,7 +28,7 @@
 			<url>svn:https://wiquery.googlecode.com/svn/repo</url>
 		</repository>
 	</distributionManagement>
-	
+
 	<repositories>
 		<repository>
 			<id>maven2-repository.dev.java.net</id>
@@ -32,13 +37,14 @@
 		</repository>
 	</repositories>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wicket.version>1.4.9</wicket.version>
-		<jackson.version>1.4.2</jackson.version>
-	</properties>
-
 	<build>
+		<extensions>
+			<extension>
+				<groupId>org.jvnet.wagon-svn</groupId>
+				<artifactId>wagon-svn</artifactId>
+				<version>1.9</version>
+			</extension>
+		</extensions>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -98,7 +104,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<scmConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/wiquery-1.1-experiment</scmConnection>
+					<scmConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/1.0.2</scmConnection>
 					<doCheck>false</doCheck>
 					<doUpdate>false</doUpdate>
 				</configuration>
@@ -111,13 +117,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<extensions>
-			<extension>
-				<groupId>org.jvnet.wagon-svn</groupId>
-				<artifactId>wagon-svn</artifactId>
-				<version>1.9</version>
-			</extension>
-		</extensions>
 	</build>
 
 	<dependencies>
@@ -135,12 +134,6 @@
 			<artifactId>wicket</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
 
 		<!-- Test dependencies -->
 		<dependency>
@@ -153,15 +146,16 @@
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.6.0</version>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.4.2</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
-			<scope>provided</scope>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>

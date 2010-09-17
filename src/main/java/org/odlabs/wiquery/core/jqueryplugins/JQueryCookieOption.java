@@ -21,14 +21,11 @@
  */
 package org.odlabs.wiquery.core.jqueryplugins;
 
-import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.util.string.Strings;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.datepicker.DateOption;
-import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
  * $Id: JQueryCookieOption
@@ -44,14 +41,13 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * @author Julien Roche
  * @since 1.0
  */
-public class JQueryCookieOption extends Object implements IComplexOption {
+public final class JQueryCookieOption extends Object implements IComplexOption {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 9153408474806895999L;
 	
 	// Properties
 	private String value;
-	private String name;
 	private Options options;
 	
 	/**
@@ -60,17 +56,11 @@ public class JQueryCookieOption extends Object implements IComplexOption {
 	 */
 	public JQueryCookieOption(String name) {
 		super();
-		
-		if(Strings.isEmpty(name)){
-			throw new WicketRuntimeException("name cannot be null or empty");
-		}
-		
 		options = new Options();
 		setName(name);
 	}
 
-	/**
-	 * {@inheritDoc}
+	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
 	 */
 	public CharSequence getJavascriptOption() {
@@ -89,9 +79,8 @@ public class JQueryCookieOption extends Object implements IComplexOption {
 	/** Set's the domain name (example: server.domain.net)
 	 * @param domain
 	 */
-	public JQueryCookieOption setDomain(String domain) {
+	public void setDomain(String domain) {
 		this.options.putLiteral("domain", domain);
-		return this;
 	}
 	
 	/**
@@ -105,16 +94,15 @@ public class JQueryCookieOption extends Object implements IComplexOption {
 	 * Set's with a Number or a Date the time of validation of the cookie
 	 * @param expires
 	 */
-	public JQueryCookieOption setExpires(DateOption expires) {
+	public void setExpires(DateOption expires) {
 		this.options.put("expires", expires);
-		return this;
 	}
 	
 	/**
 	 * @return the expires option value
 	 */
 	public DateOption getExpires() {
-		IComplexOption expires = this.options.getComplexOption("expires");
+		IComplexOption expires = this.options.getListItemOptions("expires");
 		
 		if(expires != null && expires instanceof DateOption){
 			return (DateOption) expires;
@@ -126,24 +114,22 @@ public class JQueryCookieOption extends Object implements IComplexOption {
 	/** Set's the name of the cookie
 	 * @param name
 	 */
-	private JQueryCookieOption setName(String name) {
-		this.name = name;
-		return this;
+	private void setName(String name) {
+		this.options.putLiteral("name", name);
 	}
 	
 	/**
 	 * @return the name option value
 	 */
 	public String getName() {
-		return name;
+		return this.options.getLiteral("name");
 	}
 	
 	/** Set's the path ("/" or "http://server.domain.net" for examples)
 	 * @param path
 	 */
-	public JQueryCookieOption setPath(String path) {
+	public void setPath(String path) {
 		this.options.putLiteral("path", path);
-		return this;
 	}
 	
 	/**
@@ -156,28 +142,22 @@ public class JQueryCookieOption extends Object implements IComplexOption {
 	/**Set's the transaction security status (must we enable the SSL protocol ?)
 	 * @param secure
 	 */
-	public JQueryCookieOption setSecure(boolean secure) {
+	public void setSecure(boolean secure) {
 		this.options.put("secure", secure);
-		return this;
 	}
 	
 	/**
 	 * @return the secure option value
 	 */
 	public boolean isSecure() {
-		if(this.options.containsKey("secure")){
-			return this.options.getBoolean("secure");
-		}
-		
-		return false;
+		return this.options.getBoolean("secure");
 	}
 	
 	/** Set's the value of the cookie
 	 * @param value
 	 */
-	public JQueryCookieOption setValue(String value) {
+	public void setValue(String value) {
 		this.value = value;
-		return this;
 	}
 	
 	/**
@@ -194,7 +174,7 @@ public class JQueryCookieOption extends Object implements IComplexOption {
 	 * @return the associated JsStatement
 	 */
 	public JsStatement deleteCookie() {
-		return new JsStatement().$().chain("cookie", JsUtils.quotes(getName()), "null", 
+		return new JsStatement().$().chain("cookie", getName(), "null", 
 				getJavascriptOption());
 	}
 
@@ -210,7 +190,7 @@ public class JQueryCookieOption extends Object implements IComplexOption {
 	 * @return the associated JsStatement
 	 */
 	public JsStatement getCookie() {
-		return new JsStatement().$().chain("cookie", JsUtils.quotes(getName()));
+		return new JsStatement().$().chain("cookie", getName());
 	}
 	
 	/**Method to set the cookie
@@ -218,8 +198,8 @@ public class JQueryCookieOption extends Object implements IComplexOption {
 	 * @return the associated JsStatement
 	 */
 	public JsStatement setCookie() {
-		return new JsStatement().$().chain("cookie", JsUtils.quotes(getName()), 
-				JsUtils.quotes(getValue()), getJavascriptOption());
+		return new JsStatement().$().chain("cookie", getName(), 
+				getJavascriptOption());
 	}
 
 	/**Method to set the cookie within the ajax request

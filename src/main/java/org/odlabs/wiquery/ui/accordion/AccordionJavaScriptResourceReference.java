@@ -44,7 +44,7 @@ public class AccordionJavaScriptResourceReference extends
 	 * Builds a new instance of {@link AccordionJavaScriptResourceReference}.
 	 */
 	private AccordionJavaScriptResourceReference() {
-		super(AccordionJavaScriptResourceReference.class, "jquery.ui.accordion.min.js");
+		super(AccordionJavaScriptResourceReference.class, "ui.accordion.js");
 	}
 
 	/**

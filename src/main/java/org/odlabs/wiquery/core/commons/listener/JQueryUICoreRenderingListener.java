@@ -44,8 +44,7 @@ import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
  */
 public class JQueryUICoreRenderingListener implements
 		WiQueryPluginRenderingListener, Serializable {
-	// Constants
-	/** Constant of serialization */
+
 	private static final long serialVersionUID = -6556629662991246699L;
 	
 	/**
@@ -61,10 +60,6 @@ public class JQueryUICoreRenderingListener implements
 		return DEFAULT_THEME;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener#onRender(org.odlabs.wiquery.core.commons.IWiQueryPlugin, org.odlabs.wiquery.core.commons.WiQueryResourceManager, org.apache.wicket.markup.html.IHeaderResponse)
-	 */
 	public void onRender(IWiQueryPlugin plugin,
 			WiQueryResourceManager resourceManager, IHeaderResponse response) {
 		if (plugin.getClass().isAnnotationPresent(WiQueryUIPlugin.class)) {

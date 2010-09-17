@@ -22,7 +22,6 @@
 package org.odlabs.wiquery.core.options;
 
 import java.io.Serializable;
-import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
  * $Id$
@@ -41,21 +40,14 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * @since 0.5
  */
 public class LiteralOption implements Serializable, IListItemOption {
-	// Constants
-	/** Constant of serialization */
+
 	private static final long serialVersionUID = 6999431516689050752L;
 
-	// Properties
-	/**
-	 * Put Double quote ?
-	 */
-	private boolean doubleQuote;
-	
 	/**
 	 * The wrapped {@link String}
 	 */
 	private String literal;
-	
+
 	/**
 	 * <p>
 	 * Builds a new instance of {@link LiteralOption}.
@@ -65,26 +57,11 @@ public class LiteralOption implements Serializable, IListItemOption {
 	 *            the wrapped {@link String}
 	 */
 	public LiteralOption(String literal) {
-		this(literal, false);
-	}
-
-	/**
-	 * <p>
-	 * Builds a new instance of {@link LiteralOption}.
-	 * </p>
-	 * 
-	 * @param literal
-	 *            the wrapped {@link String}
-	 * @param doubleQuote Must we insert double quote ?
-	 */
-	public LiteralOption(String literal, boolean doubleQuote) {
 		super();
 		this.literal = literal;
-		this.doubleQuote = doubleQuote;
 	}
 
-	/**
-	 * {@inheritDoc}
+	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
 	 */
 	public CharSequence getJavascriptOption() {
@@ -98,12 +75,13 @@ public class LiteralOption implements Serializable, IListItemOption {
 		return literal;
 	}
 	
-	/**
-	 * {@inheritDoc}
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return doubleQuote ? JsUtils.doubleQuotes(literal) : JsUtils.quotes(literal);
+		return "'" + literal + "'";
 	}
 }

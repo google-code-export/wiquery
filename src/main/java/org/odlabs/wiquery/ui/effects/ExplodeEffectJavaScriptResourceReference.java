@@ -45,7 +45,7 @@ public class ExplodeEffectJavaScriptResourceReference extends JavascriptResource
 	 * Default constructor
 	 */
 	private ExplodeEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.explode.min.js");
+		super(CoreEffectJavaScriptResourceReference.class, "effects.explode.js");
 	}
 
 	/**

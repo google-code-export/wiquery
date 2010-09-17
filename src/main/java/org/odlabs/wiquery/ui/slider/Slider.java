@@ -34,8 +34,6 @@ import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id: Slider.java
@@ -89,8 +87,6 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(SliderJavaScriptResourceReference.get());
 	}
 
@@ -114,7 +110,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param animate
 	 * @return instance of the current component
 	 */
-	public Slider setAnimate(SliderAnimate animate) {
+	public Slider setAnimate(boolean animate) {
 		this.options.put("animate", animate);
 		return this;
 	}
@@ -122,30 +118,9 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	/**
 	 * @return the animate option value
 	 */
-	public SliderAnimate isAnimate() {
-		if(this.options.getComplexOption("animate") instanceof SliderAnimate){
-			return (SliderAnimate) this.options.getComplexOption("animate");
-		}
-		
-		return new SliderAnimate(false);
-	}
-	
-	/**Disables (true) or enables (false) the slider. Can be set when 
-	 * initialising (first creating) the slider.
-	 * @param disabled
-	 * @return instance of the current behavior
-	 */
-	public Slider setDisabled(boolean disabled) {
-		this.options.put("disabled", disabled);
-		return this;
-	}
-	
-	/**
-	 * @return the disabled option
-	 */
-	public boolean isDisabled() {
-		if(this.options.containsKey("disabled")){
-			return this.options.getBoolean("disabled");
+	public boolean isAnimate() {
+		if(this.options.containsKey("animate")){
+			return this.options.getBoolean("animate");
 		}
 		
 		return false;
@@ -165,7 +140,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public Number getMax() {
 		if(this.options.containsKey("max")){
-			return this.options.getFloat("max");
+			return this.options.getInt("max");
 		}
 		
 		return 100;
@@ -207,7 +182,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public Orientation getOrientation() {
 		String orientation = this.options.getLiteral("orientation");
-		return orientation == null ? Orientation.HORIZONTAL : Orientation.valueOf(orientation.toUpperCase());
+		return orientation == null ? null : Orientation.valueOf(orientation.toUpperCase());
 	}
 	
 	/**If set to true, the slider will detect if you have two handles and create
@@ -231,7 +206,7 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 			return (SliderRange) range;
 		}
 		
-		return new SliderRange(false);
+		return null;
 	}
 	
 	/**Sets the size or amount of each interval or step the slider takes between 
@@ -402,20 +377,6 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 		ajaxRequestTarget.appendJavascript(this.value(value).render().toString());
 	}
 	
-	/**Method to get the values of the slider.
-	 * @return the associated JsStatement
-	 */
-	public JsStatement values() {
-		return new JsQuery(this).$().chain("slider", "'values'");
-	}
-
-	/**Method to set the current values of the slider within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void values(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.values().render().toString());
-	}
-	
 	/**Method to set the values of the slider. For multiple handle or range sliders.
 	 * @param index
 	 * @param value
@@ -433,19 +394,5 @@ public class Slider extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public void values(AjaxRequestTarget ajaxRequestTarget, int index, int value) {
 		ajaxRequestTarget.appendJavascript(this.values(index, value).render().toString());
-	}
-	
-	/**Method to returns the .ui-slider  element
-	 * @return the associated JsStatement
-	 */
-	public JsStatement widget() {
-		return new JsQuery(this).$().chain("slider", "'widget'");
-	}
-
-	/**Method to returns the .ui-slider element within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

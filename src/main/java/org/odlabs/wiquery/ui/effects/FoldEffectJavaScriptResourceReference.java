@@ -45,7 +45,7 @@ public class FoldEffectJavaScriptResourceReference extends JavascriptResourceRef
 	 * Default constructor
 	 */
 	private FoldEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.fold.min.js");
+		super(CoreEffectJavaScriptResourceReference.class, "effects.fold.js");
 	}
 
 	/**

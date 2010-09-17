@@ -44,15 +44,13 @@ import org.apache.wicket.util.time.Time;
  */
 public class WiqueryGeneratedJavaScriptResourceReference extends
 		ResourceReference implements IClusterable {
-	// Constants
-	/** Constant of serialization */
+
 	private static final long serialVersionUID = 1L;
 	
-	/** Template's name */
 	private static final String TEMPLATE_NAME = "wiquery-gen.js";
 	
-	// Properties
 	private CharSequence javaScriptCode;
+	
 	private PackagedTextTemplate jstemplate = new PackagedTextTemplate(WiqueryGeneratedJavaScriptResourceReference.class, "wiquery-gen.js");
 	
 	/**
@@ -74,10 +72,6 @@ public class WiqueryGeneratedJavaScriptResourceReference extends
 		return jstemplate.asString();
 	}
 	
-	/**
-	 * Constructor
-	 * @param javaScriptCode
-	 */
 	public WiqueryGeneratedJavaScriptResourceReference(CharSequence javaScriptCode) {
 		super(WiqueryGeneratedJavaScriptResourceReference.class, System.currentTimeMillis() + TEMPLATE_NAME);
 		this.javaScriptCode = javaScriptCode;
@@ -94,10 +88,6 @@ public class WiqueryGeneratedJavaScriptResourceReference extends
 		return new Resource() {
 			private static final long serialVersionUID = 1L;
 
-			/**
-			 * {@inheritDoc}
-			 * @see org.apache.wicket.Resource#getResourceStream()
-			 */
 			public IResourceStream getResourceStream() {
 				final String stringValue = wiqueryGeneratedJavascriptCode(javaScriptCode);
 				return new StringResourceStream(stringValue);

@@ -188,8 +188,8 @@ public class JsQuery implements Serializable, IHeaderContributor {
 				JsStatement onreadyStatement = new JsStatement();
 				onreadyStatement.document().ready(JsScope.quickScope(js));
 //				response.renderJavascriptReference(
-//						new WiqueryGeneratedJavaScriptResourceReference(
-//								onreadyStatement.render()));
+//				new WiqueryGeneratedJavaScriptResourceReference(
+//						onreadyStatement.render()));
 				// We don't use WiqueryGeneratedJavaScriptResourceReference because :
 				// 1) it could cause some memory leak with the SharedApplication
 				// 2) with ajax update, we will have the execution of the first generation of the page
@@ -198,7 +198,7 @@ public class JsQuery implements Serializable, IHeaderContributor {
 						WiqueryGeneratedJavaScriptResourceReference.wiqueryGeneratedJavascriptCode(
 								onreadyStatement.render()), 
 						"wiquery-gen" + System.currentTimeMillis());
-			
+		
 			} else {
 				AjaxRequestTarget ajaxRequestTarget = (AjaxRequestTarget) requestTarget;
 				ajaxRequestTarget.appendJavascript(js);

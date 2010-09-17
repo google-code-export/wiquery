@@ -29,11 +29,9 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.IComplexOption;
-import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id$
@@ -77,7 +75,6 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(AccordionJavaScriptResourceReference.get());
 	}
 
@@ -99,31 +96,6 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	}
 	
 	/*---- Options section ---*/
-	
-	/**
-	 * Sets the effect to apply when the accordion's content is switched.
-	 * 
-	 * @param animationEffect
-	 *            the effect name to apply. Set it empty if you don't want to
-	 *            apply any effect.
-	 * @return instance of the current component
-	 */
-	public Accordion setAnimated(AccordionAnimated animationEffect) {
-		this.options.put("animated", animationEffect);
-		return this;
-	}
-	
-	/**
-	 * @return the animated option value
-	 */
-	public AccordionAnimated getAnimated() {
-		IComplexOption animated = this.options.getComplexOption("animated");
-		if(animated != null && animated instanceof AccordionAnimated){
-			return (AccordionAnimated) animated;
-		}
-		
-		return new AccordionAnimated("slide");
-	}
 
 	/**
 	 * Sets the effect to apply when the accordion's content is switched.
@@ -132,10 +104,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 *            the effect name to apply. Set it empty if you don't want to
 	 *            apply any effect.
 	 * @return instance of the current component
-	 * @deprecated will be removed in 1.2
-	 * @see Accordion#setAnimated(AccordionAnimated)
 	 */
-	@Deprecated
 	public Accordion setAnimationEffect(AccordionAnimated animationEffect) {
 		this.options.put("animated", animationEffect);
 		return this;
@@ -143,17 +112,14 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	
 	/**
 	 * @return the animated option value
-	 * @deprecated will be removed in 1.2
-	 * @see Accordion#getAnimated()
 	 */
-	@Deprecated
 	public AccordionAnimated getAnimationEffect() {
 		IComplexOption animated = this.options.getComplexOption("animated");
 		if(animated != null && animated instanceof AccordionAnimated){
 			return (AccordionAnimated) animated;
 		}
 		
-		return new AccordionAnimated("slide");
+		return null;
 	}
 
 	/**
@@ -183,31 +149,12 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 
 	/**
 	 * Sets the {@link AccordionTriggerEvent} to use to open content.
-	 * @deprecated will be removed in 1.2
 	 * @return instance of the current component
 	 */
-	@Deprecated
 	public Accordion setTriggerEvent(AccordionTriggerEvent accordionTriggerEvent) {
-		return setEvent(accordionTriggerEvent);
-	}
-
-	/**
-	 * Returns the {@link AccordionTriggerEvent}.
-	 * @deprecated will be removed in 1.2
-	 * @see #setTriggerEvent(org.objetdirect.wickext.ui.accordion.Accordion.AccordionTriggerEvent)
-	 */
-	@Deprecated
-	public AccordionTriggerEvent getTriggerEvent() {
-		return getEvent();
-	}
-	
-	/**
-	 * Sets the {@link AccordionTriggerEvent} to use to open content.
-	 * @return instance of the current component
-	 */
-	public Accordion setEvent(AccordionTriggerEvent accordionTriggerEvent) {
 		this.options.putLiteral("event", accordionTriggerEvent.name()
 				.toLowerCase());
+		// TODO use of EventLabelOptions instead of AccordionTriggerEvent ?
 		return this;
 	}
 
@@ -216,7 +163,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 * 
 	 * @see #setTriggerEvent(org.objetdirect.wickext.ui.accordion.Accordion.AccordionTriggerEvent)
 	 */
-	public AccordionTriggerEvent getEvent() {
+	public AccordionTriggerEvent getTriggerEvent() {
 		String literal = this.options.getLiteral("event");
 		return literal == null ? AccordionTriggerEvent.CLICK : 
 			AccordionTriggerEvent.valueOf(literal.toUpperCase());
@@ -247,27 +194,6 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 		
 		return false;
 	}
-	
-	/**Disables (true) or enables (false) the accordion. Can be set when 
-	 * initialising (first creating) the accordion.
-	 * @param disabled
-	 * @return instance of the current behavior
-	 */
-	public Accordion setDisabled(boolean disabled) {
-		this.options.put("disabled", disabled);
-		return this;
-	}
-	
-	/**
-	 * @return the disabled option
-	 */
-	public boolean isDisabled() {
-		if(this.options.containsKey("disabled")){
-			return this.options.getBoolean("disabled");
-		}
-		
-		return false;
-	}
 
 	/**
 	 * Sets the CSS selector used to defined a header in this accordion.
@@ -287,7 +213,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 			return (AccordionHeader) header;
 		}
 		
-		return new AccordionHeader(new LiteralOption("> li> :first-child, > :not(li):even"));
+		return null;
 	}
 
 	/**
@@ -376,7 +302,7 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 			return (AccordionIcon) icons;
 		}
 		
-		return new AccordionIcon("ui-icon-triangle-1-e", "ui-icon-triangle-1-s");
+		return null;
 	}
 	
 	/**
@@ -505,19 +431,5 @@ public class Accordion extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
-	}
-	
-	/**Method to returns the .ui-accordion  element
-	 * @return the associated JsStatement
-	 */
-	public JsStatement widget() {
-		return new JsQuery(this).$().chain("accordion", "'widget'");
-	}
-
-	/**Method to returns the .ui-accordion  element within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }
