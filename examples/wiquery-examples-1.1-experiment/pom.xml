@@ -18,6 +18,11 @@
 			<name>Google Maven Repository</name>
 			<url>http://google-maven-repository.googlecode.com/svn/repository/</url>
 		</repository>
+		
+		<repository>
+			<id>wiquery-maven-repo</id>
+			<url>http://wiquery.googlecode.com/svn/repo</url>
+		</repository>
 	</repositories>
 
 	<pluginRepositories>
@@ -26,12 +31,17 @@
 			<name>Maven Google App Engine Repository</name>
 			<url>http://maven-gae-plugin.googlecode.com/svn/repository/</url>
 		</pluginRepository>
+		
+		<pluginRepository>
+			<id>wiquery-maven-repo</id>
+			<url>http://wiquery.googlecode.com/svn/repo</url>
+		</pluginRepository>
 	</pluginRepositories>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jetty.version>6.1.17</jetty.version>
-		<wiquery.version>1.1-experiment</wiquery.version>
+		<wiquery.version>1.1-alpha</wiquery.version>
 		<wicket.version>1.4.9</wicket.version>
 		<groovy.version>1.6.4</groovy.version>
 		<jackson.version>1.4.2</jackson.version>
