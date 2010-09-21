@@ -83,6 +83,7 @@ public class SelectablePage extends AbstractExamplePage {
 	    
 	    final Label ajaxSelectedResult = new Label("ajaxSelectedResult", new Model<String>());
 	    ajaxSelectedResult.setOutputMarkupId(true);
+	    ajaxSelectedResult.setVersioned(false); // GAE fix. Otherwise java.security.AccessControlException: access denied (java.io.SerializablePermission enableSubstitution)
 	    add(ajaxSelectedResult);
 	    
 	    WebMarkupContainer selectableAjaxWicket = new WebMarkupContainer("selectableAjaxWicket");

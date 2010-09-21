@@ -111,6 +111,7 @@ public class DroppablePage extends AbstractExamplePage {
 	    selectionLabel = new Label("selectionLabel", new Model<String>());
 	    selectionLabel.setOutputMarkupPlaceholderTag(true);
 	    selectionLabel.setEscapeModelStrings(false);
+	    selectionLabel.setVersioned(false); // GAE fix. Otherwise java.security.AccessControlException: access denied (java.io.SerializablePermission enableSubstitution)
 	    add(selectionLabel);
 	}
 	
