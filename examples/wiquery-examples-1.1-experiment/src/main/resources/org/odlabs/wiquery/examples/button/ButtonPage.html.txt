@@ -7,62 +7,64 @@
 	
 	<body>
 		<wicket:extend>
-			<table style="height: 100%; width: 100%;">				
-				<tbody>
-					<tr>
-						<td>
-							Behavior button
-						</td>
-						
-						<td>
-							<a href="#" wicket:id="wicketLink">A wicket ajax link</a>
-						</td>
-					</tr>
-				
-					<tr>
-						<td>
-							Classic buttons
-						</td>
-						
-						<td>
-							<button wicket:id="firstButton">[A button element]</button>
-							<input value="A submit button" type="submit" wicket:id="secondButton" />
-							<a href="#" wicket:id="thirdButton">[An anchor]</a>
-							<button wicket:id="fourthButton">[An other button element]</button>
-						</td>
-					</tr>
+			<form wicket:id="formButtons">
+				<table style="height: 100%; width: 100%;">				
+					<tbody>
+						<tr>
+							<td>
+								Behavior button
+							</td>
+							
+							<td>
+								<a href="#" wicket:id="wicketLink">A wicket ajax link</a>
+							</td>
+						</tr>
 					
-					<tr>
-						<td>
-							Ajax button
-						</td>
+						<tr>
+							<td>
+								Classic buttons
+							</td>
+							
+							<td>
+								<button wicket:id="firstButton">[A button element]</button>
+								<input value="A submit button" type="submit" wicket:id="secondButton" />
+								<a href="#" wicket:id="thirdButton">[An anchor]</a>
+								<button wicket:id="fourthButton">[An other button element]</button>
+							</td>
+						</tr>
 						
-						<td>
-							<button wicket:id="fifthButton">[An ajax button]</button>
-						</td>
-					</tr>
-					
-					<tr>
-						<td>
-							Set of radios button
-						</td>
+						<tr>
+							<td>
+								Ajax button
+							</td>
+							
+							<td>
+								<button wicket:id="fifthButton">[An ajax button]</button>
+							</td>
+						</tr>
 						
-						<td>
-							<wicket:container wicket:id="radioSet"></wicket:container>
-						</td>
-					</tr>
-					
-					<tr>
-						<td>
-							Set of checks button
-						</td>
+						<tr>
+							<td>
+								Set of radios button
+							</td>
+							
+							<td>
+								<wicket:container wicket:id="radioSet"></wicket:container>
+							</td>
+						</tr>
 						
-						<td>
-							<wicket:container wicket:id="checkSet"></wicket:container>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+						<tr>
+							<td>
+								Set of checks button
+							</td>
+							
+							<td>
+								<wicket:container wicket:id="checkSet"></wicket:container>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
 		</wicket:extend>
 	</body>
 </html>
