@@ -8,12 +8,14 @@ import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.HttpSessionStore;
+import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.session.ISessionStore;
 import org.odlabs.wiquery.core.commons.IWiQuerySettings;
 import org.odlabs.wiquery.core.commons.WiQuerySettings;
 import org.odlabs.wiquery.ui.themes.IThemableApplication;
 import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
-import org.odlabs.wiquery.utils.WiQueryWebApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Application object for your web application. If you want to run this
@@ -21,8 +23,11 @@ import org.odlabs.wiquery.utils.WiQueryWebApplication;
  * 
  * @see war.Start#main(String[])
  */
-public class WicketApplication extends WiQueryWebApplication implements IThemableApplication, IWiQuerySettings {
+public class WicketApplication extends WebApplication implements IThemableApplication, IWiQuerySettings {
 	// Constants
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(WicketApplication.class);
+	
 	/** 
 	 * meta data for WiQueryCoreHeaderContributor. 
 	 */
@@ -94,7 +99,7 @@ public class WicketApplication extends WiQueryWebApplication implements IThemabl
 			System.setSecurityManager(new SecurityManager());
 			
 		} catch(Exception e){
-			System.out.println("Can't apply security policy");
+			LOGGER.error("Can't apply security policy");
 		}
 		
 		//remove thread monitoring from resource watcher
