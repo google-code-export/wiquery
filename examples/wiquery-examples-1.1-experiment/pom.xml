@@ -41,7 +41,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jetty.version>6.1.17</jetty.version>
-		<wiquery.version>1.1-alpha</wiquery.version>
+		<wiquery.version>1.1-SNAPSHOT</wiquery.version>
 		<wicket.version>1.4.9</wicket.version>
 		<groovy.version>1.6.4</groovy.version>
 		<jackson.version>1.4.2</jackson.version>
@@ -160,7 +160,13 @@
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket</artifactId>
 			<version>${wicket.version}</version>
+		</dependency>		
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-extensions</artifactId>
+			<version>${wicket.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -170,6 +176,12 @@
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>0.9.22</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>de.java2html</groupId>
+			<artifactId>java2html</artifactId>
+			<version>5.0</version>	
 		</dependency>
 		
 		<!--  JETTY DEPENDENCIES FOR TESTING  -->

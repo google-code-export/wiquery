@@ -4,16 +4,17 @@ import groovy.lang.GroovyShell;
 
 import java.net.URL;
 
-import org.apache.wicket.MetaDataKey;
+import org.apache.wicket.Request;
 import org.apache.wicket.ResourceReference;
+import org.apache.wicket.Response;
 import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.HttpSessionStore;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.session.ISessionStore;
 import org.odlabs.wiquery.core.commons.IWiQuerySettings;
 import org.odlabs.wiquery.core.commons.WiQuerySettings;
+import org.odlabs.wiquery.examples.themes.UITheme;
 import org.odlabs.wiquery.ui.themes.IThemableApplication;
-import org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,13 +28,7 @@ public class WicketApplication extends WebApplication implements IThemableApplic
 	// Constants
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(WicketApplication.class);
-	
-	/** 
-	 * meta data for WiQueryCoreHeaderContributor. 
-	 */
-	private static final MetaDataKey<ResourceReference> WIQUERY_THEME_KEY = new MetaDataKey<ResourceReference>() {
-		private static final long serialVersionUID = 1L;
-	};
+
 	
 	// Properties
 	/** Groovy Shell */
@@ -46,6 +41,10 @@ public class WicketApplication extends WebApplication implements IThemableApplic
 		super();
 	}
 
+	public static WicketApplication getApp() {
+		return (WicketApplication)get();
+	}
+	
 	/**
 	 * @return the Groovy Shell
 	 */
@@ -53,6 +52,12 @@ public class WicketApplication extends WebApplication implements IThemableApplic
 		return groovyShell;
 	}
 
+	@Override
+	public Session newSession(Request request, Response response) {
+		// TODO Auto-generated method stub
+		return new DemoSession(request);
+	}
+	
 	/**
 	 * @see org.apache.wicket.Application#getHomePage()
 	 */
@@ -65,12 +70,8 @@ public class WicketApplication extends WebApplication implements IThemableApplic
 	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.ui.themes.IThemableApplication#getTheme(org.apache.wicket.Session)
 	 */
-	public ResourceReference getTheme(Session session) {
-		if(session.getMetaData(WIQUERY_THEME_KEY) == null){
-			session.setMetaData(WIQUERY_THEME_KEY, new WiQueryCoreThemeResourceReference("fusion"));
-		}
-		
-		return session.getMetaData(WIQUERY_THEME_KEY);
+	public ResourceReference getTheme(Session session) {		
+		return ((DemoSession)session).getTheme().getTheme();
 	}
 
 	/**
@@ -79,7 +80,7 @@ public class WicketApplication extends WebApplication implements IThemableApplic
 	 */
 	public WiQuerySettings getWiQuerySettings() {
 		WiQuerySettings settings = new WiQuerySettings();
-		settings.setEnableResourcesMerging(true);
+		//settings.setEnableResourcesMerging(true);
 		
 		return settings;
 	}
@@ -110,8 +111,8 @@ public class WicketApplication extends WebApplication implements IThemableApplic
 	 * Change the current theme
 	 * @param theme
 	 */
-	public void setTheme(ResourceReference theme) {
-		Session.get().setMetaData(WIQUERY_THEME_KEY, theme);
+	public void setTheme(UITheme theme) {
+		DemoSession.getSession().setTheme(theme);
 	}
 	
 	/**

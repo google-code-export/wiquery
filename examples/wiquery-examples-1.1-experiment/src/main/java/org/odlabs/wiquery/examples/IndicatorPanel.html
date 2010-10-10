@@ -1,0 +1,20 @@
+<html xmlns:wicket="org.apache.wicket">
+<head>
+</head>
+<body>
+<wicket:panel>
+<div>
+	<div style="float: right;">
+		<a wicket:id="link"></a>
+		<div wicket:id="modalWindow">
+		</div>
+	</div>
+</div>
+<div style="height: 20px;"></div>
+<span wicket:id="contents"></span>
+<div id="veil" onclick="return true;" style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; z-index: 2000; display: none;">
+	<div class="ajaxLoader"></div>
+</div>
+</wicket:panel>
+</body>
+</html>
