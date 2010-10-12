@@ -22,10 +22,10 @@ public class TransformToTXT {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		URL url = TransformToTXT.class.getResource("README.txt");
+		URL url = TransformToTXT.class.getResource("log4j.properties");
 		System.out.println(url.getPath());
 		String path = url.getPath();
-		path = path.substring(1, path.indexOf("/webapp"))+"/java/";
+		path = path.substring(1, path.indexOf("/target"))+"/src/main/java/";
 		for(Class<?> clazz: CLASSES) {
 			String classFolder = path + packageToFolder(clazz.getPackage());
 			System.out.println(clazz.getPackage());
