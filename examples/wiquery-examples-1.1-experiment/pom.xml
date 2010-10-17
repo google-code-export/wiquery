@@ -23,6 +23,12 @@
 			<id>wiquery-maven-repo</id>
 			<url>http://wiquery.googlecode.com/svn/repo</url>
 		</repository>
+		
+		<repository> 
+                <id>maven.atlassian.com</id> 
+                <name>maven.atlassian.com</name> 
+                <url>https://maven.atlassian.com/3rdparty</url> 
+        </repository> 
 	</repositories>
 
 	<pluginRepositories>
