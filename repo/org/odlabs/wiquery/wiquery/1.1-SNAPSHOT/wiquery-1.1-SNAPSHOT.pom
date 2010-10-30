@@ -20,7 +20,7 @@
 		<repository>
 			<uniqueVersion>false</uniqueVersion>
 			<id>wiquery-maven-repo</id>
-			<url>svn:https://wiquery.googlecode.com/svn/repo</url>
+			<url>file://C://temp/test/</url>
 		</repository>
 	</distributionManagement>
 	
