@@ -48,9 +48,9 @@ public class WiQueryInitializer implements IInitializer {
 	 * @see org.apache.wicket.IInitializer#init(org.apache.wicket.Application)
 	 */
 	public void init(Application application) {
-		application.addPostComponentOnBeforeRenderListener(new WiQueryRenderingListener());
-		//check for IWiQuerySettings on the application
-		WiQuerySettings settings = application instanceof IWiQuerySettings ? ((IWiQuerySettings) application).getWiQuerySettings() : null;
-		application.setMetaData(WIQUERY_INSTANCE_KEY, settings == null ? new WiQuerySettings() : settings);
+		if(Application.get().getMetaData(WIQUERY_INSTANCE_KEY) == null) {
+			// No WiQueryInstantiationListener was defined
+			application.addComponentInstantiationListener(new WiQueryInstantiationListener());
+		}
 	}
 }

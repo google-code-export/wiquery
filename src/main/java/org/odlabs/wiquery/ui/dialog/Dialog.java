@@ -32,10 +32,7 @@ import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
-import org.odlabs.wiquery.ui.position.PositionJavascriptResourceReference;
 import org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id$
@@ -94,15 +91,9 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 		this.setPosition(WindowPosition.CENTER);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
-	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(PositionJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(DialogJavaScriptResourceReference.get());
+		// TODO USE DEPENDENCIES MANGEMENT
 		wiQueryResourceManager
 				.addJavaScriptResource(DraggableJavaScriptResourceReference.get());
 		wiQueryResourceManager
@@ -186,7 +177,6 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ratio
 	 *            a float value between 0 and 1 (1 is 100% black overlay)
 	 * @return instance of the current component
-	 * @deprecated will be removed in 1.3
 	 */
 	public Dialog setOverlayRatio(float ratio) {
 		// TODO nested options !
@@ -263,7 +253,6 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	public Dialog setPosition(WindowPosition windowPosition) {
 		options.putLiteral("position", windowPosition.name().toLowerCase());
 		return this;
-		// TODO change the parameter of this method
 	}
 
 	/**
@@ -271,24 +260,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public WindowPosition getPosition() {
 		String literal = options.getLiteral("position");
-		return literal == null ? WindowPosition.CENTER : WindowPosition.valueOf(literal.toUpperCase());
-	}
-	
-	/**
-	 * Sets a the text for the close button
-	 * @return instance of the current component
-	 */
-	public Dialog setCloseText(String closeText) {
-		options.putLiteral("closeText", closeText);
-		return this;
-	}
-
-	/**
-	 * @return the closeText option
-	 */
-	public String getCloseText() {
-		String closeText = options.getLiteral("closeText");
-		return closeText == null ? "close" : closeText;
+		return WindowPosition.valueOf(literal.toUpperCase());
 	}
 
 	/**
@@ -304,8 +276,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * Returns the css class applied to customize this window.
 	 */
 	public String getCssClass() {
-		String dialogClass = options.getLiteral("dialogClass");
-		return dialogClass == null ? "*" : dialogClass;
+		return options.get("dialogClass");
 	}
 
 	/**
@@ -467,7 +438,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public String getTitle() {
 		if (this.options.containsKey("title")) {
-			return this.options.getLiteral("title");
+			return this.options.get("title");
 		}
 		return "";
 	}
@@ -501,7 +472,6 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * plugin.
 	 * @param bgiframe
 	 * @return instance of the current component
-	 * @deprecated will be removed in 1.3
 	 */
 	public Dialog setBgiframe(boolean bgiframe) {
 		this.options.put("bgiframe", bgiframe);
@@ -509,52 +479,11 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	}
 
 	/**
-	 * @deprecated will be removed in 1.3
 	 * @returns <code>true</code> if the bgiframe plugin will be used
 	 */
 	public boolean isBgiframe() {
 		if(this.options.containsKey("bgiframe")){
 			return this.options.getBoolean("bgiframe");
-		}
-		
-		return false;
-	}
-	
-	/**
-	 * The specified class name(s) will be added to the dialog, for additional theming.
-	 * @return instance of the current component
-	 */
-	public Dialog setDialogClass(String dialogClass) {
-		options.putLiteral("dialogClass", dialogClass);
-		return this;
-	}
-
-	/**
-	 * @return the dialogClass option
-	 */
-	public String getDialogClass() {
-		if (this.options.containsKey("dialogClass")) {
-			return this.options.getLiteral("dialogClass");
-		}
-		return "";
-	}
-	
-	/**Disables (true) or enables (false) the dialog. Can be set when 
-	 * initialising (first creating) the dialog.
-	 * @param disabled
-	 * @return instance of the current behavior
-	 */
-	public Dialog setDisabled(boolean disabled) {
-		this.options.put("disabled", disabled);
-		return this;
-	}
-	
-	/**
-	 * @return the disabled option
-	 */
-	public boolean isDisabled() {
-		if(this.options.containsKey("disabled")){
-			return this.options.getBoolean("disabled");
 		}
 		
 		return false;
@@ -569,23 +498,10 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 		this.options.put("draggable", draggable);
 		return this;
 	}
-	
-	/**
-	 * @returns <code>true</code> if the dialog is draggable
-	 */
-	public boolean isDraggable() {
-		if(this.options.containsKey("draggable")){
-			return this.options.getBoolean("draggable");
-		}
-		
-		return true;
-	}
 
 	/**
 	 * @returns <code>true</code> if the dialog is draggable
-	 * @deprecated will be removed is 1.2
 	 */
-	@Deprecated
 	public boolean isDraggrable() {
 		if(this.options.containsKey("draggable")){
 			return this.options.getBoolean("draggable");
@@ -663,11 +579,9 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * close will be prevented
 	 * @param beforeclose
 	 * @return instance of the current component
-	 * @deprecated will be removed when we will used jquery ui 1.9 (see ticket http://dev.jqueryui.com/ticket/4669)
 	 */
-	@Deprecated
 	public Dialog setBeforeCloseEvent(JsScopeUiEvent beforeclose) {
-		this.options.put("beforeClose", beforeclose);
+		this.options.put("beforeclose", beforeclose);
 		return this;
 	}
 	
@@ -814,19 +728,5 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public void moveToTop(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.moveToTop().render().toString());
-	}
-	
-	/**Method to returns the .ui-dialog  element
-	 * @return the associated JsStatement
-	 */
-	public JsStatement widget() {
-		return new JsQuery(this).$().chain("dialog", "'widget'");
-	}
-
-	/**Method to returns the .ui-dialog element within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

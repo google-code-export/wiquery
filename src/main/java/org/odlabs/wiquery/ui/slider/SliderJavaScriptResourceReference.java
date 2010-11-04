@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.slider;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id$
@@ -32,7 +32,7 @@ import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
  * @since 1.0
  */
 public class SliderJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+		JavascriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
 	
 	/**
@@ -44,7 +44,7 @@ public class SliderJavaScriptResourceReference extends
 	 * Builds a new instance of {@link SliderJavaScriptResourceReference}.
 	 */
 	private SliderJavaScriptResourceReference() {
-		super(SliderJavaScriptResourceReference.class, "jquery.ui.slider.js");
+		super(SliderJavaScriptResourceReference.class, "ui.slider.js");
 	}
 
 	/**

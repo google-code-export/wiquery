@@ -43,9 +43,8 @@ public abstract class ThemeUiHelper {
 	 * All possible icons are displayed here : http://jqueryui.com/themeroller/#themeGallery
 	 * 
 	 * @author Julien roche
-	 * @deprecated use UiIcon  instead
+	 *
 	 */
-	@Deprecated
 	public enum IconEnum {
 		CARAT_1_NORTH								("carat-1-n"),
 		CARAT_1_NORTH_EAST							("carat-1-ne"),
@@ -218,8 +217,7 @@ public abstract class ThemeUiHelper {
 		GRIP_SOLID_VERTICAL							("grip-solid-vertical"),
 		GRIP_SOLID_HORIZONTAL						("grip-solid-horizontal"),
 		GRIPSMALL_DIAGONAL_SE						("gripsmall-diagonal-se"),
-		GRIP_DIAGONAL_SE							("grip-diagonal-se"),
-		INFO										("info");
+		GRIP_DIAGONAL_SE							("grip-diagonal-se");
 		
 		//--------
 		// Properties
@@ -335,19 +333,6 @@ public abstract class ThemeUiHelper {
 						"class", 
 						true, 
 						new Model<String>("ui-icon " + iconEnum.getCssClass()), " "));
-	}
-	
-	/**
-	 * Method to display your composant as an icon
-	 * @param component Wicket component
-	 * @param iconEnum Icon to display
-	 */
-	public static void iconComponent(Component component, UiIcon icon) {
-		component.add(
-				new AttributeAppender(
-						"class", 
-						true, 
-						new Model<String>("ui-icon " + icon.getCssClass()), " "));
 	}
 	
 	/**

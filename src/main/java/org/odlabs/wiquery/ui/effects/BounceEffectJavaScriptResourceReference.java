@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id$
@@ -31,7 +31,7 @@ import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class BounceEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class BounceEffectJavaScriptResourceReference extends JavascriptResourceReference {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = -3565759378628266183L;
@@ -45,7 +45,7 @@ public class BounceEffectJavaScriptResourceReference extends WiQueryJavaScriptRe
 	 * Default constructor
 	 */
 	private BounceEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.bounce.js");
+		super(CoreEffectJavaScriptResourceReference.class, "effects.bounce.js");
 	}
 
 	/**

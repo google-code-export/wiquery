@@ -28,7 +28,6 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsQuery;
-import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.LiteralOption;
@@ -41,7 +40,7 @@ import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerEvent;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
 
 /**
- * $Id$
+ * $Id: $
  * <p>
  * 	An inline DatePicker as described in 
  * <a href="http://jqueryui.com/demos/datepicker/#inline">here</a>.
@@ -178,23 +177,6 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 		return this.options.getAppendText();
 	}
 	
-	/**
-	 * Set to true to automatically resize the input field to accomodate dates 
-	 * in the current dateFormat.
-	 * @return instance of the current component
-	 */
-	public InlineDatePicker<T> setAutoSize(boolean autoSize) {
-		options.setAutoSize(autoSize);
-		return this;
-	}
-
-	/**
-	 * @return the autoSize option
-	 */
-	public boolean isAutoSize() {
-		return options.isAutoSize();
-	}
-	
 	/**Set's URL for the popup button image. If set, button text becomes the alt 
 	 * value and is not directly displayed.
 	 * @param buttonImage
@@ -245,20 +227,6 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public String getButtonText() {
 		return this.options.getButtonText();
 	}
-	
-	/**A function to calculate the week of the year for a given date. The default 
-	 * implementation uses the ISO 8601 definition: weeks start on a Monday; 
-	 * the first week of the year contains the first Thursday of the year.
-	 * 
-	 * Default: $.datepicker.iso8601Week
-	 * 
-	 * @param calculateWeek
-	 * @return instance of the current component
-	 */
-	public InlineDatePicker<T> setCalculateWeek(JsScope calculateWeek) {
-		this.options.setCalculateWeek(calculateWeek);
-		return this;
-	}
 
 	/**
 	 * Sets if the date's month is selectable in a drop down list or not.
@@ -275,23 +243,6 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	 */
 	public boolean isChangeMonth() {		
 		return this.options.isChangeMonth();
-	}
-	
-	/**The text to display for the week of the year column heading. This attribute 
-	 * is one of the regionalisation attributes. Use showWeek to display this column.
-	 * @param weekHeader
-	 * @return instance of the current component
-	 */
-	public InlineDatePicker<T> setWeekHeader(String weekHeader) {
-		this.options.setWeekHeader(weekHeader);
-		return this;
-	}
-	
-	/**
-	 * @return the weekHeader option value
-	 */
-	public String getWeekHeader() {
-		return options.getWeekHeader();
 	}
 
 	/**
@@ -312,23 +263,6 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	 */
 	public DatePickerYearRange getYearRange() {
 		return this.options.getYearRange();
-	}
-	
-	/**Additional text to display after the year in the month headers. This 
-	 * attribute is one of the regionalisation attributes.
-	 * @param yearSuffix
-	 * @return instance of the current component
-	 */
-	public InlineDatePicker<T> setYearSuffix(String yearSuffix) {
-		this.options.setYearSuffix(yearSuffix);
-		return this;
-	}
-	
-	/**
-	 * @return the yearSuffix option value
-	 */
-	public String getYearSuffix() {
-		return options.getYearSuffix();
 	}
 
 	/**
@@ -585,18 +519,10 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	}
 
 	/**
-	 * @deprecated will be removed in 1.2
 	 * Returns if the next/previous months are showed in the calendar.
 	 */
 	public boolean getShowOtherMonths() {
 		return options.getShowOtherMonths();
-	}
-	
-	/**
-	 * Returns if the next/previous months are showed in the calendar.
-	 */
-	public boolean isShowOtherMonths() {
-		return options.isShowOtherMonths();
 	}
 
 	/**
@@ -631,23 +557,6 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	 */
 	public String getPrevText() {
 		return this.options.getPrevText();
-	}
-	
-	/**When true days in other months shown before or after the current month 
-	 * are selectable. This only applies if showOtherMonths is also true.
-	 * @param selectOtherMonths
-	 * @return instance of the current behavior
-	 */
-	public InlineDatePicker<T> setSelectOtherMonths(boolean selectOtherMonths) {
-		this.options.setSelectOtherMonths(selectOtherMonths);
-		return this;
-	}
-	
-	/**
-	 * @return the selectOtherMonths option
-	 */
-	public boolean isSelectOtherMonths() {
-		return options.isSelectOtherMonths();
 	}
 	
 	/**Set the cutoff year for determining the century for a date
@@ -766,24 +675,6 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	 */
 	public ListItemOptions<LiteralOption> getShowOptions() {
 		return this.options.getShowOptions();
-	}
-	
-	/**
-	 * When true a column is added to show the week of the year. The calculateWeek 
-	 * option determines how the week of the year is calculated. You may also 
-	 * want to change the firstDay option.
-	 * @return instance of the current component
-	 */
-	public InlineDatePicker<T> setShowWeek(boolean showWeek) {
-		options.setShowWeek(showWeek);
-		return this;
-	}
-
-	/**
-	 * @return the showWeek option
-	 */
-	public boolean isShowWeek() {
-		return options.isShowWeek();
 	}
 
 	/**
@@ -911,23 +802,6 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	 */
 	public DateOption getDefaultDate() {
 		return this.options.getDefaultDate();
-	}
-	
-	/**Disables (true) or enables (false) the datepicker. Can be set when 
-	 * initialising (first creating) the datepicker.
-	 * @param disabled
-	 * @return instance of the current behavior
-	 */
-	public InlineDatePicker<T> setDisabled(boolean disabled) {
-		this.options.setDisabled(disabled);
-		return this;
-	}
-	
-	/**
-	 * @return the disabled option
-	 */
-	public boolean isDisabled() {
-		return options.isDisabled();
 	}
 	
 	/**Control the speed at which the datepicker appears, it may be a time in 

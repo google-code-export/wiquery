@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id$
@@ -31,7 +31,7 @@ import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class HighlightEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class HighlightEffectJavaScriptResourceReference extends JavascriptResourceReference {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = -3395721774043602930L;
@@ -45,7 +45,7 @@ public class HighlightEffectJavaScriptResourceReference extends WiQueryJavaScrip
 	 * Default constructor
 	 */
 	private HighlightEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.highlight.js");
+		super(CoreEffectJavaScriptResourceReference.class, "effects.highlight.js");
 	}
 
 	/**

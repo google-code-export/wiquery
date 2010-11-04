@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.datepicker;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id$
@@ -32,7 +32,7 @@ import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
  * @since 1.0
  */
 public class DatePickerJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+		JavascriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
 	
 	/**
@@ -44,7 +44,7 @@ public class DatePickerJavaScriptResourceReference extends
 	 * Builds a new instance of {@link DatePickerJavaScriptResourceReference}.
 	 */
 	private DatePickerJavaScriptResourceReference() {
-		super(DatePickerJavaScriptResourceReference.class, "jquery.ui.datepicker.js");
+		super(DatePickerJavaScriptResourceReference.class, "ui.datepicker.js");
 	}
 
 	/**

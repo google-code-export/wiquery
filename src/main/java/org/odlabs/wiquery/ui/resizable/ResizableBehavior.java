@@ -30,13 +30,10 @@ import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
-import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
+import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
-import org.odlabs.wiquery.ui.resizable.ResizableAnimeDuration.DurationEnum;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id$
@@ -72,20 +69,18 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	// Properties
 	private Options options = new Options();
 
-	/**
-	 * {@inheritDoc}
+	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	@Override
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
+		wiQueryResourceManager
+				.addJavaScriptResource(CoreUIJavaScriptResourceReference.get());
 		wiQueryResourceManager
 				.addJavaScriptResource(ResizableJavaScriptResourceReference.get());
 	}
 
-	/**
-	 * {@inheritDoc}
+	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
 	 */
 	@Override
@@ -106,9 +101,7 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	/**Resize these elements synchronous when resizing.
 	 * @param cssSelector
 	 * @return instance of the current behavior
-	 * @deprecated will be removed in 1.2
 	 */
-	@Deprecated
 	public ResizableBehavior setAlsoResize(String cssSelector) {
 		this.options.putLiteral("alsoResize", cssSelector);
 		return this;
@@ -116,31 +109,9 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 
 	/**
 	 * @return the alsoResize option
-	 * @deprecated will be changed in 1.2 to return a {@link ResizableAlsoResize}
 	 */
-	@Deprecated
 	public String getAlsoResize() {
 		return this.options.getLiteral("alsoResize");
-	}
-	
-	/**Resize these elements synchronous when resizing.
-	 * @param alsoResize
-	 * @return instance of the current behavior
-	 */
-	public ResizableBehavior setAlsoResize(ResizableAlsoResize alsoResize) {
-		this.options.put("alsoResize", alsoResize);
-		return this;
-	}
-
-	/**
-	 * @return the alsoResize option
-	 */
-	public ResizableAlsoResize getAlsoResizeComplex() {
-		if(this.options.getComplexOption("alsoResize") instanceof ResizableAlsoResize) {
-			return (ResizableAlsoResize) this.options.getComplexOption("alsoResize");
-		}
-		
-		return null;
 	}
 
 	/**Animates to the final size after resizing.
@@ -156,8 +127,8 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	 * @return the animate option
 	 */
 	public boolean isAnimate() {
-		if(this.options.containsKey("animate")){
-			return this.options.getBoolean("animate");
+		if(this.options.containsKey("alsoResize")){
+			return this.options.getBoolean("alsoResize");
 		}
 		
 		return false;
@@ -168,21 +139,21 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	 * Other possible values: 'slow', 'normal', 'fast'.
 	 * @return instance of the current behavior
 	 */
-	public ResizableBehavior setAnimateDuration(ResizableAnimeDuration animeDuration) {
-		this.options.put("animateDuration", animeDuration);
+	public ResizableBehavior setAnimeDuration(ResizableAnimeDuration animeDuration) {
+		this.options.put("animeDuration", animeDuration);
 		return this;
 	}
 	
 	/**
 	 * @return the animeDuration option
 	 */
-	public ResizableAnimeDuration getAnimateDuration() {
-		IComplexOption animeDuration = this.options.getComplexOption("animateDuration");
+	public ResizableAnimeDuration getAnimeDuration() {
+		IComplexOption animeDuration = this.options.getComplexOption("animeDuration");
 		if(animeDuration != null && animeDuration instanceof ResizableAnimeDuration){
 			return (ResizableAnimeDuration) animeDuration;
 		}
 		
-		return new ResizableAnimeDuration(DurationEnum.SLOW);
+		return null;
 	}
 
 	/**Sets the easing effect for animating.
@@ -330,27 +301,6 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 		return 1;
 	}
 	
-	/**Disables (true) or enables (false) the resizable. Can be set when 
-	 * initialising (first creating) the resizable.
-	 * @param disabled
-	 * @return instance of the current behavior
-	 */
-	public ResizableBehavior setDisabled(boolean disabled) {
-		this.options.put("disabled", disabled);
-		return this;
-	}
-	
-	/**
-	 * @return the disabled option
-	 */
-	public boolean isDisabled() {
-		if(this.options.containsKey("disabled")){
-			return this.options.getBoolean("disabled");
-		}
-		
-		return false;
-	}
-	
 	/**Set to true, a semi-transparent helper element is shown for resizing.
 	 * @param ghost
 	 * @return instance of the current behavior
@@ -419,7 +369,7 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 			return (ResizableHandles) handles;
 		}
 		
-		return new ResizableHandles(new LiteralOption("e,s,se"));
+		return null;
 	}
 	
 	/**Sets the css class that will be added to a proxy element to outline the 
@@ -595,19 +545,5 @@ public class ResizableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
-	}
-	
-	/**Method to returns the .ui-resizable  element
-	 * @return the associated JsStatement
-	 */
-	public JsStatement widget() {
-		return new JsQuery(getComponent()).$().chain("resizable", "'widget'");
-	}
-
-	/**Method to returns the .ui-resizable  element within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

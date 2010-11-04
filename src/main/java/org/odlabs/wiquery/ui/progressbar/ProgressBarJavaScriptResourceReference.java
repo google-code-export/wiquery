@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.progressbar;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id: ResizableJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
@@ -34,7 +34,7 @@ import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
  * @since 0.5
  */
 public class ProgressBarJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+		JavascriptResourceReference {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 3423205998397680042L;
@@ -48,7 +48,7 @@ public class ProgressBarJavaScriptResourceReference extends
 	 * Builds a new instance of {@link ProgressBarJavaScriptResourceReference}.
 	 */
 	private ProgressBarJavaScriptResourceReference() {
-		super(ProgressBarJavaScriptResourceReference.class, "jquery.ui.progressbar.js");
+		super(ProgressBarJavaScriptResourceReference.class, "ui.progressbar.js");
 	}
 
 	/**

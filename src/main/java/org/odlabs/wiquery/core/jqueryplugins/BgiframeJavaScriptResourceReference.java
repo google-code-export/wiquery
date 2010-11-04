@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.core.jqueryplugins;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id: BgiframeJavaScriptResourceReference 
@@ -33,7 +33,7 @@ import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
  * @since 1.0
  */
 public class BgiframeJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+		JavascriptResourceReference {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 3423205998397680042L;

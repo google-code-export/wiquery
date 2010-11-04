@@ -21,10 +21,7 @@
  */
 package org.odlabs.wiquery.core.options;
 
-import org.apache.wicket.model.IDetachable;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
-import org.odlabs.wiquery.core.javascript.JsUtils;
+import java.io.Serializable;
 
 /**
  * $Id$
@@ -40,25 +37,17 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * </p>
  * 
  * @author Lionel Armanet
- * @author Ernesto Reinaldo Barreiro 
  * @since 0.5
  */
-public class LiteralOption implements IDetachable, IListItemOption {
-	// Constants
-	/** Constant of serialization */
+public class LiteralOption implements Serializable, IListItemOption {
+
 	private static final long serialVersionUID = 6999431516689050752L;
 
-	// Properties
-	/**
-	 * Put Double quote ?
-	 */
-	private boolean doubleQuote;
-	
 	/**
 	 * The wrapped {@link String}
 	 */
-	private IModel<String> literal;
-	
+	private String literal;
+
 	/**
 	 * <p>
 	 * Builds a new instance of {@link LiteralOption}.
@@ -68,51 +57,11 @@ public class LiteralOption implements IDetachable, IListItemOption {
 	 *            the wrapped {@link String}
 	 */
 	public LiteralOption(String literal) {
-		this(literal, false);
-	}
-
-	/**
-	 * <p>
-	 * Builds a new instance of {@link LiteralOption}.
-	 * </p>
-	 * 
-	 * @param literal
-	 *            the wrapped {@link String}
-	 * @param doubleQuote Must we insert double quote ?
-	 */
-	public LiteralOption(String literal, boolean doubleQuote) {
-		this(new Model<String>(literal), doubleQuote);
-	}
-	
-	/**
-	 * <p>
-	 * Builds a new instance of {@link LiteralOption}.
-	 * </p>
-	 * 
-	 * @param literal
-	 *            the wrapped {@link String}
-	 */
-	public LiteralOption(IModel<String> literal) {
-		this(literal, false);
-	}
-
-	/**
-	 * <p>
-	 * Builds a new instance of {@link LiteralOption}.
-	 * </p>
-	 * 
-	 * @param literal
-	 *            the wrapped {@link String}
-	 * @param doubleQuote Must we insert double quote ?
-	 */
-	public LiteralOption(IModel<String> literal, boolean doubleQuote) {
 		super();
 		this.literal = literal;
-		this.doubleQuote = doubleQuote;
 	}
 
-	/**
-	 * {@inheritDoc}
+	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
 	 */
 	public CharSequence getJavascriptOption() {
@@ -123,24 +72,16 @@ public class LiteralOption implements IDetachable, IListItemOption {
 	 * @return the wrapped {@link String}.
 	 */
 	public String getLiteral() {
-		return literal!= null?literal.getObject():null;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return doubleQuote ? JsUtils.doubleQuotes(literal.getObject()) : JsUtils.quotes(literal.getObject());
+		return literal;
 	}
 	
 	/*
 	 * (non-Javadoc)
-	 * @see org.apache.wicket.model.IDetachable#detach()
+	 * 
+	 * @see java.lang.Object#toString()
 	 */
-	public void detach() {
-		if(literal != null)
-			literal.detach();
+	@Override
+	public String toString() {
+		return "'" + literal + "'";
 	}
 }

@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id$
@@ -31,7 +31,7 @@ import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class DropEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class DropEffectJavaScriptResourceReference extends JavascriptResourceReference {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = -93284559079596805L;
@@ -45,7 +45,7 @@ public class DropEffectJavaScriptResourceReference extends WiQueryJavaScriptReso
 	 * Default constructor
 	 */
 	private DropEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.drop.js");
+		super(CoreEffectJavaScriptResourceReference.class, "effects.drop.js");
 	}
 
 	/**

@@ -35,7 +35,7 @@ import org.apache.wicket.markup.html.IHeaderResponse;
  * </p>
  * @author Lionel Armanet
  * @since 0.5
- * @deprecated will be removed in 1.2
+ * @deprecated
  */
 public class JavaScriptBuilder implements Serializable {
 	

@@ -28,10 +28,7 @@ import java.util.ListIterator;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.WicketRuntimeException;
-import org.apache.wicket.javascript.IJavascriptCompressor;
-import org.apache.wicket.javascript.NoOpJavascriptCompressor;
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
-import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResource;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 
 /**
@@ -69,10 +66,8 @@ public class WiQuerySettings implements Serializable {
 
 	// Properties
 	private boolean autoImportJQueryResource;
-	private boolean enableResourcesMerging;
 	private List<WiQueryPluginRenderingListener> listeners;
 	private JavascriptResourceReference jQueryCoreResourceReference;
-	private boolean minifiedResources;
 	private boolean autoImportJQueryUIResource;
 	private boolean enableWiqueryResourceManagement;
 
@@ -81,17 +76,13 @@ public class WiQuerySettings implements Serializable {
 	 */
 	public WiQuerySettings() {
 		super();
+
 		this.autoImportJQueryUIResource = true;
 		this.enableWiqueryResourceManagement = true;
-		setAutoImportJQueryResource(true);
-		setEnableResourcesMerging(false);
-		setJQueryCoreResourceReference(null);
-		listeners = new ArrayList<WiQueryPluginRenderingListener>();
 
-		IJavascriptCompressor compressor = Application.get()
-				.getResourceSettings().getJavascriptCompressor();
-		setMinifiedResources(compressor != null
-				&& !(compressor instanceof NoOpJavascriptCompressor));
+		autoImportJQueryResource = true;
+		listeners = new ArrayList<WiQueryPluginRenderingListener>();
+		jQueryCoreResourceReference = null;
 	}
 
 	/**
@@ -119,57 +110,13 @@ public class WiQuerySettings implements Serializable {
 	}
 
 	/**
-	 * @return the state of the enableResourcesMerging option
-	 */
-	public boolean isEnableResourcesMerging() {
-		return enableResourcesMerging;
-	}
-
-	/**
-	 * <p>
-	 * When true wiquery delivers minimized versions js/css files, when false
-	 * wiquery delivers normal (non-minimized) versions. The default value
-	 * depends on whether an {@link IJavascriptCompressor} is used or not.
-	 * </p>
-	 * <p>
-	 * This setting also enables the
-	 * {@link WiQueryYUICompressedStyleSheetResource} to be used.
-	 * </p>
-	 * <p>
-	 * Always provide the normal (non-minimized) version, wiquery will reference
-	 * to the minimized version when
-	 * {@link WiQuerySettings#isCompressedJavascript()} is true.
-	 * </p>
-	 * <p>
-	 * The filename format for the 2 versions is:
-	 * <ul>
-	 * <li>Normal version: <i>foo.js</i> / <i>foo.css</i></li>
-	 * <li>Minimized version: <i>foo.min.js</i> / <i>foo.min.css</i></li>
-	 * </ul>
-	 * </p>
-	 * 
-	 * @return the state of the minifiedResources option.
-	 */
-	public boolean isMinifiedResources() {
-		return minifiedResources;
-	}
-
-	/**
-	 * Set the autoImportJQueryResource option
+	 * Set the autoImportJQueryResource option. If false, the jQuery core
+	 * resource will be not loaded
 	 * 
 	 * @param autoImportJQueryResource
 	 */
 	public void setAutoImportJQueryResource(boolean autoImportJQueryResource) {
 		this.autoImportJQueryResource = autoImportJQueryResource;
-	}
-
-	/**
-	 * Set the enableResourcesMerging option
-	 * 
-	 * @param enableResourcesMerging
-	 */
-	public void setEnableResourcesMerging(boolean enableResourcesMerging) {
-		this.enableResourcesMerging = enableResourcesMerging;
 	}
 
 	/**
@@ -188,16 +135,6 @@ public class WiQuerySettings implements Serializable {
 	public void setJQueryCoreResourceReference(
 			JavascriptResourceReference jQueryCoreResourceReference) {
 		this.jQueryCoreResourceReference = jQueryCoreResourceReference;
-	}
-
-	/**
-	 * Sets the minifiedResources option
-	 * 
-	 * @param minifiedResources
-	 * @see #isMinifiedResources()
-	 */
-	public void setMinifiedResources(boolean minifiedResources) {
-		this.minifiedResources = minifiedResources;
 	}
 
 	public boolean isAutoImportJQueryUIResource() {
@@ -253,5 +190,4 @@ public class WiQuerySettings implements Serializable {
 		this.autoImportJQueryResource = enableWiqueryResourceManagement;
 		this.enableWiqueryResourceManagement = enableWiqueryResourceManagement;
 	}
-
 }

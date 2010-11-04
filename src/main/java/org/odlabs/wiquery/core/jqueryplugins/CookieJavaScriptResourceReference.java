@@ -21,10 +21,10 @@
  */
 package org.odlabs.wiquery.core.jqueryplugins;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
- * $Id: CookieJavaScriptResourceReference
+ * $Id: CookieJavaScriptResourceReference 
  * <p>
  * References the JavaScript resource to manipulate cookies with jQuery.
  * </p>
@@ -33,11 +33,11 @@ import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
  * @since 1.0
  */
 public class CookieJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+		JavascriptResourceReference {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = 3423205998397680042L;
-
+	
 	/**
 	 * Singleton instance.
 	 */

@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.sortable;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id$
@@ -33,7 +33,7 @@ import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
  * @since 1.0
  */
 public class SortableJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+		JavascriptResourceReference {
 	private static final long serialVersionUID = -4771815414204892357L;
 	
 	/**
@@ -45,7 +45,7 @@ public class SortableJavaScriptResourceReference extends
 	 * Builds a new instance of {@link SortableJavaScriptResourceReference}.
 	 */
 	private SortableJavaScriptResourceReference() {
-		super(SortableJavaScriptResourceReference.class, "jquery.ui.sortable.js");
+		super(SortableJavaScriptResourceReference.class, "ui.sortable.js");
 	}
 
 	/**

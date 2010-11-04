@@ -21,14 +21,12 @@
  */
 package org.odlabs.wiquery.core.options;
 
-import java.util.Iterator;
-import java.util.LinkedHashMap;
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.model.IDetachable;
-import org.apache.wicket.model.IModel;
 import org.odlabs.wiquery.core.javascript.JsScope;
 
 /**
@@ -51,11 +49,9 @@ import org.odlabs.wiquery.core.javascript.JsScope;
  * </p>
  * 
  * @author Lionel Armanet
- * @author Hielke Hoeve
- * @author Ernesto Reinaldo Barreiro
  * @since 0.5
  */
-public class Options implements IModel<Options> {
+public class Options implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -63,7 +59,7 @@ public class Options implements IModel<Options> {
 	 * The internal structure is a map associating each option label with each
 	 * option value.
 	 */
-	protected Map<String, Object> options = new LinkedHashMap<String, Object>();
+	protected Map<String, Object> options = new HashMap<String, Object>();
 
 	/**
 	 * The {@link IOptionsRenderer} to use.
@@ -81,15 +77,10 @@ public class Options implements IModel<Options> {
 	}
 
 	/**
-	 * <p>
-	 * Returns if the given option is defined or not.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
+	 * @return true if no options are defined, false otherwise.
 	 */
-	public boolean containsKey(Object key) {
-		return options.containsKey(key);
+	public boolean isEmpty() {
+		return this.options.isEmpty();
 	}
 
 	/**
@@ -102,77 +93,8 @@ public class Options implements IModel<Options> {
 	 */
 	public String get(String key) {
 		Object object = options.get(key);
-		if(object instanceof StringOption) {
-			return ((StringOption)object).getValue();
-		} else if(object   != null) {
+		if(object != null)
 			return object.toString();
-		}
-		return null;
-	}
-
-	/**
-	 * <p>
-	 * Returns the given option value.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 */
-	public Boolean getBoolean(String key) {
-		Object object = this.options.get(key);
-		if(object instanceof BooleanOption) {
-			BooleanOption option = ((BooleanOption)object);
-			return option.getValue();
-		}
-		return null;
-	}
-
-	/**
-	 * <p>
-	 * Returns the given option value.
-	 * </p>
-	 * 
-	 * @param key the option name.
-	 * @return the complex option
-	 */
-	public IComplexOption getComplexOption(String key) {
-		Object object = this.options.get(key);
-		if(object instanceof IComplexOption)
-			return (IComplexOption) object;
-		return null;
-	}
-	
-	/**
-	 * <p>
-	 * Returns the given option value.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 */
-	public Double getDouble(String key) {
-		Object object = this.options.get(key);
-		if(object instanceof DoubleOption) {
-			DoubleOption option = ((DoubleOption)object);
-			return option.getValue();
-		}
-		return null;
-	}
-
-	/**
-	 * <p>
-	 * Returns the given option value.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 */
-	public Float getFloat(String key) {
-		Object object = this.options.get(key);
-		if(object instanceof FloatOption) {
-			FloatOption option = ((FloatOption)object);
-			return option.getValue();
-		}
 		return null;
 	}
 
@@ -186,11 +108,230 @@ public class Options implements IModel<Options> {
 	 */
 	public Integer getInt(String key) {
 		Object object = this.options.get(key);
-		if(object instanceof IntegerOption) {
-			IntegerOption option = ((IntegerOption)object);
-			return option.getValue();
-		}
+		if(object instanceof Integer)
+			return ((Integer) object).intValue();
 		return null;
+	}
+
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 */
+	public Short getShort(String key) {
+		Object object = this.options.get(key);
+		if(object instanceof Short)
+			return ((Short) object).shortValue();
+		else 
+			return null;
+	}
+	
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 */
+	public Double getDouble(String key) {
+		Object object = this.options.get(key);
+		if(object instanceof Double)
+			return ((Double) this.options.get(key)).doubleValue();
+		return null;
+	}
+
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 */
+	public Float getFloat(String key) {
+		Object object = this.options.get(key);
+		if(object instanceof Float)
+			return ((Float) this.options.get(key)).floatValue();
+		return null;
+	}
+
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 */
+	public Boolean getBoolean(String key) {
+		Object object = this.options.get(key);
+		if(object instanceof Boolean)
+			return ((Boolean) this.options.get(key)).booleanValue();
+		else 
+			return null; 
+	}
+
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 */
+	public String getLiteral(String key) {
+		Object object = this.options.get(key);
+		if (object == null) {
+			return null;
+		}
+		if(object instanceof LiteralOption)
+			return ((LiteralOption) object).getLiteral();
+		return null;
+	}
+	
+	/**
+	 * <p>
+	 * Puts a complex option value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the IComplexOption.
+	 */
+	public Options put(String key, IComplexOption value){
+		options.put(key, value);
+		return this;
+	}
+	
+	/**
+	 * <p>
+	 * Puts a list of IListItemOption value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the IListItemOption list.
+	 */
+	public Options put(String key, ICollectionItemOptions value){
+		options.put(key, value);
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Puts a {@link String} value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the {@link String} value.
+	 */
+	public Options put(String key, String value) {
+		options.put(key, value);
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Puts a {@link JsScope} value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the {@link JsScope} value.
+	 */
+	public Options put(String key, JsScope value) {
+		options.put(key, value);
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Puts a {@link String} value as a JavaScript literal for the given name.
+	 * <p>
+	 * Note that the JavaScript resulting from this options will be
+	 * <code>'value'</code>
+	 * </p>
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the {@link LiteralOption} value.
+	 */
+	public Options putLiteral(String key, String value) {
+		options.put(key, new LiteralOption(value));
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Puts an int value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the int value.
+	 */
+	public Options put(String key, int value) {
+		options.put(key, value);
+		return this;
+	}
+	
+	/**
+	 * <p>
+	 * Puts an double value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the float double.
+	 */
+	public Options put(String key, double value) {
+		options.put(key, value);
+		return this;
+	}
+
+	public Options put(String key, float value) {
+		options.put(key, value);
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Put an boolean value for the given option name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 * @param value
+	 *            the boolean value.
+	 */
+	public Options put(String key, boolean value) {
+		options.put(key, value);
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Removes an option for a given name.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option's key to remove.
+	 */
+	public void removeOption(String key) {
+		this.options.remove(key);
 	}
 
 	/**
@@ -218,10 +359,7 @@ public class Options implements IModel<Options> {
 				// Case of an IComplexOption
 				sb.append(this.optionsRenderer.renderOption(key,
 						((IComplexOption)value).getJavascriptOption(), isLast));
-			} else if (value instanceof ITypedOption<?>) {
-				// Case of an IComplexOption
-				sb.append(this.optionsRenderer.renderOption(key,((ITypedOption<?>)value).getJavascriptOption(), isLast));
-			}
+			} 
 			else {
 				// Other cases
 				sb.append(this.optionsRenderer.renderOption(key, value,	isLast));
@@ -238,324 +376,44 @@ public class Options implements IModel<Options> {
 	 * </p>
 	 * 
 	 * @param key the option name.
+	 * @return the complex option
+	 */
+	public IComplexOption getComplexOption(String key) {
+		Object object = this.options.get(key);
+		if (object == null) {
+			return null;
+		}
+		assert (object instanceof IComplexOption);
+		return (IComplexOption) object;
+	}
+	
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key the option name.
 	 * @return the list
 	 */
 	public ICollectionItemOptions getListItemOptions(String key) {
-		Object object = this.options.get(key);		
-		if(object instanceof ICollectionItemOptions)
-			return (ICollectionItemOptions) object;
-		return null;
-	}
-	
-	/**
-	 * <p>
-	 * Returns the given option value.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 */
-	public String getLiteral(String key) {
-		Object object = this.options.get(key);		
-		if(object instanceof LiteralOption)
-			return ((LiteralOption) object).getLiteral();
-		return null;
-	}
-
-	/**
-	 * <p>
-	 * Returns the given option value.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 */
-	public Short getShort(String key) {
 		Object object = this.options.get(key);
-		if(object instanceof ShortOption) {
-			ShortOption option = ((ShortOption)object);
-			return option.getValue();
+		if (object == null) {
+			return null;
 		}
-		return null;
-	}
-
-	/**
-	 * @return true if no options are defined, false otherwise.
-	 */
-	public boolean isEmpty() {
-		return this.options.isEmpty();
+		assert (object instanceof ICollectionItemOptions);
+		return (ICollectionItemOptions) object;
 	}
 
 	/**
 	 * <p>
-	 * Put an boolean value for the given option name.
+	 * Returns if the given option is defined or not.
 	 * </p>
 	 * 
 	 * @param key
 	 *            the option name.
-	 * @param value
-	 *            the boolean value.
 	 */
-	public Options put(String key, boolean value) {
-		options.put(key, new BooleanOption(value));
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * Put an boolean value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the boolean value.
-	 */
-	public Options putBoolean(String key, IModel<Boolean> value) {
-		options.put(key, new BooleanOption(value));
-		return this;
-	}
-	
-	/**
-	 * <p>
-	 * Puts an double value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the float double.
-	 */
-	public Options put(String key, double value) {
-		options.put(key, new DoubleOption(value));
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * 	Puts an IModel &lt;Double&gt; value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the float value.
-	 */
-	public Options putDouble(String key, IModel<Double> value) {
-		options.put(key, new DoubleOption(value));
-		return this;
-	}
-	
-	/**
-	 * <p>
-	 * 	Puts an float value for the given option name.
-	 * </p>
-	 * 
-	 * @param key the option name
-	 * @param value The float value
-	 * @return
-	 */
-	public Options put(String key, float value) {
-		options.put(key, new FloatOption(value));
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * 	Puts an IModel &lt;Double&gt; value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the float double.
-	 */
-	public Options putFloat(String key, IModel<Float> value) {
-		options.put(key, new FloatOption(value));
-		return this;
-	}
-	
-	/**
-	 * <p>
-	 * Puts a list of IListItemOption value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the IListItemOption list.
-	 */
-	public Options put(String key, ICollectionItemOptions value) {
-		options.put(key, value);
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * Puts a complex option value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the IComplexOption.
-	 */
-	public Options put(String key, IComplexOption value) {
-		options.put(key, value);
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * Puts an int value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the int value.
-	 */
-	public Options put(String key, int value) {
-		options.put(key, new IntegerOption(value));
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * Puts an int value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the int value.
-	 */
-	public Options putInteger(String key, IModel<Integer> value) {
-		options.put(key, new IntegerOption(value));
-		return this;
-	}
-	
-	/**
-	 * <p>
-	 * Puts a {@link JsScope} value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the {@link JsScope} value.
-	 */
-	public Options put(String key, JsScope value) {
-		options.put(key, value);
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * Puts an short value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the short value.
-	 */
-	public Options put(String key, short value) {
-		options.put(key, new ShortOption(value));
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * Puts an short value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the short value.
-	 */
-	public Options putShort(String key, IModel<Short> value) {
-		options.put(key, new ShortOption(value));
-		return this;
-	}
-	
-	/**
-	 * <p>
-	 * Puts a {@link String} value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the {@link String} value.
-	 */
-	public Options put(String key, String value) {
-		options.put(key, new StringOption(value));
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * Puts a {@link String} value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the {@link String} value.
-	 */
-	public Options putString(String key, IModel<String> value) {
-		options.put(key, new StringOption(value));
-		return this;
-	}
-	
-	/**
-	 * <p>
-	 * Puts a {@link String} value as a JavaScript literal for the given name.
-	 * <p>
-	 * Note that the JavaScript resulting from this options will be <code>'value'</code>
-	 * </p>
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the {@link LiteralOption} value.
-	 */
-	public Options putLiteral(String key, String value) {
-		options.put(key, new LiteralOption(value));
-		return this;
-	}
-	
-	/**
-	 * <p>
-	 * Puts a {@link String} value as a JavaScript literal for the given name.
-	 * <p>
-	 * Note that the JavaScript resulting from this options will be <code>'value'</code>
-	 * </p>
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the {@link LiteralOption} value.
-	 */
-	public Options putLiteral(String key, IModel<String> value) {
-		options.put(key, new LiteralOption(value));
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * Removes an option for a given name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option's key to remove.
-	 */
-	public void removeOption(String key) {
-		this.options.remove(key);
+	public boolean containsKey(Object key) {
+		return options.containsKey(key);
 	}
 
 	/**
@@ -563,38 +421,6 @@ public class Options implements IModel<Options> {
 	 */
 	public void setRenderer(IOptionsRenderer optionsRenderer) {
 		this.optionsRenderer = optionsRenderer;
-	}
-
-	public Options getObject() {
-		return this;
-	}
-
-	public void setObject(Options object) {
-		throw new UnsupportedOperationException(
-				"The setObject() function is not supported for object Options.");
-	}
-
-	public void detach() {
-		onDetach(this.options);
-	}
-
-	@SuppressWarnings("unchecked")
-	private void onDetach(Object detachable) {
-		if (detachable instanceof Component)
-			((Component) detachable).detach();
-		else if (detachable instanceof IDetachable)
-			((IDetachable) detachable).detach();
-		else if (detachable instanceof Map<?, ?>) {
-			for (Map.Entry<?, ?> entry : ((Map<?, ?>) detachable).entrySet()) {
-				onDetach(entry.getKey());
-				onDetach(entry.getValue());
-			}
-		} else if (detachable instanceof Iterable<?>) {
-			Iterator<Object> iter = ((Iterable<Object>) detachable).iterator();
-			while (iter.hasNext()) {
-				onDetach(iter.next());
-			}
-		}
 	}
 
 }

@@ -28,9 +28,8 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.Options;
+import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id$
@@ -80,20 +79,24 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	// Properties
 	private Options options = new Options();
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org
+	 * .odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	@Override
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
+		wiQueryResourceManager
+				.addJavaScriptResource(CoreUIJavaScriptResourceReference.get());
 		wiQueryResourceManager
 				.addJavaScriptResource(DroppableJavaScriptResourceReference.get());
 	}
 
-	/**
-	 * {@inheritDoc}
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
 	 */
 	@Override
@@ -137,7 +140,7 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 			return (DroppableAccept) accept;
 		}
 
-		return new DroppableAccept("*");
+		return null;
 	}
 
 	/**
@@ -176,30 +179,9 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	public boolean isAddClasses() {
 		if (this.options.containsKey("addClasses")) {
 			return this.options.getBoolean("addClasses");
+		} else {
+			return true;
 		}
-		
-		return true;
-	}
-	
-	/**Disables (true) or enables (false) the droppable. Can be set when 
-	 * initialising (first creating) the droppable.
-	 * @param disabled
-	 * @return instance of the current behavior
-	 */
-	public DroppableBehavior setDisabled(boolean disabled) {
-		this.options.put("disabled", disabled);
-		return this;
-	}
-	
-	/**
-	 * @return the disabled option
-	 */
-	public boolean isDisabled() {
-		if(this.options.containsKey("disabled")){
-			return this.options.getBoolean("disabled");
-		}
-		
-		return false;
 	}
 
 	/**
@@ -219,9 +201,9 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	public boolean isGreedy() {
 		if (this.options.containsKey("greedy")) {
 			return this.options.getBoolean("greedy");
+		} else {
+			return false;
 		}
-		
-		return false;
 	}
 
 	/**
@@ -289,7 +271,7 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public ToleranceEnum getTolerance() {
 		String tolerance = this.options.getLiteral("tolerance");
-		return tolerance == null ? ToleranceEnum.INTERSECT : ToleranceEnum.valueOf(tolerance
+		return tolerance == null ? null : ToleranceEnum.valueOf(tolerance
 				.toUpperCase());
 	}
 
@@ -412,19 +394,5 @@ public class DroppableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
-	}
-	
-	/**Method to returns the .ui-droppable  element
-	 * @return the associated JsStatement
-	 */
-	public JsStatement widget() {
-		return new JsQuery(getComponent()).$().chain("droppable", "'widget'");
-	}
-
-	/**Method to returns the .ui-droppable  element within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

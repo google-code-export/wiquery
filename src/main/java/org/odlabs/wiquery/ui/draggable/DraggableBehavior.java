@@ -32,11 +32,8 @@ import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.IntegerItemOptions;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
+import org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.draggable.DraggableHelper.HelperEnum;
-import org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id$
@@ -47,7 +44,6 @@ import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
  * @author Lionel Armanet
  * @since 1.0
  */
-@WiQueryUIPlugin
 public class DraggableBehavior extends WiQueryAbstractBehavior {
 	/**
 	 * Enumeration for the axis option
@@ -130,20 +126,22 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 		options = new Options();
 	}
 
-	/**
-	 * {@inheritDoc}
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	@Override
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
+		wiQueryResourceManager
+				.addJavaScriptResource(CoreUIJavaScriptResourceReference.get());
 		wiQueryResourceManager
 				.addJavaScriptResource(DraggableJavaScriptResourceReference.get());
 	}
 
-	/**
-	 * {@inheritDoc}
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior#statement()
 	 */
 	@Override
@@ -161,7 +159,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	
 	/*---- Options section ---*/
 	
-	/**If set to false, will prevent the ui-draggable class from being added. 
+	/**f set to false, will prevent the ui-draggable class from being added. 
 	 * This may be desired as a performance optimization when calling .draggable() 
 	 * init on many hundreds of elements.
 	 * @param addClasses
@@ -216,8 +214,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * @return the axis option value
 	 */
 	public AxisEnum getAxis() {
-		String axis = this.options.getLiteral("axis");
-		return axis == null ? null : AxisEnum.valueOf(axis.toUpperCase());
+		return AxisEnum.valueOf(this.options.getLiteral("axis").toUpperCase());
 	}
 	
 	/** Set's the prevent selecting if you start on elements matching the selector
@@ -363,27 +360,6 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 		return 0;
 	}
 	
-	/**Disables (true) or enables (false) the draggable. Can be set when 
-	 * initialising (first creating) the draggable.
-	 * @param disabled
-	 * @return instance of the current behavior
-	 */
-	public DraggableBehavior setDisabled(boolean disabled) {
-		this.options.put("disabled", disabled);
-		return this;
-	}
-	
-	/**
-	 * @return the disabled option
-	 */
-	public boolean isDisabled() {
-		if(this.options.containsKey("disabled")){
-			return this.options.getBoolean("disabled");
-		}
-		
-		return false;
-	}
-	
 	/** Set's the distance in pixels after mousedown the mouse must move before 
 	 * dragging should start. This option can be used to prevent unwanted drags 
 	 * when clicking on an element.
@@ -462,7 +438,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 			return (DraggableHelper) helper;
 		}
 			
-		return new DraggableHelper(HelperEnum.ORIGINAL);
+		return null;
 	}
 	
 	/**Prevent iframes from capturing the mousemove events during a drag. Useful 
@@ -487,7 +463,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 			return (DraggableIframeFix) iframeFix;
 		}
 			
-		return new DraggableIframeFix(false);
+		return null;
 	}
 	
 	/**Set's the opacity for the helper while being dragged.
@@ -553,7 +529,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 			return (DraggableRevert) revert;
 		}
 			
-		return new DraggableRevert(false);
+		return null;
 	}
 	
 	/**Set's the duration of the revert animation, in milliseconds. Ignored if 
@@ -681,7 +657,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 			return (DraggableSnap) snap;
 		}
 			
-		return new DraggableSnap(false);
+		return null;
 	}
 
 	/**Sets the edges of snap elements the draggable will snap to. Ignored if 
@@ -699,7 +675,7 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public SnapModeEnum getSnapMode() {
 		String literal = options.getLiteral("snapMode");
-		return literal == null ? SnapModeEnum.BOTH : SnapModeEnum.valueOf(literal.toUpperCase());
+		return literal == null ? null : SnapModeEnum.valueOf(literal.toUpperCase());
 	}
 	
 	/**Set's distance in pixels from the snap element edges at which snapping 
@@ -732,24 +708,15 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 * @return instance of the current behavior
 	 */
 	public DraggableBehavior setStack(String stack) {
-		this.options.putLiteral("stack", stack);
+		this.options.put("stack", stack);
 		return this;
-	}
-	
-	/**
-	 * @returns the stack option
-	 */
-	public String getStack() {
-		return this.options.getLiteral("stack");
 	}
 
 	/**
 	 * @returns the stack option
-	 * @deprecated will be removed in 1.2
 	 */
-	@Deprecated
-	public String isStack() {
-		return this.options.getLiteral("stack");
+	public String isStack() {		
+		return this.options.get("stack");
 	}
 	
 	/**Set's the starting z-index
@@ -845,19 +812,5 @@ public class DraggableBehavior extends WiQueryAbstractBehavior {
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
 		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
-	}
-	
-	/**Method to returns the .ui-draggable element
-	 * @return the associated JsStatement
-	 */
-	public JsStatement widget() {
-		return new JsQuery(getComponent()).$().chain("draggable", "'widget'");
-	}
-
-	/**Method to returns the .ui-draggable element within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }

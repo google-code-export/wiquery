@@ -23,7 +23,6 @@ package org.odlabs.wiquery.ui.datepicker;
 
 import java.io.Serializable;
 
-import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.ListItemOptions;
@@ -31,7 +30,6 @@ import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.datepicker.DatePicker.ShowOnEnum;
-import org.odlabs.wiquery.ui.datepicker.DatePickerDuration.DurationEnum;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerDateTextEvent;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerEvent;
 import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
@@ -75,8 +73,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return the altField option value
 	 */
 	public String getAltField() {
-		String altField = this.options.getLiteral("altField");
-		return altField == null ? "" : altField;
+		return this.options.getLiteral("altField");
 	}
 	
 	/**The dateFormat to be used for the altField option. This allows one date 
@@ -114,8 +111,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return the altFormat option value
 	 */
 	public String getAltFormat() {
-		String altFormat = this.options.getLiteral("altFormat");
-		return altFormat == null ? "" : altFormat;
+		return this.options.getLiteral("altFormat");
 	}
 	
 	/**Set's the text to display after each date field, e.g. to show the required format.
@@ -130,28 +126,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return the appendText option value
 	 */
 	public String getAppendText() {
-		String appendText = this.options.getLiteral("appendText");
-		return appendText == null ? "" : appendText;
-	}
-	
-	/**
-	 * Set to true to automatically resize the input field to accomodate dates 
-	 * in the current dateFormat.
-	 * @return instance of the current component
-	 */
-	public void setAutoSize(boolean autoSize) {
-		options.put("autoSize", autoSize);
-	}
-
-	/**
-	 * @return the autoSize option
-	 */
-	public boolean isAutoSize() {
-		if(this.options.containsKey("autoSize")){
-			return options.getBoolean("autoSize");
-		}
-		
-		return false;
+		return this.options.getLiteral("appendText");
 	}
 	
 	/**Set's URL for the popup button image. If set, button text becomes the alt 
@@ -167,8 +142,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return the buttonImage option value
 	 */
 	public String getButtonImage() {
-		String buttonImage = this.options.getLiteral("buttonImage");
-		return buttonImage == null ? "" : buttonImage;
+		return this.options.getLiteral("buttonImage");
 	}
 	
 	/**Set to true to place an image after the field to use as the trigger 
@@ -207,19 +181,6 @@ public class DatePickerOptions implements Serializable {
 		String buttonText = this.options.getLiteral("buttonText");
 		return buttonText == null ? "..." : buttonText;
 	}
-	
-	/**A function to calculate the week of the year for a given date. The default 
-	 * implementation uses the ISO 8601 definition: weeks start on a Monday; 
-	 * the first week of the year contains the first Thursday of the year.
-	 * 
-	 * Default: $.datepicker.iso8601Week
-	 * 
-	 * @param calculateWeek
-	 * @return instance of the current component
-	 */
-	public void setCalculateWeek(JsScope calculateWeek) {
-		this.options.put("calculateWeek", calculateWeek);
-	}
 
 	/**
 	 * Sets if the date's month is selectable in a drop down list or not.
@@ -239,23 +200,6 @@ public class DatePickerOptions implements Serializable {
 		}
 		
 		return false;
-	}
-	
-	/**The text to display for the week of the year column heading. This attribute 
-	 * is one of the regionalisation attributes. Use showWeek to display this column.
-	 * @param weekHeader
-	 * @return instance of the current component
-	 */
-	public void setWeekHeader(String weekHeader) {
-		this.options.putLiteral("weekHeader", weekHeader);
-	}
-	
-	/**
-	 * @return the weekHeader option value
-	 */
-	public String getWeekHeader() {
-		String weekHeader = this.options.getLiteral("weekHeader");
-		return weekHeader == null ? "WK" : weekHeader;
 	}
 
 	/**
@@ -280,23 +224,6 @@ public class DatePickerOptions implements Serializable {
 		}
 		
 		return null;
-	}
-	
-	/**Additional text to display after the year in the month headers. This 
-	 * attribute is one of the regionalisation attributes.
-	 * @param yearSuffix
-	 * @return instance of the current component
-	 */
-	public void setYearSuffix(String yearSuffix) {
-		this.options.putLiteral("yearSuffix", yearSuffix);
-	}
-	
-	/**
-	 * @return the yearSuffix option value
-	 */
-	public String getYearSuffix() {
-		String yearSuffix = this.options.getLiteral("yearSuffix");
-		return yearSuffix == null ? "" : yearSuffix;
 	}
 
 	/**
@@ -468,7 +395,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return the maxDate option value
 	 */
 	public DateOption getMaxDate() {
-		IComplexOption maxDate = options.getComplexOption("maxDate");
+		IComplexOption maxDate = options.getListItemOptions("maxDate");
 		
 		if(maxDate != null && maxDate instanceof DateOption){
 			return (DateOption) maxDate;
@@ -491,7 +418,7 @@ public class DatePickerOptions implements Serializable {
 	 * @return the minDate option value
 	 */
 	public DateOption getMinDate() {
-		IComplexOption minDate = options.getComplexOption("minDate");
+		IComplexOption minDate = options.getListItemOptions("minDate");
 		
 		if(minDate != null && minDate instanceof DateOption){
 			return (DateOption) minDate;
@@ -520,8 +447,7 @@ public class DatePickerOptions implements Serializable {
 			return (ArrayOfMonthNames) monthNames;
 		}
 		
-		return new ArrayOfMonthNames("January", "February", "March", "April", 
-				"May", "June", "July", "August", "September", "October", "November", "December");
+		return null;
 	}
 	
 	/**Set's the list of abbreviated month names, for use as requested via the 
@@ -543,8 +469,7 @@ public class DatePickerOptions implements Serializable {
 			return (ArrayOfMonthNames) monthNamesShort;
 		}
 		
-		return new ArrayOfMonthNames("Jan", "Feb", "Mar", "Apr", 
-				"May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+		return null;
 	}
 	
 	/**When true the formatDate function is applied to the prevText, nextText, 
@@ -595,22 +520,10 @@ public class DatePickerOptions implements Serializable {
 	}
 
 	/**
-	 * @deprecated will be removed in 1.2
 	 * Returns if the next/previous months are showed in the calendar.
 	 */
 	public boolean getShowOtherMonths() {
 		return options.getBoolean("showOtherMonths");
-	}
-	
-	/**
-	 * Returns if the next/previous months are showed in the calendar.
-	 */
-	public boolean isShowOtherMonths() {
-		if(this.options.containsKey("showOtherMonths")){
-			return options.getBoolean("showOtherMonths");
-		}
-		
-		return false;
 	}
 
 	/**
@@ -631,7 +544,7 @@ public class DatePickerOptions implements Serializable {
 			return (DatePickerNumberOfMonths) numberOfMonths;
 		}
 		
-		return new DatePickerNumberOfMonths(new Short("1"));
+		return null;
 	}
 	
 	/**Set's the text to display for the previous month link. This attribute is one 
@@ -652,26 +565,6 @@ public class DatePickerOptions implements Serializable {
 		return prevText == null ? "Prev" : prevText;
 	}
 	
-	/**When true days in other months shown before or after the current month 
-	 * are selectable. This only applies if showOtherMonths is also true.
-	 * @param selectOtherMonths
-	 * @return instance of the current behavior
-	 */
-	public void setSelectOtherMonths(boolean selectOtherMonths) {
-		this.options.put("selectOtherMonths", selectOtherMonths);
-	}
-	
-	/**
-	 * @return the selectOtherMonths option
-	 */
-	public boolean isSelectOtherMonths() {
-		if(this.options.containsKey("selectOtherMonths")){
-			return this.options.getBoolean("selectOtherMonths");
-		}
-		
-		return false;
-	}
-	
 	/**Set the cutoff year for determining the century for a date
 	 * @param shortYearCutoff
 	 * @return instance of the current component
@@ -690,7 +583,7 @@ public class DatePickerOptions implements Serializable {
 			return (DatePickerShortYearCutOff) shortYearCutoff;
 		}
 		
-		return new DatePickerShortYearCutOff("+10");
+		return null;
 	}
 	
 	/**Set the name of the animation used to show/hide the datepicker. Use 
@@ -784,7 +677,7 @@ public class DatePickerOptions implements Serializable {
 	 */
 	public ShowOnEnum getShowOn() {
 		String literal = options.getLiteral("showOn");
-		return literal == null ? ShowOnEnum.FOCUS : ShowOnEnum.valueOf(literal.toUpperCase());
+		return literal == null ? null : ShowOnEnum.valueOf(literal.toUpperCase());
 	}
 	
 	/**If using one of the jQuery UI effects for showAnim, you can provide 
@@ -808,27 +701,6 @@ public class DatePickerOptions implements Serializable {
 		}
 		
 		return null;
-	}
-	
-	/**
-	 * When true a column is added to show the week of the year. The calculateWeek 
-	 * option determines how the week of the year is calculated. You may also 
-	 * want to change the firstDay option.
-	 * @return instance of the current component
-	 */
-	public void setShowWeek(boolean showWeek) {
-		options.put("showWeek", showWeek);
-	}
-
-	/**
-	 * @return the showWeek option
-	 */
-	public boolean isShowWeek() {
-		if(this.options.containsKey("showWeek")){
-			return options.getBoolean("showWeek");
-		}
-		
-		return false;
 	}
 
 	/**
@@ -884,7 +756,7 @@ public class DatePickerOptions implements Serializable {
 	 */
 	public String getDateFormat() {
 		String dateFormat = options.getLiteral("dateFormat");
-		return dateFormat == null ? "mm/dd/yy" : dateFormat;
+		return dateFormat == null ? "'mm/dd/yy" : dateFormat;
 	}
 	
 	/**Set's the list of long day names, starting from Sunday, for use as 
@@ -908,8 +780,7 @@ public class DatePickerOptions implements Serializable {
 			return (ArrayOfDayNames) dayNames;
 		}
 		
-		return new ArrayOfDayNames("Sunday", "Monday", "Tuesday", "Wednesday", 
-				"Thursday", "Friday", "Saturday");
+		return null;
 	}
 	
 	/**Set's the list of minimised day names, starting from Sunday, for use as 
@@ -932,7 +803,7 @@ public class DatePickerOptions implements Serializable {
 			return (ArrayOfDayNames) dayNamesMin;
 		}
 		
-		return new ArrayOfDayNames("Su", "Mo", "Tu", "We", "Th", "Fr", "Sa");
+		return null;
 	}
 	
 	/**Set's the list of abbreviated day names, starting from Sunday, for use as 
@@ -955,7 +826,7 @@ public class DatePickerOptions implements Serializable {
 			return (ArrayOfDayNames) dayNamesShort;
 		}
 		
-		return new ArrayOfDayNames("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+		return null;
 	}
 	
 	/**Set the date to highlight on first opening if the field is blank. Specify 
@@ -982,26 +853,6 @@ public class DatePickerOptions implements Serializable {
 		return null;
 	}
 	
-	/**Disables (true) or enables (false) the datepicker. Can be set when 
-	 * initialising (first creating) the datepicker.
-	 * @param disabled
-	 * @return instance of the current behavior
-	 */
-	public void setDisabled(boolean disabled) {
-		this.options.put("disabled", disabled);
-	}
-	
-	/**
-	 * @return the disabled option
-	 */
-	public boolean isDisabled() {
-		if(this.options.containsKey("disabled")){
-			return this.options.getBoolean("disabled");
-		}
-		
-		return false;
-	}
-	
 	/**Control the speed at which the datepicker appears, it may be a time in 
 	 * milliseconds, a string representing one of the three predefined speeds 
 	 * ("slow", "normal", "fast"), or '' for immediately.
@@ -1022,7 +873,7 @@ public class DatePickerOptions implements Serializable {
 			return (DatePickerDuration) duration;
 		}
 		
-		return new DatePickerDuration(DurationEnum.NORMAL);
+		return null;
 	}
 
 	/*---- Events section ---*/

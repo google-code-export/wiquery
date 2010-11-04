@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id$
@@ -31,7 +31,7 @@ import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class BlindEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class BlindEffectJavaScriptResourceReference extends JavascriptResourceReference {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 2433859014719481769L;
@@ -45,7 +45,7 @@ public class BlindEffectJavaScriptResourceReference extends WiQueryJavaScriptRes
 	 * Default constructor
 	 */
 	private BlindEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.blind.js");
+		super(CoreEffectJavaScriptResourceReference.class, "effects.blind.js");
 	}
 
 	/**

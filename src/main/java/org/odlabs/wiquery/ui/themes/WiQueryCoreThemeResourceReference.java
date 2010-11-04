@@ -10,7 +10,7 @@
  * 
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.themes;
 
-import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResourceReference;
+import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 
 /**
  * $Id: WiQueryCoreThemeResourceReference.java 85 2009-05-28 23:07:56Z
@@ -33,12 +33,13 @@ import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheet
  * @author Lionel Armanet
  * @since 1.0
  */
-public class WiQueryCoreThemeResourceReference extends WiQueryYUICompressedStyleSheetResourceReference {
+public class WiQueryCoreThemeResourceReference extends CompressedResourceReference {
 
 	private static final long serialVersionUID = 6795863553105608280L;
 
 	public WiQueryCoreThemeResourceReference(String theme) {
 		super(WiQueryCoreThemeResourceReference.class, theme
-				+ "/jquery-ui-1.8.5.custom.css");
+				+ "/jquery-ui-1.7.2.custom.css");
 	}
+
 }

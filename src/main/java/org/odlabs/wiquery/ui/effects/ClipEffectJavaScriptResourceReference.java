@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id$
@@ -31,7 +31,7 @@ import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class ClipEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class ClipEffectJavaScriptResourceReference extends JavascriptResourceReference {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = 4348767855865592967L;
@@ -45,7 +45,7 @@ public class ClipEffectJavaScriptResourceReference extends WiQueryJavaScriptReso
 	 * Default constructor
 	 */
 	private ClipEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.clip.js");
+		super(CoreEffectJavaScriptResourceReference.class, "effects.clip.js");
 	}
 
 	/**

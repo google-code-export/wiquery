@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009 WiQuery team
+ * Copyright (c) 2010 WiQuery team
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,9 +32,19 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  * </p>
  * 
  * @author Julien Roche
- * @since 1.1
+ * @since 1.0.2
  */
 public class SortableHelper implements IComplexOption {
+	/**
+	 * Clone helper
+	 */
+	public static final SortableHelper CLONE = new SortableHelper(HelperEnum.CLONE);
+	
+	/**
+	 * Original helper
+	 */
+	public static final SortableHelper ORIGINAL = new SortableHelper(HelperEnum.ORIGINAL);
+	
 	public enum HelperEnum {
 		CLONE		(new LiteralOption("clone")),
 		ORIGINAL 	(new LiteralOption("original"));
@@ -100,13 +110,12 @@ public class SortableHelper implements IComplexOption {
 		return functionParam;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
+	/* (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptItemOptions()
 	 */
 	public CharSequence getJavascriptOption() {
 		if(helperEnumParam == null && functionParam == null){
-			throw new IllegalArgumentException("The SortableHelper must have one not null parameter");
+			throw new IllegalArgumentException("The DraggableHelper must have one not null parameter");
 		}
 		
 		CharSequence sequence = null;
@@ -118,7 +127,7 @@ public class SortableHelper implements IComplexOption {
 			sequence = functionParam.render();
 		}
 		else{
-			throw new IllegalArgumentException("The SortableHelper must have one not null parameter");
+			throw new IllegalArgumentException("The DraggableHelper must have one not null parameter");
 		}
 		
 		return sequence;

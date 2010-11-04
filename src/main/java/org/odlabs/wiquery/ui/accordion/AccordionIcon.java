@@ -23,10 +23,9 @@ package org.odlabs.wiquery.ui.accordion;
 
 import org.odlabs.wiquery.core.options.IComplexOption;
 import org.odlabs.wiquery.core.options.LiteralOption;
-import org.odlabs.wiquery.ui.themes.UiIcon;
 
 /**
- * $Id$
+ * $Id: AccordionIcon.java
  * <p>
  * Bean for the icon option into the Accordion component
  * </p>
@@ -43,26 +42,7 @@ public class AccordionIcon  extends Object implements IComplexOption {
 	private String headerClass;
 	private String headerSelectedClass;
 	
-	private Boolean wantIcons;
-	
-	/**
-	 * Constructor
-	 * 
-	 * @param header
-	 * @param headerSelected
-	 */
-	public AccordionIcon(UiIcon header, UiIcon  headerSelected) {
-		super();
-		if(header != null)
-			this.headerClass = header.getCssClass();
-		if(headerSelected != null)
-			this.headerSelectedClass = headerSelected.getCssClass();
-		this.wantIcons = null;
-	}
-	
-	/**
-	 * Constructor
-	 * 
+	/**Default constructor
 	 * @param headerClass
 	 * @param headerSelectedClass
 	 */
@@ -70,16 +50,6 @@ public class AccordionIcon  extends Object implements IComplexOption {
 		super();
 		this.headerClass = headerClass;
 		this.headerSelectedClass = headerSelectedClass;
-		this.wantIcons = null;
-	}
-
-	/**
-	 * Constructor.
-	 * @param wantIcons
-	 */
-	public AccordionIcon(Boolean wantIcons) {
-		super();
-		this.wantIcons = wantIcons;
 	}
 
 	/**Method retrieving the class for the header
@@ -100,8 +70,6 @@ public class AccordionIcon  extends Object implements IComplexOption {
 	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
 	 */
 	public CharSequence getJavascriptOption() {
-		if(wantIcons != null) 
-			return wantIcons.toString();
 		return "{'header': " + new LiteralOption(headerClass) + ", 'headerSelected': " 
 			+ new LiteralOption(headerSelectedClass) + "}";
 	}
@@ -118,9 +86,5 @@ public class AccordionIcon  extends Object implements IComplexOption {
 	 */
 	public void setHeaderSelectedClass(String headerSelectedClass) {
 		this.headerSelectedClass = headerSelectedClass;
-	}
-
-	public Boolean getWantIcons() {
-		return wantIcons;
 	}
 }

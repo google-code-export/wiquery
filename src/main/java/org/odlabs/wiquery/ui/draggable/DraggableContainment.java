@@ -52,7 +52,6 @@ public class DraggableContainment implements IComplexOption {
 	 */
 	public static final DraggableContainment WINDOW = new DraggableContainment(ContainmentEnum.WINDOW);
 	
-	
 	/**
 	 * Enumeration of possible values for the containment option
 	 * @author Julien

@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.effects;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id$
@@ -31,7 +31,7 @@ import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
  * @author Julien Roche
  * @since 1.0
  */
-public class ScaleEffectJavaScriptResourceReference extends WiQueryJavaScriptResourceReference {
+public class ScaleEffectJavaScriptResourceReference extends JavascriptResourceReference {
 	// Constants
 	/**	Constant of serialization */
 	private static final long serialVersionUID = -3173953116856601631L;
@@ -45,7 +45,7 @@ public class ScaleEffectJavaScriptResourceReference extends WiQueryJavaScriptRes
 	 * Default constructor
 	 */
 	private ScaleEffectJavaScriptResourceReference() {
-		super(CoreEffectJavaScriptResourceReference.class, "jquery.effects.scale.js");
+		super(CoreEffectJavaScriptResourceReference.class, "effects.scale.js");
 	}
 
 	/**

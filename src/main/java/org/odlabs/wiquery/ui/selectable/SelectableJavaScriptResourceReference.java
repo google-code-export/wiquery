@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.selectable;
 
-import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 
 /**
  * $Id$
@@ -33,7 +33,7 @@ import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
  * @since 1.0
  */
 public class SelectableJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+		JavascriptResourceReference {
 	// Constants
 	/** Constant of serialization */
 	private static final long serialVersionUID = -4480460830759651938L;
@@ -47,7 +47,7 @@ public class SelectableJavaScriptResourceReference extends
 	 * Builds a new instance of {@link SelectableJavaScriptResourceReference}.
 	 */
 	private SelectableJavaScriptResourceReference() {
-		super(SelectableJavaScriptResourceReference.class, "jquery.ui.selectable.js");
+		super(SelectableJavaScriptResourceReference.class, "ui.selectable.js");
 	}
 
 	/**

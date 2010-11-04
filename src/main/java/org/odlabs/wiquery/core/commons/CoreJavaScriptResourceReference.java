@@ -21,6 +21,9 @@
  */
 package org.odlabs.wiquery.core.commons;
 
+import org.apache.wicket.Application;
+import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+
 /**
  * $Id: CoreJavaScriptResourceReference.java 81 2009-05-28 20:05:12Z
  * lionel.armanet $
@@ -32,14 +35,14 @@ package org.odlabs.wiquery.core.commons;
  * @since 0.5
  */
 public class CoreJavaScriptResourceReference extends
-		WiQueryJavaScriptResourceReference {
+		JavascriptResourceReference {
 
 	private static final long serialVersionUID = -2918665261694523156L;
 
 	/**
 	 * Singleton instance.
 	 */
-	private static CoreJavaScriptResourceReference instance = new CoreJavaScriptResourceReference();;
+	private static CoreJavaScriptResourceReference instance = new CoreJavaScriptResourceReference();
 
 	/**
 	 * Returns the {@link CoreJavaScriptResourceReference} instance.
@@ -48,11 +51,21 @@ public class CoreJavaScriptResourceReference extends
 		return instance;
 	}
 
+	private static String resolveLibrary() {
+		// returns a full version when application isn't in production mode
+		Application application = Application.get();
+		if (Application.DEVELOPMENT.equals(application.getConfigurationType())) {
+			return "jquery/jquery-1.4.3.js";	
+		} else {
+			return "jquery/jquery-1.4.3.min.js";			
+		}
+	}
+
 	/**
 	 * Builds a new instance of {@link CoreJavaScriptResourceReference}.
 	 */
 	private CoreJavaScriptResourceReference() {
-		super(CoreJavaScriptResourceReference.class, "jquery/jquery-1.4.3.js");
+		super(CoreJavaScriptResourceReference.class, resolveLibrary());
 	}
 
 }

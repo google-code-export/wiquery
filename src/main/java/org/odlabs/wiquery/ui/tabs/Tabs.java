@@ -24,13 +24,10 @@ package org.odlabs.wiquery.ui.tabs;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.odlabs.wiquery.core.ajax.JQueryAjaxOption;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
-import org.odlabs.wiquery.core.events.MouseEvent;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.odlabs.wiquery.core.jqueryplugins.JQueryCookieOption;
 import org.odlabs.wiquery.core.options.ArrayItemOptions;
 import org.odlabs.wiquery.core.options.EventLabelOptions;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
@@ -42,13 +39,19 @@ import org.odlabs.wiquery.core.options.LiteralOption;
 import org.odlabs.wiquery.core.options.Options;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference;
 
 /**
  * $Id$
  * <p>
  * Create a tab panel.
  * </p>
+ * 
+ * * Missing functionalities
+ * 	<ul>
+ * 		<li>Option : ajaxOptions</li>
+ * 		<li>Option : cookie</li>
+ * 		<li>Method : length</li>
+ * 	</ul>
  * 
  * @author Lionel Armanet
  * @since 0.9
@@ -84,12 +87,10 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 		options = new Options();
 	}
 
-	/**
-	 * {@inheritDoc}
+	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
-		wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(TabsJavaScriptResourceReference.get());
 	}
 
@@ -112,56 +113,56 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	
 	/*---- Options section ---*/
 	
-	/**
-	 * Additional Ajax options to consider when loading tab content (see $.ajax).
-	 * @param ajaxOptions
-	 */
-	public void setAjaxOptions(JQueryAjaxOption ajaxOptions) {
-		this.options.put("ajaxOptions", ajaxOptions);
-	}
-	
-	/**
-	 * @return the ajaxOptions option value
-	 */
-	public JQueryAjaxOption getAjaxOptions() {
-		IComplexOption ajaxOptions = this.options.getComplexOption("ajaxOptions");
-		
-		if(ajaxOptions != null && ajaxOptions instanceof JQueryAjaxOption) {
-			return (JQueryAjaxOption)ajaxOptions;
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * Method to store the latest selected tab in a cookie. The cookie is 
-	 * then used to determine the initially selected tab if the 
-	 * selected option is not defined. Requires cookie plugin. 
-	 * The object needs to have key/value pairs of the form the 
-	 * cookie plugin expects as options. Available options (example): 
-	 * { expires: 7, path: '/', domain: 'jquery.com', secure: true }. 
-	 * 
-	 * Since jQuery UI 1.7 it is also possible to define the cookie name 
-	 * being used via name property.
-	 * 
-	 * @param cookie
-	 */
-	public void setCookie(JQueryCookieOption cookie) {
-		this.options.put("cookie", cookie);
-	}
-	
-	/**
-	 * @return the cookie option value
-	 */
-	public JQueryCookieOption getCookie() {
-		IComplexOption cookie = this.options.getComplexOption("cookie");
-		
-		if(cookie != null && cookie instanceof JQueryCookieOption) {
-			return (JQueryCookieOption) cookie;
-		}
-		
-		return null;
-	}
+//	/**
+//	 * Additional Ajax options to consider when loading tab content (see $.ajax).
+//	 * @param ajaxOptions
+//	 */
+//	public void setAjaxOptions(JQueryAjaxOptions ajaxOptions) {
+//		this.options.put("ajaxOptions", ajaxOptions);
+//	}
+//	
+//	/**
+//	 * @return the ajaxOptions option value
+//	 */
+//	public JQueryAjaxOptions getAjaxOptions() {
+//		IComplexOption ajaxOptions = this.options.getComplexOption("ajaxOptions");
+//		
+//		if(ajaxOptions != null && ajaxOptions instanceof JQueryAjaxOptions) {
+//			return (JQueryAjaxOptions)ajaxOptions;
+//		}
+//		
+//		return null;
+//	}
+//	
+//	/**
+//	 * Method to store the latest selected tab in a cookie. The cookie is 
+//	 * then used to determine the initially selected tab if the 
+//	 * selected option is not defined. Requires cookie plugin. 
+//	 * The object needs to have key/value pairs of the form the 
+//	 * cookie plugin expects as options. Available options (example): 
+//	 * { expires: 7, path: '/', domain: 'jquery.com', secure: true }. 
+//	 * 
+//	 * Since jQuery UI 1.7 it is also possible to define the cookie name 
+//	 * being used via name property.
+//	 * 
+//	 * @param cookie
+//	 */
+//	public void setCookie(JQueryCookieOption cookie) {
+//		this.options.put("cookie", cookie);
+//	}
+//	
+//	/**
+//	 * @return the cookie option value
+//	 */
+//	public JQueryCookieOption getAjaxOptions() {
+//		IComplexOption cookie = this.options.getComplexOption("cookie");
+//		
+//		if(cookie != null && cookie instanceof JQueryCookieOption) {
+//			return (JQueryCookieOption)cookie;
+//		}
+//		
+//		return null;
+//	}
 	
 	/**Whether or not to cache remote tabs content, e.g. load only once or with 
 	 * every click. Cached content is being lazy loaded, e.g once and only once 
@@ -228,27 +229,6 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 		return 0;
 	}
 	
-	/**Disables (true) or enables (false) the tabs. Can be set when 
-	 * initialising (first creating) the tabs.
-	 * @param disabled
-	 * @return instance of the current behavior
-	 */
-	public Tabs setDisabled(boolean disabled) {
-		this.options.put("disabled", disabled);
-		return this;
-	}
-	
-	/**
-	 * @return the disabled option
-	 */
-	public boolean isDisabled() {
-		if(this.options.containsKey("disabled")){
-			return this.options.getBoolean("disabled");
-		}
-		
-		return false;
-	}
-	
 	/**Set an array containing the position of the tabs (zero-based index) that 
 	 * should be disabled on initialization
 	 * @param disabled
@@ -285,7 +265,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 			return (EventLabelOptions)event;
 		}
 		
-		return new EventLabelOptions(MouseEvent.CLICK);
+		return null;
 	}
 	
 	/**Enable animations for hiding and showing tab panels. The duration option 
@@ -298,7 +278,6 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	public Tabs setFx(ListItemOptions<IListItemOption> fx) {
 		this.options.put("fx", fx);
 		return this;
-		// TODO change this method
 	}
 	
 	/**
@@ -316,7 +295,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @return instance of the current component
 	 */
 	public Tabs setIdPrefix(String idPrefix) {
-		this.options.putLiteral("idPrefix", idPrefix);
+		this.options.put("idPrefix", idPrefix);
 		return this;
 	}
 
@@ -339,7 +318,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @return instance of the current component
 	 */
 	public Tabs setPanelTemplate(String panelTemplate) {
-		this.options.putLiteral("panelTemplate", panelTemplate);
+		this.options.put("panelTemplate", panelTemplate);
 		return this;
 	}
 
@@ -361,7 +340,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @return instance of the current component
 	 */
 	public Tabs setSpinner(String spinner) {
-		this.options.putLiteral("spinner", spinner);
+		this.options.put("spinner", spinner);
 		return this;
 	}
 
@@ -384,7 +363,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @return instance of the current component
 	 */
 	public Tabs setTabTemplate(String tabTemplate) {
-		this.options.putLiteral("tabTemplate", tabTemplate);
+		this.options.put("tabTemplate", tabTemplate);
 		return this;
 	}
 
@@ -780,19 +759,5 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public void url(AjaxRequestTarget ajaxRequestTarget, int index, String url) {
 		ajaxRequestTarget.appendJavascript(this.url(index, url).render().toString());
-	}
-	
-	/**Method to returns the .ui-slider  element
-	 * @return the associated JsStatement
-	 */
-	public JsStatement widget() {
-		return new JsQuery(this).$().chain("tabs", "'widget'");
-	}
-
-	/**Method to returns the .ui-slider element within the ajax request
-	 * @param ajaxRequestTarget
-	 */
-	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
 	}
 }
