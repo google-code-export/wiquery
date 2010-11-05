@@ -2,7 +2,7 @@
   * Information
     * [WhatsNew What's new ?]
     * [TheCoreTeam The core team]
-  * !WiQuery 1.0.2 
+  * !WiQuery 1.1 
     * Getting started
       * [QuickStart Quickstart]
       * [UsingWiqueryAppArchetype  WiQuery Maven archtetype]
@@ -12,15 +12,22 @@
       * [http://wiquery.googlecode.com/svn/javadoc/1.0/index.html 1.0]
       * [http://wiquery.googlecode.com/svn/javadoc/1.0.1/index.html 1.0.1]
       * [http://wiquery.googlecode.com/svn/javadoc/1.0.2/index.html 1.0.2]
-      * [http://wiquery.googlecode.com/svn/javadoc/1.1/index.html 1.1-alpha]
+      * [http://wiquery.googlecode.com/svn/javadoc/1.0.3/index.html 1.0.3]
+      * [http://wiquery.googlecode.com/svn/javadoc/1.1/index.html 1.1]
     * [Tutorials]
     * Components
       * Core
       * UI
         * [Accordion]
+        * [Autocomplete]
+        * [Button]
         * [DatePicker]
         * [Dialog]
+        * [Draggable]
+        * [Droppable]
         * [ProgressBar]
+        * [Selectable]
         * [Slider]
+        * [Sortable]
         * [Tabs]
     * Developers
