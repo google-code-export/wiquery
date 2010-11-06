@@ -1,1 +1,0 @@
-Wiquery plugins

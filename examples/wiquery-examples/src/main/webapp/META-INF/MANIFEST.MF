@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Class-Path: ant-1.7.1.jar ant-launcher-1.7.1.jar groovy-all-1.6.4.jar 
- jline-0.9.94.jar junit-3.8.2.jar logback-classic-0.9.22.jar logback-c
- ore-0.9.22.jar slf4j-api-1.6.0.jar wicket-1.4.9.jar wiquery-1.0.x.jar
-
