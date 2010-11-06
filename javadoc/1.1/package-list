@@ -1,6 +1,7 @@
 org.odlabs.wiquery.core.ajax
 org.odlabs.wiquery.core.behavior
 org.odlabs.wiquery.core.commons
+org.odlabs.wiquery.core.commons.compressed
 org.odlabs.wiquery.core.commons.listener
 org.odlabs.wiquery.core.commons.merge
 org.odlabs.wiquery.core.effects
