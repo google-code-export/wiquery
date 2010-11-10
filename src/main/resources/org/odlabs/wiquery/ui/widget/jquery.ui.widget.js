@@ -1,5 +1,5 @@
 /*!
- * jQuery UI Widget 1.8.6
+ * jQuery UI Widget 1.8.5
  *
  * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT or GPL Version 2 licenses.
@@ -90,25 +90,21 @@ $.widget.bridge = function( name, object ) {
 			options;
 
 		// prevent calls to internal methods
-		if ( isMethodCall && options.charAt( 0 ) === "_" ) {
+		if ( isMethodCall && options.substring( 0, 1 ) === "_" ) {
 			return returnValue;
 		}
 
 		if ( isMethodCall ) {
 			this.each(function() {
-				var instance = $.data( this, name ),
-					methodValue = instance && $.isFunction( instance[options] ) ?
-						instance[ options ].apply( instance, args ) :
-						instance;
-				// TODO: add this back in 1.9 and use $.error() (see #5972)
-//				if ( !instance ) {
-//					throw "cannot call methods on " + name + " prior to initialization; " +
-//						"attempted to call method '" + options + "'";
-//				}
-//				if ( !$.isFunction( instance[options] ) ) {
-//					throw "no such method '" + options + "' for " + name + " widget instance";
-//				}
-//				var methodValue = instance[ options ].apply( instance, args );
+				var instance = $.data( this, name );
+				if ( !instance ) {
+					throw "cannot call methods on " + name + " prior to initialization; " +
+						"attempted to call method '" + options + "'";
+				}
+				if ( !$.isFunction( instance[options] ) ) {
+					throw "no such method '" + options + "' for " + name + " widget instance";
+				}
+				var methodValue = instance[ options ].apply( instance, args );
 				if ( methodValue !== instance && methodValue !== undefined ) {
 					returnValue = methodValue;
 					return false;
@@ -149,7 +145,7 @@ $.Widget.prototype = {
 		this.element = $( element );
 		this.options = $.extend( true, {},
 			this.options,
-			this._getCreateOptions(),
+			$.metadata && $.metadata.get( element )[ this.widgetName ],
 			options );
 
 		var self = this;
@@ -158,11 +154,7 @@ $.Widget.prototype = {
 		});
 
 		this._create();
-		this._trigger( "create" );
 		this._init();
-	},
-	_getCreateOptions: function() {
-		return $.metadata && $.metadata.get( this.element[0] )[ this.widgetName ];
 	},
 	_create: function() {},
 	_init: function() {},
@@ -184,11 +176,12 @@ $.Widget.prototype = {
 	},
 
 	option: function( key, value ) {
-		var options = key;
+		var options = key,
+			self = this;
 
 		if ( arguments.length === 0 ) {
 			// don't return a reference to the internal hash
-			return $.extend( {}, this.options );
+			return $.extend( {}, self.options );
 		}
 
 		if  (typeof key === "string" ) {
@@ -199,17 +192,11 @@ $.Widget.prototype = {
 			options[ key ] = value;
 		}
 
-		this._setOptions( options );
-
-		return this;
-	},
-	_setOptions: function( options ) {
-		var self = this;
 		$.each( options, function( key, value ) {
 			self._setOption( key, value );
 		});
 
-		return this;
+		return self;
 	},
 	_setOption: function( key, value ) {
 		this.options[ key ] = value;

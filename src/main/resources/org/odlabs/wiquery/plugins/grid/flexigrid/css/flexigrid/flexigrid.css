@@ -388,7 +388,6 @@
 	border-right: 1px solid #ddd;
 	border-left: 1px solid #fff;
 	overflow: hidden;
-	vertical-align: top !important;
 	}
 
 		.flexigrid div.hDiv th div, .flexigrid  div.bDiv td  div, div.colCopy div/* common inner cell properties*/
@@ -557,6 +556,12 @@ div.colCopy {
 			border-left: 1px solid #eef8ff;
 			border-bottom: 1px solid #a8d8eb;
 			}
+			
+		.flexigrid tr.trSelected td.sorted a, 
+		.flexigrid tr.trSelected td a
+			{
+			color: #eee;
+			}			
 
 	/* novstripe adjustments */
 
@@ -613,7 +618,6 @@ div.colCopy {
 	border-top: 0px;
 	overflow: hidden;
 	white-space: nowrap;
-	position: relative;
 	}
 
 .flexigrid div.pDiv div.pDiv2
@@ -635,7 +639,6 @@ div.colCopy {
 	.flexigrid div.pDiv .pPageStat, .flexigrid div.pDiv .pcontrol
 		{
 		position: relative;
-
 		top: 5px;
 		overflow: visible;
 		}

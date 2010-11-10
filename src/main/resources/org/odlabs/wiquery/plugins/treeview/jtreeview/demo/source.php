@@ -58,8 +58,7 @@ if ($_REQUEST['root'] == "source"):
 		]
 	}
 ]
-<?php else: sleep(1); ?>
-
+<?php else: ?>
 [
 	{
 		"text": "1. Review of existing structures",
