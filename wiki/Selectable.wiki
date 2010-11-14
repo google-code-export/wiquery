@@ -45,4 +45,6 @@ add(selectableWicket);
 
 = Options =
 
+See http://docs.jquery.com/UI/selectable
+
 TODO
