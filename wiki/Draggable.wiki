@@ -22,4 +22,6 @@ add(draggableBehavior);
 
 = Options =
 
+See http://docs.jquery.com/UI/Draggable
+
 TODO
