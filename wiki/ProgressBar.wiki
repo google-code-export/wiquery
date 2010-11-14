@@ -19,4 +19,6 @@ add(progressBar);
 
 = Options =
 
+See http://docs.jquery.com/UI/Progressbar
+
 TODO
