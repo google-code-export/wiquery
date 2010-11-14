@@ -1,6 +1,6 @@
 = How to use =
 
-See example here: http://www.wiquery.org/wiquery-examples-1.0/?wicket:bookmarkablePage=:org.odlabs.wiquery.examples.dialog.DialogPage
+See example here: http://wiquery-examples-1-1-x.appspot.com/wicket:bookmarkablePage=:org.odlabs.wiquery.examples.dialog.DialogPage
 
 == XHTML ==
 
