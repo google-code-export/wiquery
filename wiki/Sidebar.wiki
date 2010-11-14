@@ -26,6 +26,7 @@
         * [Draggable]
         * [Droppable]
         * [ProgressBar]
+        * [Resizable]
         * [Selectable]
         * [Slider]
         * [Sortable]
