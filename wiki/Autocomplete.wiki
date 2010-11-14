@@ -33,4 +33,6 @@ add(autocomplete);
 
 = Options =
 
+See http://docs.jquery.com/UI/Autocomplete
+
 TODO
