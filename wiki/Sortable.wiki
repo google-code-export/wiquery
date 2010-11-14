@@ -36,4 +36,6 @@ ListView<String> listView = new ListView<String>("listView", values1) {
 
 = Options =
 
+See http://docs.jquery.com/UI/Sortable
+
 TODO
