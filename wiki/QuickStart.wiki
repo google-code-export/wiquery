@@ -1,9 +1,9 @@
-#summary This page describes how to start a project with WiQuery 1.0
+#summary This page describes how to start a project with WiQuery 1.1.1
 #labels Featured
 
 = Introduction =
 
-This tutorial will teach you how to install and use WiQuery 1.0 in 5 minutes, with a classic "Hello world" example.
+This tutorial will teach you how to install and use WiQuery 1.1.1 in 5 minutes, with a classic "Hello world" example.
 
 == Tools ==
 
@@ -13,7 +13,7 @@ To begin this tutorial, you'll need the following components to be installed:
 
 == Version of Wicket ==
 
-WiQuery is built over the last Wicket version: Wicket 1.4-rc2 version
+WiQuery is built over the last Wicket version: Wicket 1.4.12 version
 
 == Starting a Wicket project ==
 
@@ -24,7 +24,7 @@ First of all, we need to start a Wicket project. To do this quickly, we'll use m
 Go to your home directory (or in any directory you want to work in) and type the command below:
 
 {{{
-mvn archetype:create -DarchetypeGroupId=org.apache.wicket -DarchetypeArtifactId=wicket-archetype-quickstart -DarchetypeVersion=1.4-rc2 -DgroupId=org.odlabs -DartifactId=quickstart
+mvn archetype:create -DarchetypeGroupId=org.apache.wicket -DarchetypeArtifactId=wicket-archetype-quickstart -DarchetypeVersion=1.4.12 -DgroupId=org.odlabs -DartifactId=quickstart
 }}}
 
 You should see the following output:
@@ -57,15 +57,25 @@ http://wiquery.googlecode.com/files/check-wicket-works.png
 
 = Install WiQuery =
 
-== Install WiQuery 1.0 in your local repository ==
+== Install WiQuery 1.1.1 in your local repository ==
 
-[Downloads] the last stable release of WiQuery 1.0. When it's done, install it in your local repository with the command below:
+[Downloads] the last stable release of WiQuery 1.1.1. When it's done, install it in your local repository with the command below:
 
 {{{
-mvn install:install-file -Dfile=/your/path/to/wiquery-1.0.jar -DgroupId=org.odlabs.wiquery -DartifactId=wiquery -Dversion=1.0-SNAPSHOT -Dpackaging=jar
+mvn install:install-file -Dfile=/your/path/to/wiquery-1.1.1.jar -DgroupId=org.odlabs.wiquery -DartifactId=wiquery -Dversion=1.0-SNAPSHOT -Dpackaging=jar
 }}}
 
-*Warning: For the moment, WiQuery 1.0 is still a snapshot version, until the ALPHA version is released.*
+You can too add a server repository link into your pom.xml file:
+
+{{{
+<repositories>
+                <repository>
+                        <id>wiquery-maven-repo</id>
+                        <name>WiQuery repository</name>
+                        <url>https://wiquery.googlecode.com/svn/repo/</url>
+                </repository>
+</repositories>
+}}}
 
 == Add a dependency to the quickstart application ==
 
@@ -75,7 +85,7 @@ mvn install:install-file -Dfile=/your/path/to/wiquery-1.0.jar -DgroupId=org.odla
 <dependency>
         <groupId>org.odlabs.wiquery</groupId>
         <artifactId>wiquery</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.1.1</version>
 </dependency>
 }}}
 
@@ -91,19 +101,7 @@ Let's do the HellWorld example with WiQuery's modal window.
 
 == Enable WiQuery ==
 
-To enable WiQuery, you'll have to configure your application:
-  * Either by extending WiQueryWebApplication
-  * Or by adding a listener (see http://n2.nabble.com/MyTreeViewPlugin-example-td1604959.html)
-
-{{{
-
-import org.odlabs.wiquery.utils.WiQueryWebApplication;
-
-public class WicketApplication extends WiQueryWebApplication
-{    
-   /* ... */
-}
-}}}
+Since the 1.0.2, wiQuery uses the IInitializer to register itself into your Wicket application
 
 == Add markup for the modal window ==
 
@@ -184,7 +182,7 @@ Let's check the generated source:
 <html>
     <head>
         <title>Wicket Quickstart Archetype Homepage</title>
-    <script type="text/javascript" src="resources/org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference/jquery/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="resources/org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference/jquery/jquery-1.4.3.min.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference/fusion/ui.all.css" />
 <script type="text/javascript" src="resources/org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference/ui.core.js"></script>
 <script type="text/javascript" src="resources/org.odlabs.wiquery.ui.dialog.Dialog/ui.dialog.js"></script>
