@@ -1,9 +1,9 @@
-#summary This page describes how to start a project with WiQuery 1.1.1
+#summary This page describes how to start a project with WiQuery 1.1.2
 #labels Featured
 
 = Introduction =
 
-This tutorial will teach you how to install and use WiQuery 1.1.1 in 5 minutes, with a classic "Hello world" example.
+This tutorial will teach you how to install and use WiQuery 1.1.2 in 5 minutes, with a classic "Hello world" example.
 
 == Tools ==
 
@@ -13,7 +13,7 @@ To begin this tutorial, you'll need the following components to be installed:
 
 == Version of Wicket ==
 
-WiQuery is built over the last Wicket version: Wicket 1.4.12 version
+WiQuery is built over the last Wicket version: Wicket 1.4.13 version
 
 == Starting a Wicket project ==
 
@@ -24,7 +24,7 @@ First of all, we need to start a Wicket project. To do this quickly, we'll use m
 Go to your home directory (or in any directory you want to work in) and type the command below:
 
 {{{
-mvn archetype:create -DarchetypeGroupId=org.apache.wicket -DarchetypeArtifactId=wicket-archetype-quickstart -DarchetypeVersion=1.4.12 -DgroupId=org.odlabs -DartifactId=quickstart
+mvn archetype:create -DarchetypeGroupId=org.apache.wicket -DarchetypeArtifactId=wicket-archetype-quickstart -DarchetypeVersion=1.4.13 -DgroupId=org.odlabs -DartifactId=quickstart
 }}}
 
 You should see the following output:
@@ -57,15 +57,16 @@ http://wiquery.googlecode.com/files/check-wicket-works.png
 
 = Install WiQuery =
 
-== Install WiQuery 1.1.1 in your local repository ==
+== Install WiQuery 1.1.2 in your local repository ==
 
-[Downloads] the last stable release of WiQuery 1.1.1. When it's done, install it in your local repository with the command below:
+[Downloads] the last stable release of WiQuery 1.1.2. When it's done, install it in your local repository with the command below:
 
 {{{
-mvn install:install-file -Dfile=/your/path/to/wiquery-1.1.1.jar -DgroupId=org.odlabs.wiquery -DartifactId=wiquery -Dversion=1.0-SNAPSHOT -Dpackaging=jar
+mvn install:install-file -Dfile=/your/path/to/wiquery-1.1.2.jar -DgroupId=org.odlabs.wiquery -DartifactId=wiquery -Dversion=1.1.2 -Dpackaging=jar
 }}}
 
-You can too add a server repository link into your pom.xml file:
+You must add the following server repository link into your
+pom.xml file:
 
 {{{
 <repositories>
@@ -85,7 +86,7 @@ You can too add a server repository link into your pom.xml file:
 <dependency>
         <groupId>org.odlabs.wiquery</groupId>
         <artifactId>wiquery</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2</version>
 </dependency>
 }}}
 
@@ -93,6 +94,19 @@ You can too add a server repository link into your pom.xml file:
 
 {{{
 mvn jetty:run
+}}}
+
+= SLF4J nota bene =
+
+The jetty server will need to use the 1.6.1 release of slf4j. So, you must update the version of this dependency into the pom.xml, or like the last section, add a dependency:
+
+{{{
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>1.6.1</version>
+</dependency>
+
 }}}
 
 = The Hello World example =
@@ -127,6 +141,10 @@ In this tutorial, we will use the inline modal window (e.g., a modal window disp
   * Add the modal window in !HomePage.java:
 
 {{{
+import org.apache.wicket.PageParameters;
+import org.apache.wicket.markup.html.WebPage;
+import org.odlabs.wiquery.ui.dialog.Dialog;
+
 public class HomePage extends WebPage {
 
 	public HomePage(final PageParameters parameters) {
@@ -142,6 +160,15 @@ public class HomePage extends WebPage {
   * Add the event to trigger the modal window:
 
 {{{
+import org.apache.wicket.PageParameters;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.form.Button;
+import org.odlabs.wiquery.ui.dialog.Dialog;
+import org.odlabs.wiquery.core.events.WiQueryEventBehavior;
+import org.odlabs.wiquery.core.events.Event;
+import org.odlabs.wiquery.core.events.MouseEvent;
+import org.odlabs.wiquery.core.javascript.JsScope;
 public class HomePage extends WebPage {
 
 	public HomePage(final PageParameters parameters) {
