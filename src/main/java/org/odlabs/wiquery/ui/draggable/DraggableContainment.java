@@ -86,14 +86,13 @@ public class DraggableContainment implements IComplexOption {
 	// Properties
 	private ArrayItemOptions<IntegerItemOptions> arrayParam;
 	private ContainmentEnum containmentEnumParam;
-	private LiteralOption selector;
 	private String stringParam;
 	
 	/**Constructor
 	 * @param containmentEnumParam ContainmentEnum parameter
 	 */
 	public DraggableContainment(ContainmentEnum containmentEnumParam) {
-		this(null, containmentEnumParam, null, null);
+		this(null, containmentEnumParam, null);
 	}
 	
 	/**Constructor
@@ -110,34 +109,25 @@ public class DraggableContainment implements IComplexOption {
 		tempArrayParam.add(new IntegerItemOptions(x2));
 		tempArrayParam.add(new IntegerItemOptions(y2));
 		
-		setParam(tempArrayParam, null, null, null);
+		setParam(tempArrayParam, null, null);
 	}
 	
 	/**Constructor
 	 * @param stringParam Selector or element parameter
 	 */
 	public DraggableContainment(String stringParam) {
-		this(null, null, stringParam, null);
-	}
-	
-	/**Constructor
-	 * @param selector Selector
-	 */
-	public DraggableContainment(LiteralOption selector) {
-		this(null, null, null, selector);
+		this(null, null, stringParam);
 	}
 
 	/**Constructor
 	 * @param arrayParam Array parameter
 	 * @param containmentEnumParam ContainmentEnum parameter
-	 * @param stringParam Literal parameter
-	 * @param selector Selector
+	 * @param literalParam Literal parameter
 	 */
 	private DraggableContainment(ArrayItemOptions<IntegerItemOptions> arrayParam, 
-			ContainmentEnum containmentEnumParam, String stringParam,
-			LiteralOption selector) {
+			ContainmentEnum containmentEnumParam, String literalParam) {
 		super();
-		setParam(arrayParam, containmentEnumParam, stringParam, selector);
+		setParam(arrayParam, containmentEnumParam, literalParam);
 	}
 	
 	/**
@@ -155,13 +145,6 @@ public class DraggableContainment implements IComplexOption {
 	}
 	
 	/**
-	 * @return the Selector
-	 */
-	public LiteralOption getSelector() {
-		return selector;
-	}
-	
-	/**
 	 * @return the Selector or Element param
 	 */
 	public String getStringParam() {
@@ -173,7 +156,7 @@ public class DraggableContainment implements IComplexOption {
 	 */
 	public CharSequence getJavascriptOption() {
 		if(containmentEnumParam == null && arrayParam == null
-				&& stringParam == null && selector == null){
+				&& stringParam == null){
 			throw new IllegalArgumentException("The DraggableContainment must have one not null parameter");
 		}
 		
@@ -184,9 +167,6 @@ public class DraggableContainment implements IComplexOption {
 		}
 		else if(arrayParam != null){
 			sequence = arrayParam.getJavascriptOption();
-		}
-		else if(selector != null){
-			sequence = selector.getJavascriptOption();
 		}
 		else if(stringParam != null){
 			sequence = stringParam;
@@ -212,42 +192,33 @@ public class DraggableContainment implements IComplexOption {
 		tempArrayParam.add(new IntegerItemOptions(x2));
 		tempArrayParam.add(new IntegerItemOptions(y2));
 		
-		setParam(tempArrayParam, containmentEnumParam, null, null);
+		setParam(tempArrayParam, containmentEnumParam, null);
 	}
 	
 	/**Set's the ContainmentEnum parameter
 	 * @param containmentEnumParam the ContainmentEnum to set
 	 */
 	public void setContainmentEnumParam(ContainmentEnum containmentEnumParam) {
-		setParam(null, containmentEnumParam, null, null);
-	}
-	
-	/**Set's the Selector
-	 * @param selector Selector
-	 */
-	public void setSelector(LiteralOption selector) {
-		setParam(null, null, null, selector);
+		setParam(null, containmentEnumParam, null);
 	}
 	
 	/**Set's the Selector or Element parameter
 	 * @param stringParam Selector or Element param
 	 */
 	public void setStringParam(String stringParam) {
-		setParam(null, null, stringParam, null);
+		setParam(null, null, stringParam);
 	}
 	
 	/**Method setting the right parameter
 	 * @param arrayParam Array parameter
 	 * @param helperEnumParam ContainmentEnum parameter
 	 * @param stringParam Selector or Element
-	 * @param selector Selector
 	 */
 	private void setParam(ArrayItemOptions<IntegerItemOptions> arrayParam, 
 			ContainmentEnum containmentEnumParam,
-			String stringParam, LiteralOption selector) {
+			String stringParam) {
 		this.arrayParam = arrayParam;
 		this.containmentEnumParam = containmentEnumParam;
 		this.stringParam = stringParam;
-		this.selector = selector;
 	}
 }

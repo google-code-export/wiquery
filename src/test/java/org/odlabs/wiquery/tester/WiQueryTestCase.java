@@ -21,18 +21,15 @@
  */
 package org.odlabs.wiquery.tester;
 
-import org.junit.After;
-import org.junit.Before;
+import junit.framework.TestCase;
 
-public abstract class WiQueryTestCase {
+public abstract class WiQueryTestCase extends TestCase {
 	protected WiQueryTester tester;
 
-	@Before
 	public void setUp() {
 		tester = new WiQueryTester();
 	}
 
-	@After
 	public void tearDown() {
 
 	}

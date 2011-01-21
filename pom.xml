@@ -8,14 +8,14 @@
 	<groupId>org.odlabs.wiquery</groupId>
 	<artifactId>wiquery</artifactId>
 	<packaging>jar</packaging>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 
 	<name>WiQuery project</name>
 
 	<scm>
 		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/trunk/</developerConnection>
 	</scm>
-
+	
 	<distributionManagement>
 		<repository>
 			<uniqueVersion>false</uniqueVersion>
@@ -44,59 +44,13 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wicket.version>1.4.15</wicket.version>
+		<wicket.version>1.4.12</wicket.version>
 		<jackson.version>1.6.1</jackson.version>
 		<log4j.version>1.2.16</log4j.version>
 		<slf4j.version>1.6.1</slf4j.version>
-		<junit.version>4.8.2</junit.version>
-		<rhino.version>1.7R2</rhino.version>
 	</properties>
 
 	<build>
-		<sourceDirectory>src/main/java</sourceDirectory>
-		<testSourceDirectory>src/test/java</testSourceDirectory>
-		<resources>
-			<resource>
-				<directory>src/main/java</directory>
-				<filtering>false</filtering>
-				<excludes>
-					<exclude>**/.svn/**</exclude>
-				</excludes>
-				<includes>
-					<include>**/*</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>false</filtering>
-				<excludes>
-					<exclude>**/.svn/**</exclude>
-				</excludes>
-				<includes>
-					<include>**/*</include>
-				</includes>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>src/test/java</directory>
-				<excludes>
-					<exclude>**/.svn/**</exclude>
-				</excludes>
-				<includes>
-					<include>**/*</include>
-				</includes>
-			</testResource>
-			<testResource>
-				<directory>src/test/resources</directory>
-				<excludes>
-					<exclude>**/.svn/**</exclude>
-				</excludes>
-				<includes>
-					<include>**/*</include>
-				</includes>
-			</testResource>
-		</testResources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -204,16 +158,17 @@
 			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>rhino</groupId>
-			<artifactId>js</artifactId>
-			<version>${rhino.version}</version>
+			<groupId>com.yahoo.platform.yui</groupId>
+			<artifactId>yuicompressor</artifactId>
+			<version>2.4.2</version>
 		</dependency>
 
 		<!-- Test dependencies -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>5.5</version>
+			<classifier>jdk15</classifier>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

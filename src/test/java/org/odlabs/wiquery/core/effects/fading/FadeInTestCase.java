@@ -21,24 +21,25 @@
  */
 package org.odlabs.wiquery.core.effects.fading;
 
-import static org.junit.Assert.assertEquals;
+import junit.framework.TestCase;
 
-import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
 
 /**
  * Test on {@link FadeIn}
- * 
  * @author Julien Roche
+ *
  */
-public class FadeInTestCase extends WiQueryTestCase {
+public class FadeInTestCase extends TestCase {
 	/**
 	 * Test the javascript generation
 	 */
 	@Test
 	public void testJavascriptGeneration() {
-		assertEquals(new JsStatement().$(null, "#aComponent").chain(
-				new FadeIn()).render().toString(), "$('#aComponent').fadeIn();");
+		Assert.assertEquals(new JsStatement().$(null, "#aComponent").chain(new FadeIn()).render().toString(), 
+				"$('#aComponent').fadeIn();");
 	}
 }

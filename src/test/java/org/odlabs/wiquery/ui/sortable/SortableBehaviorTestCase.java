@@ -21,629 +21,548 @@
  */
 package org.odlabs.wiquery.ui.sortable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import junit.framework.TestCase;
 
+import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.junit.Before;
-import org.junit.Test;
-import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.util.tester.WicketTester;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.sortable.SortableBehavior.AxisEnum;
 import org.odlabs.wiquery.ui.sortable.SortableBehavior.CursorAtEnum;
 import org.odlabs.wiquery.ui.sortable.SortableBehavior.ToleranceEnum;
 import org.odlabs.wiquery.ui.sortable.SortableContainment.ElementEnum;
 import org.odlabs.wiquery.ui.sortable.SortableHelper.HelperEnum;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
  * Test {@link SortableBehavior}
- * 
  * @author Julien Roche
+ *
  */
-public class SortableBehaviorTestCase extends WiQueryTestCase {
+public class SortableBehaviorTestCase extends TestCase {
 	// Properties
 	private SortableBehavior sortableBehavior;
-
-	@Override
-	@Before
-	public void setUp() {
-		super.setUp();
-
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
+	public void setUp() throws Exception {
+		new WicketTester(new WebApplication() {
+			@Override
+			public Class<? extends Page> getHomePage() {
+				return null;
+			}
+		});
+		
 		sortableBehavior = new SortableBehavior();
-
+		
 		WebMarkupContainer component = new WebMarkupContainer("anId");
 		component.setMarkupId("anId");
 		component.add(sortableBehavior);
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#cancel()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#cancel()}.
 	 */
 	@Test
 	public void testCancel() {
-		assertNotNull(sortableBehavior.cancel());
-		assertEquals(sortableBehavior.cancel().render().toString(),
+		Assert.assertNotNull(sortableBehavior.cancel());
+		Assert.assertEquals(sortableBehavior.cancel().render().toString(), 
 				"$('#anId').sortable('cancel');");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#destroy()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#destroy()}.
 	 */
 	@Test
 	public void testDestroy() {
-		assertNotNull(sortableBehavior.destroy());
-		assertEquals(sortableBehavior.destroy().render().toString(),
+		Assert.assertNotNull(sortableBehavior.destroy());
+		Assert.assertEquals(sortableBehavior.destroy().render().toString(), 
 				"$('#anId').sortable('destroy');");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#disable()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#disable()}.
 	 */
 	@Test
 	public void testDisable() {
-		assertNotNull(sortableBehavior.disable());
-		assertEquals(sortableBehavior.disable().render().toString(),
+		Assert.assertNotNull(sortableBehavior.disable());
+		Assert.assertEquals(sortableBehavior.disable().render().toString(), 
 				"$('#anId').sortable('disable');");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#enable()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#enable()}.
 	 */
 	@Test
 	public void testEnable() {
-		assertNotNull(sortableBehavior.enable());
-		assertEquals(sortableBehavior.enable().render().toString(),
+		Assert.assertNotNull(sortableBehavior.enable());
+		Assert.assertEquals(sortableBehavior.enable().render().toString(), 
 				"$('#anId').sortable('enable');");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getAppendTo()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getAppendTo()}.
 	 */
 	@Test
 	public void testGetAppendTo() {
-		assertEquals(sortableBehavior.getAppendTo(), "parent");
+		Assert.assertEquals(sortableBehavior.getAppendTo(), "parent");
 		sortableBehavior.setAppendTo("document");
-		assertEquals(sortableBehavior.getAppendTo(), "document");
+		Assert.assertEquals(sortableBehavior.getAppendTo(), "document");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getAxis()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getAxis()}.
 	 */
 	@Test
 	public void testGetAxis() {
-		assertNull(sortableBehavior.getAxis());
+		Assert.assertNull(sortableBehavior.getAxis());
 		sortableBehavior.setAxis(AxisEnum.X);
-		assertEquals(sortableBehavior.getAxis(), AxisEnum.X);
+		Assert.assertEquals(sortableBehavior.getAxis(), AxisEnum.X);
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getCancel()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getCancel()}.
 	 */
 	@Test
 	public void testGetCancel() {
-		assertEquals(sortableBehavior.getCancel(), "input,button");
+		Assert.assertEquals(sortableBehavior.getCancel(), "input,button");
 		sortableBehavior.setCancel("input");
-		assertEquals(sortableBehavior.getCancel(), "input");
+		Assert.assertEquals(sortableBehavior.getCancel(), "input");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getConnectWith()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getConnectWith()}.
 	 */
 	@Test
 	public void testGetConnectWith() {
-		assertNull(sortableBehavior.getConnectWith());
+		Assert.assertNull(sortableBehavior.getConnectWith());
 		sortableBehavior.setConnectWith("sortableId");
-		assertEquals(sortableBehavior.getConnectWith(), "sortableId");
+		Assert.assertEquals(sortableBehavior.getConnectWith(), "sortableId");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getContainmentComplex()}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getContainmentComplex()}.
 	 */
 	@Test
 	public void testGetContainmentComplex() {
-		assertNull(sortableBehavior.getContainmentComplex());
-		sortableBehavior.setContainment(new SortableContainment(
-				ElementEnum.DOCUMENT));
-		assertEquals(sortableBehavior.getContainmentComplex()
-				.getJavascriptOption(), "'document'");
+		Assert.assertNull(sortableBehavior.getContainmentComplex());
+		sortableBehavior.setContainment(new SortableContainment(ElementEnum.DOCUMENT));
+		Assert.assertEquals(sortableBehavior.getContainmentComplex().getJavascriptOption(), 
+				"'document'");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getCursor()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getCursor()}.
 	 */
 	@Test
 	public void testGetCursor() {
-		assertEquals(sortableBehavior.getCursor(), "auto");
+		Assert.assertEquals(sortableBehavior.getCursor(), "auto");
 		sortableBehavior.setCursor("crosshair");
-		assertEquals(sortableBehavior.getCursor(), "crosshair");
+		Assert.assertEquals(sortableBehavior.getCursor(), "crosshair");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getCursorAt()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getCursorAt()}.
 	 */
 	@Test
 	public void testGetCursorAt() {
-		assertNull(sortableBehavior.getCursorAt());
+		Assert.assertNull(sortableBehavior.getCursorAt());
 		sortableBehavior.setCursorAt(CursorAtEnum.BOTTOM);
-		assertEquals(sortableBehavior.getCursorAt(), CursorAtEnum.BOTTOM);
+		Assert.assertEquals(sortableBehavior.getCursorAt(), CursorAtEnum.BOTTOM);
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getDelay()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getDelay()}.
 	 */
 	@Test
 	public void testGetDelay() {
-		assertEquals(sortableBehavior.getDelay(), 0);
+		Assert.assertEquals(sortableBehavior.getDelay(), 0);
 		sortableBehavior.setDelay(5);
-		assertEquals(sortableBehavior.getDelay(), 5);
+		Assert.assertEquals(sortableBehavior.getDelay(), 5);
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getDistance()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getDistance()}.
 	 */
 	@Test
 	public void testGetDistance() {
-		assertEquals(sortableBehavior.getDistance(), 1);
+		Assert.assertEquals(sortableBehavior.getDistance(), 1);
 		sortableBehavior.setDistance(5);
-		assertEquals(sortableBehavior.getDistance(), 5);
+		Assert.assertEquals(sortableBehavior.getDistance(), 5);
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getGrid()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getGrid()}.
 	 */
 	@Test
 	public void testGetGrid() {
-		assertNull(sortableBehavior.getGrid());
+		Assert.assertNull(sortableBehavior.getGrid());
 		sortableBehavior.setGrid(5, 5);
-		assertNotNull(sortableBehavior.getGrid());
+		Assert.assertNotNull(sortableBehavior.getGrid());
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getHandle()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getHandle()}.
 	 */
 	@Test
 	public void testGetHandle() {
-		assertNull(sortableBehavior.getHandle());
+		Assert.assertNull(sortableBehavior.getHandle());
 		sortableBehavior.setHandle("handle");
-		assertEquals(sortableBehavior.getHandle(), "handle");
+		Assert.assertEquals(sortableBehavior.getHandle(), "handle");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getHelperComplex()}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getHelperComplex()}.
 	 */
 	@Test
 	public void testGetHelperComplex() {
-		assertEquals(sortableBehavior.getHelperComplex().getJavascriptOption()
-				.toString(), "'original'");
+		Assert.assertEquals(sortableBehavior.getHelperComplex().getJavascriptOption().toString(), "'original'");
 		sortableBehavior.setHelper(new SortableHelper(HelperEnum.CLONE));
-		assertEquals(sortableBehavior.getHelperComplex().getJavascriptOption()
-				.toString(), "'clone'");
+		Assert.assertEquals(sortableBehavior.getHelperComplex().getJavascriptOption().toString(), "'clone'");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getItems()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getItems()}.
 	 */
 	@Test
 	public void testGetItems() {
-		assertEquals(sortableBehavior.getItems(), "> *");
+		Assert.assertEquals(sortableBehavior.getItems(), "> *");
 		sortableBehavior.setItems("div");
-		assertEquals(sortableBehavior.getItems(), "div");
+		Assert.assertEquals(sortableBehavior.getItems(), "div");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getOpacity()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getOpacity()}.
 	 */
 	@Test
 	public void testGetOpacity() {
-		assertEquals((Object) sortableBehavior.getOpacity(), 0F);
+		Assert.assertEquals(sortableBehavior.getOpacity(), 0F);
 		sortableBehavior.setOpacity(1F);
-		assertEquals((Object) sortableBehavior.getOpacity(), 1F);
+		Assert.assertEquals(sortableBehavior.getOpacity(), 1F);
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getOptions()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getOptions()}.
 	 */
 	@Test
 	public void testGetOptions() {
-		assertNotNull(sortableBehavior.getOptions());
+		Assert.assertNotNull(sortableBehavior.getOptions());
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getPlaceHolder()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getPlaceHolder()}.
 	 */
 	@Test
 	public void testGetPlaceHolder() {
-		assertNull(sortableBehavior.getPlaceHolder());
+		Assert.assertNull(sortableBehavior.getPlaceHolder());
 		sortableBehavior.setPlaceholder("aClass");
-		assertEquals(sortableBehavior.getPlaceHolder(), "aClass");
+		Assert.assertEquals(sortableBehavior.getPlaceHolder(), "aClass");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getRevert()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getRevert()}.
 	 */
 	@Test
 	public void testGetRevert() {
-		assertEquals(sortableBehavior.getRevert().getJavascriptOption()
-				.toString(), "false");
+		Assert.assertEquals(sortableBehavior.getRevert().getJavascriptOption().toString(), "false");
 		sortableBehavior.setRevert(new SortableRevert(5));
-		assertEquals(sortableBehavior.getRevert().getJavascriptOption()
-				.toString(), "5");
+		Assert.assertEquals(sortableBehavior.getRevert().getJavascriptOption().toString(), "5");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getScrollSensitivity()}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getScrollSensitivity()}.
 	 */
 	@Test
 	public void testGetScrollSensitivity() {
-		assertEquals(sortableBehavior.getScrollSensitivity(), 20);
+		Assert.assertEquals(sortableBehavior.getScrollSensitivity(), 20);
 		sortableBehavior.setScrollSensitivity(30);
-		assertEquals(sortableBehavior.getScrollSensitivity(), 30);
+		Assert.assertEquals(sortableBehavior.getScrollSensitivity(), 30);
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getScrollSpeed()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getScrollSpeed()}.
 	 */
 	@Test
 	public void testGetScrollSpeed() {
-		assertEquals(sortableBehavior.getScrollSpeed(), 20);
+		Assert.assertEquals(sortableBehavior.getScrollSpeed(), 20);
 		sortableBehavior.setScrollSpeed(30);
-		assertEquals(sortableBehavior.getScrollSpeed(), 30);
+		Assert.assertEquals(sortableBehavior.getScrollSpeed(), 30);
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getTolerance()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getTolerance()}.
 	 */
 	@Test
 	public void testGetTolerance() {
-		assertEquals(sortableBehavior.getTolerance(), ToleranceEnum.INTERSECT);
+		Assert.assertEquals(sortableBehavior.getTolerance(), ToleranceEnum.INTERSECT);
 		sortableBehavior.setTolerance(ToleranceEnum.POINTER);
-		assertEquals(sortableBehavior.getTolerance(), ToleranceEnum.POINTER);
+		Assert.assertEquals(sortableBehavior.getTolerance(), ToleranceEnum.POINTER);
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getZIndex()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#getZIndex()}.
 	 */
 	@Test
 	public void testGetZIndex() {
-		assertEquals(sortableBehavior.getZIndex(), 1000);
+		Assert.assertEquals(sortableBehavior.getZIndex(), 1000);
 		sortableBehavior.setZIndex(30);
-		assertEquals(sortableBehavior.getZIndex(), 30);
+		Assert.assertEquals(sortableBehavior.getZIndex(), 30);
 	}
-
+	
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#isDisabled()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#isDisabled()}.
 	 */
 	@Test
 	public void testIsDisabled() {
-		assertFalse(sortableBehavior.isDisabled());
+		Assert.assertFalse(sortableBehavior.isDisabled());
 		sortableBehavior.setDisabled(true);
-		assertTrue(sortableBehavior.isDisabled());
+		Assert.assertTrue(sortableBehavior.isDisabled());
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#isDropOnEmpty()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#isDropOnEmpty()}.
 	 */
 	@Test
 	public void testIsDropOnEmpty() {
-		assertTrue(sortableBehavior.isDropOnEmpty());
+		Assert.assertTrue(sortableBehavior.isDropOnEmpty());
 		sortableBehavior.setDropOnEmpty(false);
-		assertFalse(sortableBehavior.isDropOnEmpty());
+		Assert.assertFalse(sortableBehavior.isDropOnEmpty());
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#isForceHelperSize()}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#isForceHelperSize()}.
 	 */
 	@Test
 	public void testIsForceHelperSize() {
-		assertFalse(sortableBehavior.isForceHelperSize());
+		Assert.assertFalse(sortableBehavior.isForceHelperSize());
 		sortableBehavior.setForceHelperSize(true);
-		assertTrue(sortableBehavior.isForceHelperSize());
+		Assert.assertTrue(sortableBehavior.isForceHelperSize());
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#isForcePlaceholderSize()}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#isForcePlaceholderSize()}.
 	 */
 	@Test
 	public void testIsForcePlaceholderSize() {
-		assertFalse(sortableBehavior.isForcePlaceholderSize());
+		Assert.assertFalse(sortableBehavior.isForcePlaceholderSize());
 		sortableBehavior.setForcePlaceholderSize(true);
-		assertTrue(sortableBehavior.isForcePlaceholderSize());
+		Assert.assertTrue(sortableBehavior.isForcePlaceholderSize());
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#isScroll()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#isScroll()}.
 	 */
 	@Test
 	public void testIsScroll() {
-		assertTrue(sortableBehavior.isScroll());
+		Assert.assertTrue(sortableBehavior.isScroll());
 		sortableBehavior.setScroll(false);
-		assertFalse(sortableBehavior.isScroll());
+		Assert.assertFalse(sortableBehavior.isScroll());
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#refresh()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#refresh()}.
 	 */
 	@Test
 	public void testRefresh() {
-		assertNotNull(sortableBehavior.refresh());
-		assertEquals(sortableBehavior.refresh().render().toString(),
+		Assert.assertNotNull(sortableBehavior.refresh());
+		Assert.assertEquals(sortableBehavior.refresh().render().toString(), 
 				"$('#anId').sortable('refresh');");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#refreshPositions()}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#refreshPositions()}.
 	 */
 	@Test
 	public void testRefreshPositions() {
-		assertNotNull(sortableBehavior.refreshPositions());
-		assertEquals(sortableBehavior.refreshPositions().render().toString(),
+		Assert.assertNotNull(sortableBehavior.refreshPositions());
+		Assert.assertEquals(sortableBehavior.refreshPositions().render().toString(), 
 				"$('#anId').sortable('refreshPositions');");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#serialize()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#serialize()}.
 	 */
 	@Test
 	public void testSerialize() {
-		assertNotNull(sortableBehavior.serialize());
-		assertEquals(sortableBehavior.serialize().render().toString(),
+		Assert.assertNotNull(sortableBehavior.serialize());
+		Assert.assertEquals(sortableBehavior.serialize().render().toString(), 
 				"$('#anId').sortable('serialize');");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setActivateEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setActivateEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
 	 */
 	@Test
 	public void testSetActivateEvent() {
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({});");
-		sortableBehavior.setActivateEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({activate: function(event, ui) {\n\talert('event');\n}});");
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({});");
+		sortableBehavior.setActivateEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({activate: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setBeforeStopEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setBeforeStopEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
 	 */
 	@Test
 	public void testSetBeforeStopEvent() {
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({});");
-		sortableBehavior.setBeforeStopEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(
-				sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({beforeStop: function(event, ui) {\n\talert('event');\n}});");
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({});");
+		sortableBehavior.setBeforeStopEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({beforeStop: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setChangeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setChangeEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
 	 */
 	@Test
 	public void testSetChangeEvent() {
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({});");
-		sortableBehavior.setChangeEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({change: function(event, ui) {\n\talert('event');\n}});");
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({});");
+		sortableBehavior.setChangeEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({change: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setDeactivateEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setDeactivateEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
 	 */
 	@Test
 	public void testSetDeactivateEvent() {
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({});");
-		sortableBehavior.setDeactivateEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(
-				sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({deactivate: function(event, ui) {\n\talert('event');\n}});");
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({});");
+		sortableBehavior.setDeactivateEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({deactivate: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setOutEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setOutEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
 	 */
 	@Test
 	public void testSetOutEvent() {
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({});");
-		sortableBehavior.setOutEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({out: function(event, ui) {\n\talert('event');\n}});");
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({});");
+		sortableBehavior.setOutEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({out: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setOverEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setOverEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
 	 */
 	@Test
 	public void testSetOverEvent() {
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({});");
-		sortableBehavior.setOverEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({over: function(event, ui) {\n\talert('event');\n}});");
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({});");
+		sortableBehavior.setOverEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({over: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setReceiveEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setReceiveEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
 	 */
 	@Test
 	public void testSetReceiveEvent() {
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({});");
-		sortableBehavior.setReceiveEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({receive: function(event, ui) {\n\talert('event');\n}});");
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({});");
+		sortableBehavior.setReceiveEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({receive: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setRemoveEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setRemoveEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
 	 */
 	@Test
 	public void testSetRemoveEvent() {
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({});");
-		sortableBehavior.setRemoveEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({remove: function(event, ui) {\n\talert('event');\n}});");
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({});");
+		sortableBehavior.setRemoveEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({remove: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setSortEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setSortEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
 	 */
 	@Test
 	public void testSetSortEvent() {
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({});");
-		sortableBehavior.setSortEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({sort: function(event, ui) {\n\talert('event');\n}});");
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({});");
+		sortableBehavior.setSortEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({sort: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setStartEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setStartEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
 	 */
 	@Test
 	public void testSetStartEvent() {
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({});");
-		sortableBehavior.setStartEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({start: function(event, ui) {\n\talert('event');\n}});");
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({});");
+		sortableBehavior.setStartEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({start: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setStopEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setStopEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
 	 */
 	@Test
 	public void testSetStopEvent() {
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({});");
-		sortableBehavior.setStopEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({stop: function(event, ui) {\n\talert('event');\n}});");
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({});");
+		sortableBehavior.setStopEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({stop: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setUpdateEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#setUpdateEvent(org.odlabs.wiquery.ui.core.JsScopeUiEvent)}.
 	 */
 	@Test
 	public void testSetUpdateEvent() {
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({});");
-		sortableBehavior.setUpdateEvent(JsScopeUiEvent
-				.quickScope("alert('event');"));
-		assertEquals(sortableBehavior.statement().render().toString(),
-				"$('#anId').sortable({update: function(event, ui) {\n\talert('event');\n}});");
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({});");
+		sortableBehavior.setUpdateEvent(JsScopeUiEvent.quickScope("alert('event');"));
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
+			"$('#anId').sortable({update: function(event, ui) {\n\talert('event');\n}});");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#statement()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#statement()}.
 	 */
 	@Test
 	public void testStatement() {
-		assertNotNull(sortableBehavior.statement());
-		assertEquals(sortableBehavior.statement().render().toString(),
+		Assert.assertNotNull(sortableBehavior.statement());
+		Assert.assertEquals(sortableBehavior.statement().render().toString(), 
 				"$('#anId').sortable({});");
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#toArray()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#toArray()}.
 	 */
 	@Test
 	public void testToArray() {
-		assertNotNull(sortableBehavior.toArray());
-		assertEquals(sortableBehavior.toArray().render().toString(),
+		Assert.assertNotNull(sortableBehavior.toArray());
+		Assert.assertEquals(sortableBehavior.toArray().render().toString(), 
 				"$('#anId').sortable('toArray');");
 	}
-
+	
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#widget()}.
+	 * Test method for {@link org.odlabs.wiquery.ui.sortable.SortableBehavior#widget()}.
 	 */
 	@Test
 	public void testWidget() {
-		assertNotNull(sortableBehavior.widget());
-		assertEquals(sortableBehavior.widget().render().toString(),
+		Assert.assertNotNull(sortableBehavior.widget());
+		Assert.assertEquals(sortableBehavior.widget().render().toString(), 
 				"$('#anId').sortable('widget');");
 	}
 }

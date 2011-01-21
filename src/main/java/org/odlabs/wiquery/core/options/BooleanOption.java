@@ -21,9 +21,9 @@
  */
 package org.odlabs.wiquery.core.options;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.model.IComponentAssignedModel;
+import org.apache.wicket.model.IDetachable;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 /**
  * $Id: $
@@ -32,47 +32,87 @@ import org.apache.wicket.model.IModel;
  * <p>
  * Example:
  * <p>
- * The {@link Boolean} <code>true</code> should be rendered as <code>true</code>
+ * The {@link Boolean} <code>true</code> should be rendered as
+ * <code>true</code>
  * </p>
- * </p> </p>
+ * </p>
+ * </p>
  * 
  * @author Lionel Armanet
- * @author Ernesto Reinaldo Barreiro
+ * @author Ernesto Reinaldo Barreiro 
  * @since 0.5
  */
-public class BooleanOption extends AbstractOption<Boolean> {
-	private static final long serialVersionUID = -5938430089917100476L;
-
+public class BooleanOption implements IDetachable, ITypedOption<Boolean> {
+	// Constants
+	/** Constant of serialization */
+	private static final long serialVersionUID = 6999431516689050752L;
+	
 	/**
+	 * The wrapped {@link String}
+	 */
+	private IModel<Boolean> value;
+	
+	/**
+	 * <p>
 	 * Builds a new instance of {@link BooleanOption}.
+	 * </p>
 	 * 
 	 * @param literal
-	 *            the wrapped {@link Boolean}
+	 *            the wrapped {@link String}
 	 */
 	public BooleanOption(Boolean value) {
-		super(value);
+		this(new Model<Boolean>(value));
 	}
-
+	
 	/**
+	 * <p>
 	 * Builds a new instance of {@link BooleanOption}.
+	 * </p>
 	 * 
 	 * @param literal
 	 *            the wrapped {@link String}
 	 */
 	public BooleanOption(IModel<Boolean> value) {
-		super(value);
+		this.value = value;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
+	 */
+	public CharSequence getJavascriptOption() {
+		return toString();
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		Boolean value = getValue();
-		return value != null ? Boolean.toString(value) : null;
+		Boolean value = this.value.getObject();
+		return value != null?Boolean.toString(this.value.getObject()): null;
 	}
-
-	public IModelOption<Boolean> wrapOnAssignment(Component component) {
-		if (getModel() instanceof IComponentAssignedModel<?>)
-			return new BooleanOption(((IComponentAssignedModel<Boolean>) getModel())
-					.wrapOnAssignment(component));
-		return this;
+	
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.model.IDetachable#detach()
+	 */
+	public void detach() {
+		if(value != null) {
+			value.detach();
+		}
+	} 
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.options.ITypedOption#getValue()
+	 */
+	public Boolean getValue() {
+		if(value != null) {
+			return value.getObject();
+		}
+		return null;
 	}
 }

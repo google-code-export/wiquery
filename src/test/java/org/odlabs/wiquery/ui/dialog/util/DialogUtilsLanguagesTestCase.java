@@ -21,46 +21,44 @@
  */
 package org.odlabs.wiquery.ui.dialog.util;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Locale;
 
-import org.junit.Test;
-import org.odlabs.wiquery.tester.WiQueryTestCase;
+import junit.framework.TestCase;
+
 import org.odlabs.wiquery.ui.dialog.util.DialogUtilsBehavior.DialogUtilsLanguages;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
  * Test on {@link DialogUtilsLanguages}
- * 
  * @author Julien Roche
+ *
  */
-public class DialogUtilsLanguagesTestCase extends WiQueryTestCase {
+public class DialogUtilsLanguagesTestCase extends TestCase {
 	/**
-	 * Test on
-	 * {@link DialogUtilsLanguages#getDialogUtilsLanguages(java.util.Locale)}
+	 * Test on {@link DialogUtilsLanguages#getDialogUtilsLanguages(java.util.Locale)}
 	 */
 	@Test
 	public void testGetDialogUtilsLanguages() {
-		assertEquals(DialogUtilsLanguages.getDialogUtilsLanguages(null),
+		Assert.assertEquals(DialogUtilsLanguages.getDialogUtilsLanguages(null), 
 				DialogUtilsLanguages.ENGLISH);
-
-		assertEquals(DialogUtilsLanguages.getDialogUtilsLanguages(new Locale(
-				"af")), DialogUtilsLanguages.ENGLISH);
-
-		assertEquals(DialogUtilsLanguages.getDialogUtilsLanguages(new Locale(
-				"hi", "IN")), DialogUtilsLanguages.HINDI);
+		
+		Assert.assertEquals(DialogUtilsLanguages.getDialogUtilsLanguages(new Locale("af")), 
+				DialogUtilsLanguages.ENGLISH);
+		
+		Assert.assertEquals(DialogUtilsLanguages.getDialogUtilsLanguages(new Locale("hi", "IN")), 
+				DialogUtilsLanguages.HINDI);
 	}
-
+	
 	/**
-	 * Test on
-	 * {@link DialogUtilsLanguages#getDialogUtilsLiteral(DialogUtilsLanguages)}
+	 * Test on {@link DialogUtilsLanguages#getDialogUtilsLiteral(DialogUtilsLanguages)}
 	 */
 	@Test
 	public void testGetDialogUtilsLiteral() {
-		assertEquals(DialogUtilsLanguages
-				.getDialogUtilsLiteral(DialogUtilsLanguages.ENGLISH), "'en'");
-
-		assertEquals(DialogUtilsLanguages
-				.getDialogUtilsLiteral(DialogUtilsLanguages.HINDI), "'hi_IN'");
+		Assert.assertEquals(DialogUtilsLanguages.getDialogUtilsLiteral(DialogUtilsLanguages.ENGLISH), 
+				"'en'");
+		
+		Assert.assertEquals(DialogUtilsLanguages.getDialogUtilsLiteral(DialogUtilsLanguages.HINDI), 
+		"'hi_IN'");
 	}
 }

@@ -21,9 +21,9 @@
  */
 package org.odlabs.wiquery.core.options;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.model.IComponentAssignedModel;
+import org.apache.wicket.model.IDetachable;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.odlabs.wiquery.core.javascript.JsUtils;
 
 /**
@@ -33,79 +33,114 @@ import org.odlabs.wiquery.core.javascript.JsUtils;
  * <p>
  * Example:
  * <p>
- * The {@link String} <code>true</code> should be rendered as <code>true</code>
+ * The {@link String} <code>foo</code> should be rendered as
+ * <code>'foo'</code>
  * </p>
- * </p> </p>
+ * </p>
+ * </p>
  * 
  * @author Lionel Armanet
- * @author Ernesto Reinaldo Barreiro
+ * @author Ernesto Reinaldo Barreiro 
  * @since 0.5
  */
-public class LiteralOption extends AbstractOption<String> {
-	private static final long serialVersionUID = -5938430089917100476L;
+public class LiteralOption implements IDetachable, IListItemOption {
+	// Constants
+	/** Constant of serialization */
+	private static final long serialVersionUID = 6999431516689050752L;
+
+	// Properties
+	/**
+	 * Put Double quote ?
+	 */
 	private boolean doubleQuote;
-
+	
 	/**
+	 * The wrapped {@link String}
+	 */
+	private IModel<String> literal;
+	
+	/**
+	 * <p>
 	 * Builds a new instance of {@link LiteralOption}.
+	 * </p>
 	 * 
 	 * @param literal
 	 *            the wrapped {@link String}
 	 */
-	public LiteralOption(String value) {
-		this(value, false);
+	public LiteralOption(String literal) {
+		this(literal, false);
 	}
 
 	/**
+	 * <p>
 	 * Builds a new instance of {@link LiteralOption}.
+	 * </p>
 	 * 
 	 * @param literal
 	 *            the wrapped {@link String}
+	 * @param doubleQuote Must we insert double quote ?
 	 */
-	public LiteralOption(IModel<String> value) {
-		this(value, false);
-	}
-
-	/**
-	 * Builds a new instance of {@link LiteralOption}.
-	 * 
-	 * @param literal
-	 *            the wrapped {@link String}
-	 */
-	public LiteralOption(String value, boolean doubleQuote) {
-		super(value);
-		this.doubleQuote = doubleQuote;
-	}
-
-	/**
-	 * Builds a new instance of {@link LiteralOption}.
-	 * 
-	 * @param literal
-	 *            the wrapped {@link String}
-	 */
-	public LiteralOption(IModel<String> value, boolean doubleQuote) {
-		super(value);
-		this.doubleQuote = doubleQuote;
+	public LiteralOption(String literal, boolean doubleQuote) {
+		this(new Model<String>(literal), doubleQuote);
 	}
 	
 	/**
-	 * @deprecated Use getValue()
+	 * <p>
+	 * Builds a new instance of {@link LiteralOption}.
+	 * </p>
+	 * 
+	 * @param literal
+	 *            the wrapped {@link String}
 	 */
-	@Deprecated
-	public String getLiteral() {
-		return getValue();
+	public LiteralOption(IModel<String> literal) {
+		this(literal, false);
 	}
 
+	/**
+	 * <p>
+	 * Builds a new instance of {@link LiteralOption}.
+	 * </p>
+	 * 
+	 * @param literal
+	 *            the wrapped {@link String}
+	 * @param doubleQuote Must we insert double quote ?
+	 */
+	public LiteralOption(IModel<String> literal, boolean doubleQuote) {
+		super();
+		this.literal = literal;
+		this.doubleQuote = doubleQuote;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
+	 */
+	public CharSequence getJavascriptOption() {
+		return toString();
+	}
+
+	/**
+	 * @return the wrapped {@link String}.
+	 */
+	public String getLiteral() {
+		return literal!= null?literal.getObject():null;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return doubleQuote ? JsUtils.doubleQuotes(getValue()) : JsUtils
-				.quotes(getValue());
+		return doubleQuote ? JsUtils.doubleQuotes(literal.getObject()) : JsUtils.quotes(literal.getObject());
 	}
-
-	public IModelOption<String> wrapOnAssignment(Component component) {
-		if (getModel() instanceof IComponentAssignedModel<?>)
-			return new LiteralOption(
-					((IComponentAssignedModel<String>) getModel())
-							.wrapOnAssignment(component), doubleQuote);
-		return this;
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.model.IDetachable#detach()
+	 */
+	public void detach() {
+		if(literal != null)
+			literal.detach();
 	}
 }

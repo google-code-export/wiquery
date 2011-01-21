@@ -1,22 +1,21 @@
 package org.odlabs.wiquery.ui.datepicker.scope;
 
-import static org.junit.Assert.assertEquals;
+import junit.framework.TestCase;
 
-import org.junit.Test;
-import org.odlabs.wiquery.tester.WiQueryTestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
  * Unit test on the {@link JsScopeUiDatePickerOnChangeEvent}
- * 
  * @author Julien Roche
+ *
  */
-public class DefaultJsScopeUiDatePickerOnChangeEventTestCase extends
-		WiQueryTestCase {
+public class DefaultJsScopeUiDatePickerOnChangeEventTestCase extends TestCase {
 
-	protected static final Logger log = LoggerFactory
-			.getLogger(DefaultJsScopeUiDatePickerOnChangeEventTestCase.class);
+	protected static final Logger log = LoggerFactory.getLogger(
+			DefaultJsScopeUiDatePickerOnChangeEventTestCase.class);
 
 	/**
 	 * Check the syntax
@@ -24,21 +23,20 @@ public class DefaultJsScopeUiDatePickerOnChangeEventTestCase extends
 	@Test
 	public void testJsScopeSyntax() {
 		String expectedJavascript = "function(year, month, inst) {\n\talert('test');\n}";
-		JsScopeUiDatePickerOnChangeEvent scopeUiEvent = new DefaultJsScopeUiDatePickerOnChangeEvent(
-				"alert('test');");
+		JsScopeUiDatePickerOnChangeEvent scopeUiEvent = new DefaultJsScopeUiDatePickerOnChangeEvent("alert('test');");
 		String generatedJavascript = scopeUiEvent.render().toString();
-
+		
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-
-		assertEquals(generatedJavascript, expectedJavascript);
-
+		
+		Assert.assertEquals(generatedJavascript, expectedJavascript);
+		
 		// Second generation
 		generatedJavascript = scopeUiEvent.render().toString();
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-
-		assertEquals(generatedJavascript, expectedJavascript);
+		
+		Assert.assertEquals(generatedJavascript, expectedJavascript);
 	}
-
+	
 }

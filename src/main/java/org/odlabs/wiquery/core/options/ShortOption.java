@@ -21,9 +21,9 @@
  */
 package org.odlabs.wiquery.core.options;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.model.IComponentAssignedModel;
+import org.apache.wicket.model.IDetachable;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 /**
  * $Id: $
@@ -32,47 +32,87 @@ import org.apache.wicket.model.IModel;
  * <p>
  * Example:
  * <p>
- * The {@link Short} <code>1</code> should be rendered as <code>1</code>
+ * The {@link Short} <code>11</code> should be rendered as
+ * <code>11</code>
  * </p>
- * </p> </p>
+ * </p>
+ * </p>
  * 
  * @author Lionel Armanet
- * @author Ernesto Reinaldo Barreiro
+ * @author Ernesto Reinaldo Barreiro 
  * @since 0.5
  */
-public class ShortOption extends AbstractOption<Short> {
-	private static final long serialVersionUID = -5938430089917100476L;
-
+public class ShortOption implements IDetachable, ITypedOption<Short> {
+	// Constants
+	/** Constant of serialization */
+	private static final long serialVersionUID = 6999431516689050752L;
+	
 	/**
+	 * The wrapped {@link String}
+	 */
+	private IModel<Short> value;
+	
+	/**
+	 * <p>
 	 * Builds a new instance of {@link ShortOption}.
+	 * </p>
 	 * 
 	 * @param literal
-	 *            the wrapped {@link Short}
+	 *            the wrapped {@link String}
 	 */
 	public ShortOption(Short value) {
-		super(value);
+		this(new Model<Short>(value));
+	}
+	
+	/**
+	 * <p>
+	 * Builds a new instance of {@link ShortOption}.
+	 * </p>
+	 * 
+	 * @param literal
+	 *            the wrapped {@link String}
+	 */
+	public ShortOption(IModel<Short> value) {
+		this.value = value;
 	}
 
 	/**
-	 * Builds a new instance of {@link ShortOption}.
-	 * 
-	 * @param literal
-	 *            the wrapped {@link Short}
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
 	 */
-	public ShortOption(IModel<Short> value) {
-		super(value);
+	public CharSequence getJavascriptOption() {
+		return toString();
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		Short value = getValue();
-		return value != null ? Short.toString(value) : null;
+		Short value = this.value.getObject();
+		return value != null?Short.toString(this.value.getObject()): null;
 	}
-
-	public IModelOption<Short> wrapOnAssignment(Component component) {
-		if (getModel() instanceof IComponentAssignedModel<?>)
-			return new ShortOption(((IComponentAssignedModel<Short>) getModel())
-					.wrapOnAssignment(component));
-		return this;
+	
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.model.IDetachable#detach()
+	 */
+	public void detach() {
+		if(value != null) {
+			value.detach();
+		}
+	} 
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.options.ITypedOption#getValue()
+	 */
+	public Short getValue() {
+		if(value != null) {
+			return value.getObject();
+		}
+		return null;
 	}
 }

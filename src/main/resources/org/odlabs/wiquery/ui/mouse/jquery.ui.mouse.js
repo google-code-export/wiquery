@@ -1,5 +1,5 @@
 /*!
- * jQuery UI Mouse 1.8.8
+ * jQuery UI Mouse 1.8.5
  *
  * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT or GPL Version 2 licenses.
@@ -26,8 +26,8 @@ $.widget("ui.mouse", {
 				return self._mouseDown(event);
 			})
 			.bind('click.'+this.widgetName, function(event) {
-				if (true === $.data(event.target, self.widgetName + '.preventClickEvent')) {
-				    $.removeData(event.target, self.widgetName + '.preventClickEvent');
+				if(self._preventClickEvent) {
+					self._preventClickEvent = false;
 					event.stopImmediatePropagation();
 					return false;
 				}
@@ -86,14 +86,18 @@ $.widget("ui.mouse", {
 			.bind('mousemove.'+this.widgetName, this._mouseMoveDelegate)
 			.bind('mouseup.'+this.widgetName, this._mouseUpDelegate);
 
-		event.preventDefault();
+		// preventDefault() is used to prevent the selection of text here -
+		// however, in Safari, this causes select boxes not to be selectable
+		// anymore, so this fix is needed
+		($.browser.safari || event.preventDefault());
+
 		event.originalEvent.mouseHandled = true;
 		return true;
 	},
 
 	_mouseMove: function(event) {
 		// IE mouseup check - mouseup happened when mouse was out of window
-		if ($.browser.msie && !(document.documentMode >= 9) && !event.button) {
+		if ($.browser.msie && !event.button) {
 			return this._mouseUp(event);
 		}
 
@@ -118,11 +122,7 @@ $.widget("ui.mouse", {
 
 		if (this._mouseStarted) {
 			this._mouseStarted = false;
-
-			if (event.target == this._mouseDownEvent.target) {
-			    $.data(event.target, this.widgetName + '.preventClickEvent', true);
-			}
-
+			this._preventClickEvent = (event.target == this._mouseDownEvent.target);
 			this._mouseStop(event);
 		}
 

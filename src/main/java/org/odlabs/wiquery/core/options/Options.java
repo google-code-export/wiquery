@@ -59,13 +59,11 @@ public class Options implements IModel<Options> {
 
 	private static final long serialVersionUID = 1L;
 
-	private Component owner;
-
 	/**
 	 * The internal structure is a map associating each option label with each
 	 * option value.
 	 */
-	private Map<String, Object> options = new LinkedHashMap<String, Object>();
+	protected Map<String, Object> options = new LinkedHashMap<String, Object>();
 
 	/**
 	 * The {@link IOptionsRenderer} to use.
@@ -73,27 +71,13 @@ public class Options implements IModel<Options> {
 	private IOptionsRenderer optionsRenderer;
 
 	/**
-	 * Build a new empty {@link Options} instance that does not bind to a
-	 * component. This does not allow the usage of IComponentAssignedModels as
-	 * option values.
+	 * <p>
+	 * Build a new empty {@link Options} instance.
+	 * </p>
 	 */
 	public Options() {
-		this(null);
-	}
-
-	/**
-	 * Build a new empty {@link Options} instance that binds to a component
-	 */
-	public Options(Component owner) {
-		this.owner = owner;
+		super();
 		this.optionsRenderer = DefaultOptionsRenderer.get();
-	}
-
-	public void setOwner(Component owner) {
-		if (this.owner != null && this.owner != owner)
-			throw new IllegalArgumentException(
-					"Cannot use the same Options for multiple components");
-		this.owner = owner;
 	}
 
 	/**
@@ -117,37 +101,12 @@ public class Options implements IModel<Options> {
 	 *            the option name.
 	 */
 	public String get(String key) {
-		String ret = getValueFromOptions(key, StringOption.class);
-		if (ret == null && options.containsKey(ret))
-			ret = options.get(key).toString();
-		return ret;
-	}
-
-	/**
-	 * <p>
-	 * Returns the given option value.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 */
-	public Boolean getBoolean(String key) {
-		return getValueFromOptions(key, BooleanOption.class);
-	}
-
-	/**
-	 * <p>
-	 * Returns the given option value.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @return the complex option
-	 */
-	public IComplexOption getComplexOption(String key) {
-		Object object = this.options.get(key);
-		if (object instanceof IComplexOption)
-			return (IComplexOption) object;
+		Object object = options.get(key);
+		if(object instanceof StringOption) {
+			return ((StringOption)object).getValue();
+		} else if(object   != null) {
+			return object.toString();
+		}
 		return null;
 	}
 
@@ -159,8 +118,45 @@ public class Options implements IModel<Options> {
 	 * @param key
 	 *            the option name.
 	 */
+	public Boolean getBoolean(String key) {
+		Object object = this.options.get(key);
+		if(object instanceof BooleanOption) {
+			BooleanOption option = ((BooleanOption)object);
+			return option.getValue();
+		}
+		return null;
+	}
+
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key the option name.
+	 * @return the complex option
+	 */
+	public IComplexOption getComplexOption(String key) {
+		Object object = this.options.get(key);
+		if(object instanceof IComplexOption)
+			return (IComplexOption) object;
+		return null;
+	}
+	
+	/**
+	 * <p>
+	 * Returns the given option value.
+	 * </p>
+	 * 
+	 * @param key
+	 *            the option name.
+	 */
 	public Double getDouble(String key) {
-		return getValueFromOptions(key, DoubleOption.class);
+		Object object = this.options.get(key);
+		if(object instanceof DoubleOption) {
+			DoubleOption option = ((DoubleOption)object);
+			return option.getValue();
+		}
+		return null;
 	}
 
 	/**
@@ -172,7 +168,12 @@ public class Options implements IModel<Options> {
 	 *            the option name.
 	 */
 	public Float getFloat(String key) {
-		return getValueFromOptions(key, FloatOption.class);
+		Object object = this.options.get(key);
+		if(object instanceof FloatOption) {
+			FloatOption option = ((FloatOption)object);
+			return option.getValue();
+		}
+		return null;
 	}
 
 	/**
@@ -184,7 +185,12 @@ public class Options implements IModel<Options> {
 	 *            the option name.
 	 */
 	public Integer getInt(String key) {
-		return getValueFromOptions(key, IntegerOption.class);
+		Object object = this.options.get(key);
+		if(object instanceof IntegerOption) {
+			IntegerOption option = ((IntegerOption)object);
+			return option.getValue();
+		}
+		return null;
 	}
 
 	/**
@@ -197,57 +203,50 @@ public class Options implements IModel<Options> {
 		for (Entry<String, Object> entry : options.entrySet()) {
 			String key = entry.getKey();
 			Object value = entry.getValue();
-			if (value instanceof IModelOption<?>)
-				value = ((IModelOption<?>) value).wrapOnAssignment(owner);
 			boolean isLast = !(count < options.size() - 1);
 			if (value instanceof JsScope) {
 				// Case of a JsScope
 				sb.append(this.optionsRenderer.renderOption(key,
 						((JsScope) value).render(), isLast));
-			} else if (value instanceof ICollectionItemOptions) {
+			} 
+			else if (value instanceof ICollectionItemOptions) {
 				// Case of an ICollectionItemOptions
 				sb.append(this.optionsRenderer.renderOption(key,
-						((ICollectionItemOptions) value).getJavascriptOption(),
-						isLast));
-			} else if (value instanceof IComplexOption) {
+						((ICollectionItemOptions)value).getJavascriptOption(), isLast));
+			} 
+			else if (value instanceof IComplexOption) {
 				// Case of an IComplexOption
-				sb
-						.append(this.optionsRenderer.renderOption(key,
-								((IComplexOption) value).getJavascriptOption(),
-								isLast));
+				sb.append(this.optionsRenderer.renderOption(key,
+						((IComplexOption)value).getJavascriptOption(), isLast));
 			} else if (value instanceof ITypedOption<?>) {
-				// Case of an ITypedOption
-				sb.append(this.optionsRenderer
-						.renderOption(key, ((ITypedOption<?>) value)
-								.getJavascriptOption(), isLast));
-			} else {
+				// Case of an IComplexOption
+				sb.append(this.optionsRenderer.renderOption(key,((ITypedOption<?>)value).getJavascriptOption(), isLast));
+			}
+			else {
 				// Other cases
-				sb
-						.append(this.optionsRenderer.renderOption(key, value,
-								isLast));
+				sb.append(this.optionsRenderer.renderOption(key, value,	isLast));
 			}
 			count++;
 		}
 		this.optionsRenderer.renderAfter(sb);
 		return sb;
 	}
-
+	
 	/**
 	 * <p>
 	 * Returns the given option value.
 	 * </p>
 	 * 
-	 * @param key
-	 *            the option name.
+	 * @param key the option name.
 	 * @return the list
 	 */
 	public ICollectionItemOptions getListItemOptions(String key) {
-		Object object = this.options.get(key);
-		if (object instanceof ICollectionItemOptions)
+		Object object = this.options.get(key);		
+		if(object instanceof ICollectionItemOptions)
 			return (ICollectionItemOptions) object;
 		return null;
 	}
-
+	
 	/**
 	 * <p>
 	 * Returns the given option value.
@@ -257,7 +256,10 @@ public class Options implements IModel<Options> {
 	 *            the option name.
 	 */
 	public String getLiteral(String key) {
-		return getValueFromOptions(key, LiteralOption.class);
+		Object object = this.options.get(key);		
+		if(object instanceof LiteralOption)
+			return ((LiteralOption) object).getLiteral();
+		return null;
 	}
 
 	/**
@@ -269,7 +271,12 @@ public class Options implements IModel<Options> {
 	 *            the option name.
 	 */
 	public Short getShort(String key) {
-		return getValueFromOptions(key, ShortOption.class);
+		Object object = this.options.get(key);
+		if(object instanceof ShortOption) {
+			ShortOption option = ((ShortOption)object);
+			return option.getValue();
+		}
+		return null;
 	}
 
 	/**
@@ -277,20 +284,6 @@ public class Options implements IModel<Options> {
 	 */
 	public boolean isEmpty() {
 		return this.options.isEmpty();
-	}
-
-	private <T, O extends IModelOption<T>> T getValueFromOptions(String key,
-			Class<O> optionClass) {
-		Object object = this.options.get(key);
-		if (optionClass.isInstance(object)) {
-			O option = optionClass.cast(object);
-			return option.wrapOnAssignment(owner).getValue();
-		}
-		return null;
-	}
-
-	private void putOption(String key, IModelOption<?> option) {
-		options.put(key, option);
 	}
 
 	/**
@@ -304,7 +297,7 @@ public class Options implements IModel<Options> {
 	 *            the boolean value.
 	 */
 	public Options put(String key, boolean value) {
-		putOption(key, new BooleanOption(value));
+		options.put(key, new BooleanOption(value));
 		return this;
 	}
 
@@ -319,10 +312,10 @@ public class Options implements IModel<Options> {
 	 *            the boolean value.
 	 */
 	public Options putBoolean(String key, IModel<Boolean> value) {
-		putOption(key, new BooleanOption(value));
+		options.put(key, new BooleanOption(value));
 		return this;
 	}
-
+	
 	/**
 	 * <p>
 	 * Puts an double value for the given option name.
@@ -334,13 +327,13 @@ public class Options implements IModel<Options> {
 	 *            the float double.
 	 */
 	public Options put(String key, double value) {
-		putOption(key, new DoubleOption(value));
+		options.put(key, new DoubleOption(value));
 		return this;
 	}
 
 	/**
 	 * <p>
-	 * Puts an IModel &lt;Double&gt; value for the given option name.
+	 * 	Puts an IModel &lt;Double&gt; value for the given option name.
 	 * </p>
 	 * 
 	 * @param key
@@ -349,29 +342,27 @@ public class Options implements IModel<Options> {
 	 *            the float value.
 	 */
 	public Options putDouble(String key, IModel<Double> value) {
-		putOption(key, new DoubleOption(value));
+		options.put(key, new DoubleOption(value));
 		return this;
 	}
-
+	
 	/**
 	 * <p>
-	 * Puts an float value for the given option name.
+	 * 	Puts an float value for the given option name.
 	 * </p>
 	 * 
-	 * @param key
-	 *            the option name
-	 * @param value
-	 *            The float value
+	 * @param key the option name
+	 * @param value The float value
 	 * @return
 	 */
 	public Options put(String key, float value) {
-		putOption(key, new FloatOption(value));
+		options.put(key, new FloatOption(value));
 		return this;
 	}
 
 	/**
 	 * <p>
-	 * Puts an IModel &lt;Double&gt; value for the given option name.
+	 * 	Puts an IModel &lt;Double&gt; value for the given option name.
 	 * </p>
 	 * 
 	 * @param key
@@ -380,10 +371,10 @@ public class Options implements IModel<Options> {
 	 *            the float double.
 	 */
 	public Options putFloat(String key, IModel<Float> value) {
-		putOption(key, new FloatOption(value));
+		options.put(key, new FloatOption(value));
 		return this;
 	}
-
+	
 	/**
 	 * <p>
 	 * Puts a list of IListItemOption value for the given option name.
@@ -425,7 +416,7 @@ public class Options implements IModel<Options> {
 	 *            the int value.
 	 */
 	public Options put(String key, int value) {
-		putOption(key, new IntegerOption(value));
+		options.put(key, new IntegerOption(value));
 		return this;
 	}
 
@@ -440,10 +431,10 @@ public class Options implements IModel<Options> {
 	 *            the int value.
 	 */
 	public Options putInteger(String key, IModel<Integer> value) {
-		putOption(key, new IntegerOption(value));
+		options.put(key, new IntegerOption(value));
 		return this;
 	}
-
+	
 	/**
 	 * <p>
 	 * Puts a {@link JsScope} value for the given option name.
@@ -470,7 +461,7 @@ public class Options implements IModel<Options> {
 	 *            the short value.
 	 */
 	public Options put(String key, short value) {
-		putOption(key, new ShortOption(value));
+		options.put(key, new ShortOption(value));
 		return this;
 	}
 
@@ -485,10 +476,10 @@ public class Options implements IModel<Options> {
 	 *            the short value.
 	 */
 	public Options putShort(String key, IModel<Short> value) {
-		putOption(key, new ShortOption(value));
+		options.put(key, new ShortOption(value));
 		return this;
 	}
-
+	
 	/**
 	 * <p>
 	 * Puts a {@link String} value for the given option name.
@@ -500,7 +491,7 @@ public class Options implements IModel<Options> {
 	 *            the {@link String} value.
 	 */
 	public Options put(String key, String value) {
-		putOption(key, new StringOption(value));
+		options.put(key, new StringOption(value));
 		return this;
 	}
 
@@ -515,40 +506,10 @@ public class Options implements IModel<Options> {
 	 *            the {@link String} value.
 	 */
 	public Options putString(String key, IModel<String> value) {
-		putOption(key, new StringOption(value));
+		options.put(key, new StringOption(value));
 		return this;
 	}
-
-	/**
-	 * <p>
-	 * Puts a {@link Long} value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the {@link Long} value.
-	 */
-	public Options put(String key, long value) {
-		putOption(key, new LongOption(value));
-		return this;
-	}
-
-	/**
-	 * <p>
-	 * Puts a {@link Long} value for the given option name.
-	 * </p>
-	 * 
-	 * @param key
-	 *            the option name.
-	 * @param value
-	 *            the {@link Long} value.
-	 */
-	public Options putLong(String key, IModel<Long> value) {
-		putOption(key, new LongOption(value));
-		return this;
-	}
-
+	
 	/**
 	 * <p>
 	 * Puts a {@link String} value as a JavaScript literal for the given name.
@@ -563,10 +524,10 @@ public class Options implements IModel<Options> {
 	 *            the {@link LiteralOption} value.
 	 */
 	public Options putLiteral(String key, String value) {
-		putOption(key, new LiteralOption(value));
+		options.put(key, new LiteralOption(value));
 		return this;
 	}
-
+	
 	/**
 	 * <p>
 	 * Puts a {@link String} value as a JavaScript literal for the given name.
@@ -581,7 +542,7 @@ public class Options implements IModel<Options> {
 	 *            the {@link LiteralOption} value.
 	 */
 	public Options putLiteral(String key, IModel<String> value) {
-		putOption(key, new LiteralOption(value));
+		options.put(key, new LiteralOption(value));
 		return this;
 	}
 
@@ -635,4 +596,5 @@ public class Options implements IModel<Options> {
 			}
 		}
 	}
+
 }

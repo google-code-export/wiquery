@@ -21,56 +21,57 @@
  */
 package org.odlabs.wiquery.ui.button;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import junit.framework.TestCase;
 
+import org.apache.wicket.Page;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.junit.Before;
-import org.junit.Test;
-import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.util.tester.WicketTester;
 import org.odlabs.wiquery.ui.themes.UiIcon;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
  * Test on {@link ButtonBehavior}
- * 
  * @author Julien Roche
+ *
  */
-public class ButtonTestCase extends WiQueryTestCase {
+public class ButtonTestCase extends TestCase {
 	// Properties
 	private ButtonBehavior buttonBehavior;
 	private WebMarkupContainer button;
+	private WicketTester wicketTester;
 
-	@Override
-	@Before
-	public void setUp() {
-		super.setUp();
-
+	/**
+	 * @throws java.lang.Exception
+	 */
+	public void setUp() throws Exception {
+		wicketTester = new WicketTester(new WebApplication() {
+			@Override
+			public Class<? extends Page> getHomePage() {
+				return ButtonPageFailedTest.class;
+			}
+		});
+		
 		button = new WebMarkupContainer("anId");
 		buttonBehavior = new ButtonBehavior();
 		button.add(buttonBehavior);
 		button.setMarkupId(button.getId());
 	}
-
+	
 	/**
-	 * Test the type of the element (for
-	 * {@link ButtonBehavior#onComponentTag(org.apache.wicket.Component, org.apache.wicket.markup.ComponentTag)}
+	 * Test the type of the element (for {@link ButtonBehavior#onComponentTag(org.apache.wicket.Component, org.apache.wicket.markup.ComponentTag)}
 	 */
 	@Test
 	public void testDomType() {
-		try {
-			tester.startPage(ButtonPageFailedTestPage.class);
+		try{
+			wicketTester.startPage(ButtonPageFailedTest.class);
 			fail();
-
+			
 		} catch (Exception e) {
 			assertTrue(e instanceof WicketRuntimeException);
-			assertEquals(
-					"Component failedButton must be applied to a tag of type 'input', 'button' or 'a', not '<table wicket:id=\"failedButton\" id=\"failedButton1\">' (line 0, column 0)",
-					e.getMessage());
+			assertEquals("Component failedButton must be applied to a tag of type 'input', 'button' or 'a', not '<table wicket:id=\"failedButton\" id=\"failedButton1\">' (line 0, column 0)", e.getMessage());
 		}
 	}
 
@@ -79,8 +80,8 @@ public class ButtonTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testDestroy() {
-		assertNotNull(buttonBehavior.destroy());
-		assertEquals(buttonBehavior.destroy().render().toString(),
+		Assert.assertNotNull(buttonBehavior.destroy());
+		Assert.assertEquals(buttonBehavior.destroy().render().toString(), 
 				"$('#anId').button('destroy');");
 	}
 
@@ -89,8 +90,8 @@ public class ButtonTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testDisable() {
-		assertNotNull(buttonBehavior.disable());
-		assertEquals(buttonBehavior.disable().render().toString(),
+		Assert.assertNotNull(buttonBehavior.disable());
+		Assert.assertEquals(buttonBehavior.disable().render().toString(), 
 				"$('#anId').button('disable');");
 	}
 
@@ -99,8 +100,8 @@ public class ButtonTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testEnable() {
-		assertNotNull(buttonBehavior.enable());
-		assertEquals(buttonBehavior.enable().render().toString(),
+		Assert.assertNotNull(buttonBehavior.enable());
+		Assert.assertEquals(buttonBehavior.enable().render().toString(), 
 				"$('#anId').button('enable');");
 	}
 
@@ -109,18 +110,15 @@ public class ButtonTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testGetIcons() {
-		assertNull(buttonBehavior.getIcons());
-		buttonBehavior.setIcons(new ButtonIcon("ui-icon-gear",
-				"ui-icon-triangle-1-s"));
-		assertNotNull(buttonBehavior.getIcons());
-		assertEquals(
-				buttonBehavior.getIcons().getJavascriptOption().toString(),
+		Assert.assertNull(buttonBehavior.getIcons());
+		buttonBehavior.setIcons(new ButtonIcon("ui-icon-gear", "ui-icon-triangle-1-s"));
+		Assert.assertNotNull(buttonBehavior.getIcons());
+		Assert.assertEquals(buttonBehavior.getIcons().getJavascriptOption().toString(), 
 				"{primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s'}");
-
+		
 		buttonBehavior.setIcons(UiIcon.GEAR, UiIcon.TRIANGLE_1_SOUTH);
-		assertNotNull(buttonBehavior.getIcons());
-		assertEquals(
-				buttonBehavior.getIcons().getJavascriptOption().toString(),
+		Assert.assertNotNull(buttonBehavior.getIcons());
+		Assert.assertEquals(buttonBehavior.getIcons().getJavascriptOption().toString(), 
 				"{primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s'}");
 	}
 
@@ -129,28 +127,10 @@ public class ButtonTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testGetLabel() {
-		assertNull(buttonBehavior.getLabel());
+		Assert.assertNull(buttonBehavior.getLabel());
 		buttonBehavior.setLabel("a label");
-		assertNotNull(buttonBehavior.getLabel());
-		assertEquals(buttonBehavior.getLabel(), "a label");
-	}
-
-	/**
-	 * The method for
-	 * {@link ButtonBehavior#setLabel(org.apache.wicket.model.IModel)}.
-	 */
-	@Test
-	public void testSetLabelModel() {
-		// Options is added before bind.
-		ButtonTestPage page = (ButtonTestPage) tester
-				.startPage(new ButtonTestPage(true));
-		assertNotNull(page.getBehavior().getLabel());
-		assertEquals(page.getBehavior().getLabel(), "This is a link");
-
-		page = (ButtonTestPage) tester
-				.startPage(new ButtonTestPage(false));
-		assertNotNull(page.getBehavior().getLabel());
-		assertEquals(page.getBehavior().getLabel(), "This is a link");
+		Assert.assertNotNull(buttonBehavior.getLabel());
+		Assert.assertEquals(buttonBehavior.getLabel(), "a label");
 	}
 
 	/**
@@ -158,22 +138,20 @@ public class ButtonTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testGetOptions() {
-		assertNotNull(buttonBehavior.getOptions());
-		assertEquals(buttonBehavior.getOptions().getJavaScriptOptions()
-				.toString(), "{}");
+		Assert.assertNotNull(buttonBehavior.getOptions());
+		Assert.assertEquals(buttonBehavior.getOptions().getJavaScriptOptions().toString(), "{}");
 		buttonBehavior.setLabel("a label");
-		assertEquals(buttonBehavior.getOptions().getJavaScriptOptions()
-				.toString(), "{label: 'a label'}");
+		Assert.assertEquals(buttonBehavior.getOptions().getJavaScriptOptions().toString(), "{label: 'a label'}");
 	}
-
+	
 	/**
 	 * Test method for {@link ButtonBehavior#isDisabled()}.
 	 */
 	@Test
 	public void testIsDisabled() {
-		assertNull(buttonBehavior.isDisabled());
+		Assert.assertNull(buttonBehavior.isDisabled());
 		buttonBehavior.setDisabled(true);
-		assertTrue(buttonBehavior.isDisabled());
+		Assert.assertTrue(buttonBehavior.isDisabled());
 	}
 
 	/**
@@ -181,9 +159,9 @@ public class ButtonTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testIsText() {
-		assertTrue(buttonBehavior.isText());
+		Assert.assertTrue(buttonBehavior.isText());
 		buttonBehavior.setText(false);
-		assertFalse(buttonBehavior.isText());
+		Assert.assertFalse(buttonBehavior.isText());
 	}
 
 	/**
@@ -191,18 +169,17 @@ public class ButtonTestCase extends WiQueryTestCase {
 	 */
 	@Test
 	public void testStatement() {
-		assertNotNull(buttonBehavior.statement());
-		assertEquals(buttonBehavior.statement().render().toString(),
-				"$('#anId').button({});");
+		Assert.assertNotNull(buttonBehavior.statement());
+		Assert.assertEquals(buttonBehavior.statement().render().toString(), "$('#anId').button({});");
 	}
-
+	
 	/**
 	 * Test method for {@link ButtonBehavior#widget()}.
 	 */
 	@Test
 	public void testWidget() {
-		assertNotNull(buttonBehavior.widget());
-		assertEquals(buttonBehavior.widget().render().toString(),
+		Assert.assertNotNull(buttonBehavior.widget());
+		Assert.assertEquals(buttonBehavior.widget().render().toString(), 
 				"$('#anId').button('widget');");
 	}
 }

@@ -21,7 +21,8 @@
  */
 package org.odlabs.wiquery.ui.datepicker;
 
-import org.apache.wicket.Component;
+import java.io.Serializable;
+
 import org.odlabs.wiquery.core.javascript.JsScope;
 import org.odlabs.wiquery.core.options.ICollectionItemOptions;
 import org.odlabs.wiquery.core.options.IComplexOption;
@@ -42,15 +43,18 @@ import org.odlabs.wiquery.ui.datepicker.scope.JsScopeUiDatePickerOnChangeEvent;
  * @author Ernesto Reinaldo Barreiro (reiern70@gmail.com)
  * @since 1.0.2
  */
-public class DatePickerOptions extends Options {
+public class DatePickerOptions implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	
+	// Properties
+	private Options options;
 	
 	/**
 	 * Constructor
 	 */
-	public DatePickerOptions(Component owner) {
-		super(owner);
+	public DatePickerOptions() {
+		options = new Options();
 	}
 	
 
@@ -64,14 +68,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setAltField(String altField) {
-		putLiteral("altField", altField);
+		this.options.putLiteral("altField", altField);
 	}
 	
 	/**
 	 * @return the altField option value
 	 */
 	public String getAltField() {
-		String altField = getLiteral("altField");
+		String altField = this.options.getLiteral("altField");
 		return altField == null ? "" : altField;
 	}
 	
@@ -103,14 +107,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setAltFormat(String altFormat) {
-		putLiteral("altFormat", altFormat);
+		this.options.putLiteral("altFormat", altFormat);
 	}
 	
 	/**
 	 * @return the altFormat option value
 	 */
 	public String getAltFormat() {
-		String altFormat = getLiteral("altFormat");
+		String altFormat = this.options.getLiteral("altFormat");
 		return altFormat == null ? "" : altFormat;
 	}
 	
@@ -119,14 +123,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setAppendText(String appendText) {
-		putLiteral("appendText", appendText);
+		this.options.putLiteral("appendText", appendText);
 	}
 	
 	/**
 	 * @return the appendText option value
 	 */
 	public String getAppendText() {
-		String appendText = getLiteral("appendText");
+		String appendText = this.options.getLiteral("appendText");
 		return appendText == null ? "" : appendText;
 	}
 	
@@ -136,15 +140,15 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setAutoSize(boolean autoSize) {
-		put("autoSize", autoSize);
+		options.put("autoSize", autoSize);
 	}
 
 	/**
 	 * @return the autoSize option
 	 */
 	public boolean isAutoSize() {
-		if(containsKey("autoSize")){
-			return getBoolean("autoSize");
+		if(this.options.containsKey("autoSize")){
+			return options.getBoolean("autoSize");
 		}
 		
 		return false;
@@ -156,14 +160,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setButtonImage(String buttonImage) {
-		putLiteral("buttonImage", buttonImage);
+		this.options.putLiteral("buttonImage", buttonImage);
 	}
 	
 	/**
 	 * @return the buttonImage option value
 	 */
 	public String getButtonImage() {
-		String buttonImage = getLiteral("buttonImage");
+		String buttonImage = this.options.getLiteral("buttonImage");
 		return buttonImage == null ? "" : buttonImage;
 	}
 	
@@ -173,15 +177,15 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setButtonImageOnly(boolean buttonImageOnly) {
-		put("buttonImageOnly", buttonImageOnly);
+		options.put("buttonImageOnly", buttonImageOnly);
 	}
 
 	/**
 	 * @return the buttonImageOnly option value
 	 */
 	public boolean isButtonImageOnly() {
-		if(containsKey("buttonImageOnly")){
-			return getBoolean("buttonImageOnly");
+		if(this.options.containsKey("buttonImageOnly")){
+			return options.getBoolean("buttonImageOnly");
 		}
 		
 		return false;
@@ -193,14 +197,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setButtonText(String buttonText) {
-		putLiteral("buttonText", buttonText);
+		this.options.putLiteral("buttonText", buttonText);
 	}
 	
 	/**
 	 * @return the buttonText option value
 	 */
 	public String getButtonText() {
-		String buttonText = getLiteral("buttonText");
+		String buttonText = this.options.getLiteral("buttonText");
 		return buttonText == null ? "..." : buttonText;
 	}
 	
@@ -214,7 +218,7 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setCalculateWeek(JsScope calculateWeek) {
-		put("calculateWeek", calculateWeek);
+		this.options.put("calculateWeek", calculateWeek);
 	}
 
 	/**
@@ -222,7 +226,7 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setChangeMonth(boolean changeMonth) {
-		put("changeMonth", changeMonth);
+		options.put("changeMonth", changeMonth);
 	}
 
 	/**
@@ -230,8 +234,8 @@ public class DatePickerOptions extends Options {
 	 * returns false otherwise.
 	 */
 	public boolean isChangeMonth() {
-		if(containsKey("changeMonth")){
-			return getBoolean("changeMonth");
+		if(this.options.containsKey("changeMonth")){
+			return options.getBoolean("changeMonth");
 		}
 		
 		return false;
@@ -243,14 +247,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setWeekHeader(String weekHeader) {
-		putLiteral("weekHeader", weekHeader);
+		this.options.putLiteral("weekHeader", weekHeader);
 	}
 	
 	/**
 	 * @return the weekHeader option value
 	 */
 	public String getWeekHeader() {
-		String weekHeader = getLiteral("weekHeader");
+		String weekHeader = this.options.getLiteral("weekHeader");
 		return weekHeader == null ? "WK" : weekHeader;
 	}
 
@@ -263,14 +267,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setYearRange(DatePickerYearRange yearRange) {
-		put("yearRange", yearRange);
+		options.put("yearRange", yearRange);
 	}
 	
 	/**
 	 * @return the year range valu option
 	 */
 	public DatePickerYearRange getYearRange() {
-		IComplexOption yearRange = getComplexOption("yearRange");
+		IComplexOption yearRange = this.options.getComplexOption("yearRange");
 		if(yearRange != null && yearRange instanceof DatePickerYearRange){
 			return (DatePickerYearRange)yearRange;
 		}
@@ -284,14 +288,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setYearSuffix(String yearSuffix) {
-		putLiteral("yearSuffix", yearSuffix);
+		this.options.putLiteral("yearSuffix", yearSuffix);
 	}
 	
 	/**
 	 * @return the yearSuffix option value
 	 */
 	public String getYearSuffix() {
-		String yearSuffix = getLiteral("yearSuffix");
+		String yearSuffix = this.options.getLiteral("yearSuffix");
 		return yearSuffix == null ? "" : yearSuffix;
 	}
 
@@ -300,7 +304,7 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setChangeYear(boolean changeYear) {
-		put("changeYear", changeYear);
+		options.put("changeYear", changeYear);
 	}
 
 	/**
@@ -308,8 +312,8 @@ public class DatePickerOptions extends Options {
 	 * returns false otherwise.
 	 */
 	public boolean isChangeYear() {
-		if(containsKey("changeYear")){
-			return getBoolean("changeYear");
+		if(this.options.containsKey("changeYear")){
+			return options.getBoolean("changeYear");
 		}
 		
 		return false;
@@ -321,14 +325,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setCloseText(String closeText) {
-		putLiteral("closeText", closeText);
+		this.options.putLiteral("closeText", closeText);
 	}
 	
 	/**
 	 * @return the closeText option value
 	 */
 	public String getCloseText() {
-		String closeText = getLiteral("closeText");
+		String closeText = this.options.getLiteral("closeText");
 		return closeText == null ? "Done" : closeText;
 	}
 	
@@ -337,15 +341,15 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setConstrainInput(boolean constrainInput) {
-		put("constrainInput", constrainInput);
+		options.put("constrainInput", constrainInput);
 	}
 
 	/**
 	 * @return the buttonImageOnly option value
 	 */
 	public boolean isConstrainInput() {
-		if(containsKey("constrainInput")){
-			return getBoolean("constrainInput");
+		if(this.options.containsKey("constrainInput")){
+			return options.getBoolean("constrainInput");
 		}
 		
 		return true;
@@ -358,14 +362,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setCurrentText(String currentText) {
-		putLiteral("currentText", currentText);
+		this.options.putLiteral("currentText", currentText);
 	}
 	
 	/**
 	 * @return the currentText option value
 	 */
 	public String getCurrentText() {
-		String currentText = getLiteral("currentText");
+		String currentText = this.options.getLiteral("currentText");
 		return currentText == null ? "Today" : currentText;
 	}
 
@@ -376,15 +380,15 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setFirstDay(short firstDay) {
-		put("firstDay", firstDay);
+		options.put("firstDay", firstDay);
 	}
 
 	/**
 	 * Returns the calendar's starting day.
 	 */
 	public short getFirstDay() {
-		if(containsKey("firstDay")){
-			return getShort("firstDay");
+		if(this.options.containsKey("firstDay")){
+			return options.getShort("firstDay");
 		}
 		
 		return 0;
@@ -395,15 +399,15 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setGotoCurrent(boolean gotoCurrent) {
-		put("gotoCurrent", gotoCurrent);
+		options.put("gotoCurrent", gotoCurrent);
 	}
 
 	/**
 	 * @return the gotoCurrent option value
 	 */
 	public boolean isGotoCurrent() {
-		if(containsKey("gotoCurrent")){
-			return getBoolean("gotoCurrent");
+		if(this.options.containsKey("gotoCurrent")){
+			return options.getBoolean("gotoCurrent");
 		}
 		
 		return false;
@@ -416,15 +420,15 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setHideIfNoPrevNext(boolean hideIfNoPrevNext) {
-		put("hideIfNoPrevNext", hideIfNoPrevNext);
+		options.put("hideIfNoPrevNext", hideIfNoPrevNext);
 	}
 
 	/**
 	 * @return the hideIfNoPrevNext option value
 	 */
 	public boolean isHideIfNoPrevNext() {
-		if(containsKey("hideIfNoPrevNext")){
-			return getBoolean("hideIfNoPrevNext");
+		if(this.options.containsKey("hideIfNoPrevNext")){
+			return options.getBoolean("hideIfNoPrevNext");
 		}
 		
 		return false;
@@ -436,15 +440,15 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setIsRTL(boolean isRTL) {
-		put("isRTL", isRTL);
+		options.put("isRTL", isRTL);
 	}
 
 	/**
 	 * @return the isRTL option value
 	 */
 	public boolean isIsRTL() {
-		if(containsKey("isRTL")){
-			return getBoolean("isRTL");
+		if(this.options.containsKey("isRTL")){
+			return options.getBoolean("isRTL");
 		}
 		
 		return false;
@@ -457,14 +461,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setMaxDate(DateOption maxDate) {
-		put("maxDate", maxDate);
+		options.put("maxDate", maxDate);
 	}
 
 	/**
 	 * @return the maxDate option value
 	 */
 	public DateOption getMaxDate() {
-		IComplexOption maxDate = getComplexOption("maxDate");
+		IComplexOption maxDate = options.getComplexOption("maxDate");
 		
 		if(maxDate != null && maxDate instanceof DateOption){
 			return (DateOption) maxDate;
@@ -480,14 +484,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setMinDate(DateOption minDate) {
-		put("minDate", minDate);
+		options.put("minDate", minDate);
 	}
 
 	/**
 	 * @return the minDate option value
 	 */
 	public DateOption getMinDate() {
-		IComplexOption minDate = getComplexOption("minDate");
+		IComplexOption minDate = options.getComplexOption("minDate");
 		
 		if(minDate != null && minDate instanceof DateOption){
 			return (DateOption) minDate;
@@ -503,14 +507,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setMonthNames(ArrayOfMonthNames monthNames) {
-		put("monthNames", monthNames);
+		options.put("monthNames", monthNames);
 	}
 
 	/**
 	 * @return the monthNames option value
 	 */
 	public ArrayOfMonthNames getMonthNames() {
-		IComplexOption monthNames = getComplexOption("monthNames");
+		IComplexOption monthNames = options.getComplexOption("monthNames");
 		
 		if(monthNames != null && monthNames instanceof ArrayOfMonthNames){
 			return (ArrayOfMonthNames) monthNames;
@@ -526,14 +530,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setMonthNamesShort(ArrayOfMonthNames monthNamesShort) {
-		put("monthNamesShort", monthNamesShort);
+		options.put("monthNamesShort", monthNamesShort);
 	}
 
 	/**
 	 * @return the monthNames option value
 	 */
 	public ArrayOfMonthNames getMonthNamesShort() {
-		IComplexOption monthNamesShort = getComplexOption("monthNamesShort");
+		IComplexOption monthNamesShort = options.getComplexOption("monthNamesShort");
 		
 		if(monthNamesShort != null && monthNamesShort instanceof ArrayOfMonthNames){
 			return (ArrayOfMonthNames) monthNamesShort;
@@ -550,15 +554,15 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setNavigationAsDateFormat(boolean navigationAsDateFormat) {
-		put("navigationAsDateFormat", navigationAsDateFormat);
+		options.put("navigationAsDateFormat", navigationAsDateFormat);
 	}
 
 	/**
 	 * @return the navigationAsDateFormat option value
 	 */
 	public boolean isNavigationAsDateFormat() {
-		if(containsKey("navigationAsDateFormat")){
-			return getBoolean("navigationAsDateFormat");
+		if(this.options.containsKey("navigationAsDateFormat")){
+			return options.getBoolean("navigationAsDateFormat");
 		}
 		
 		return false;
@@ -571,14 +575,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setNextText(String nextText) {
-		putLiteral("nextText", nextText);
+		this.options.putLiteral("nextText", nextText);
 	}
 	
 	/**
 	 * @return the nextText option value
 	 */
 	public String getNextText() {
-		String nextText = getLiteral("nextText");
+		String nextText = this.options.getLiteral("nextText");
 		return nextText == null ? "Next" : nextText;
 	}
 
@@ -587,7 +591,7 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setShowOtherMonths(boolean showOtherMonths) {
-		put("showOtherMonths", showOtherMonths);
+		options.put("showOtherMonths", showOtherMonths);
 	}
 
 	/**
@@ -595,15 +599,15 @@ public class DatePickerOptions extends Options {
 	 * Returns if the next/previous months are showed in the calendar.
 	 */
 	public boolean getShowOtherMonths() {
-		return getBoolean("showOtherMonths");
+		return options.getBoolean("showOtherMonths");
 	}
 	
 	/**
 	 * Returns if the next/previous months are showed in the calendar.
 	 */
 	public boolean isShowOtherMonths() {
-		if(containsKey("showOtherMonths")){
-			return getBoolean("showOtherMonths");
+		if(this.options.containsKey("showOtherMonths")){
+			return options.getBoolean("showOtherMonths");
 		}
 		
 		return false;
@@ -614,14 +618,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setNumberOfMonths(DatePickerNumberOfMonths numberOfMonths) {
-		put("numberOfMonths", numberOfMonths);
+		options.put("numberOfMonths", numberOfMonths);
 	}
 
 	/**
 	 * Returns the number of months displayed on the date picker.
 	 */
 	public DatePickerNumberOfMonths getNumberOfMonths() {
-		IComplexOption numberOfMonths = getComplexOption("numberOfMonths");
+		IComplexOption numberOfMonths = options.getComplexOption("numberOfMonths");
 		
 		if(numberOfMonths != null && numberOfMonths instanceof DatePickerNumberOfMonths){
 			return (DatePickerNumberOfMonths) numberOfMonths;
@@ -637,14 +641,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setPrevText(String prevText) {
-		putLiteral("prevText", prevText);
+		this.options.putLiteral("prevText", prevText);
 	}
 	
 	/**
 	 * @return the prevText option value
 	 */
 	public String getPrevText() {
-		String prevText = getLiteral("prevText");
+		String prevText = this.options.getLiteral("prevText");
 		return prevText == null ? "Prev" : prevText;
 	}
 	
@@ -654,15 +658,15 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current behavior
 	 */
 	public void setSelectOtherMonths(boolean selectOtherMonths) {
-		put("selectOtherMonths", selectOtherMonths);
+		this.options.put("selectOtherMonths", selectOtherMonths);
 	}
 	
 	/**
 	 * @return the selectOtherMonths option
 	 */
 	public boolean isSelectOtherMonths() {
-		if(containsKey("selectOtherMonths")){
-			return getBoolean("selectOtherMonths");
+		if(this.options.containsKey("selectOtherMonths")){
+			return this.options.getBoolean("selectOtherMonths");
 		}
 		
 		return false;
@@ -673,14 +677,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setShortYearCutoff(DatePickerShortYearCutOff shortYearCutoff) {
-		put("shortYearCutoff", shortYearCutoff);
+		options.put("shortYearCutoff", shortYearCutoff);
 	}
 
 	/**
 	 * Returns the shortYearCutoff option value.
 	 */
 	public DatePickerShortYearCutOff getShortYearCutoff() {
-		IComplexOption shortYearCutoff = getComplexOption("shortYearCutoff");
+		IComplexOption shortYearCutoff = options.getComplexOption("shortYearCutoff");
 		
 		if(shortYearCutoff != null && shortYearCutoff instanceof DatePickerShortYearCutOff){
 			return (DatePickerShortYearCutOff) shortYearCutoff;
@@ -696,14 +700,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setShowAnim(String showAnim) {
-		putLiteral("showAnim", showAnim);
+		this.options.putLiteral("showAnim", showAnim);
 	}
 	
 	/**
 	 * @return the showAnim option value
 	 */
 	public String getShowAnim() {
-		String showAnim = getLiteral("showAnim");
+		String showAnim = this.options.getLiteral("showAnim");
 		return showAnim == null ? "show" : showAnim;
 	}
 	
@@ -712,15 +716,15 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setShowButtonPanel(boolean showButtonPanel) {
-		put("showButtonPanel", showButtonPanel);
+		options.put("showButtonPanel", showButtonPanel);
 	}
 
 	/**
 	 * @return the showButtonPanel option value
 	 */
 	public boolean isShowButtonPanel() {
-		if(containsKey("showButtonPanel")){
-			return getBoolean("showButtonPanel");
+		if(this.options.containsKey("showButtonPanel")){
+			return options.getBoolean("showButtonPanel");
 		}
 		
 		return false;
@@ -732,15 +736,15 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setShowCurrentAtPos(short showCurrentAtPos) {
-		put("showCurrentAtPos", showCurrentAtPos);
+		options.put("showCurrentAtPos", showCurrentAtPos);
 	}
 
 	/**
 	 * @return the showCurrentAtPos option value
 	 */
 	public short getShowCurrentAtPos() {
-		if(containsKey("showCurrentAtPos")){
-			return getShort("showCurrentAtPos");
+		if(this.options.containsKey("showCurrentAtPos")){
+			return options.getShort("showCurrentAtPos");
 		}
 		
 		return 0;
@@ -751,15 +755,15 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setShowMonthAfterYear(boolean showMonthAfterYear) {
-		put("showMonthAfterYear", showMonthAfterYear);
+		options.put("showMonthAfterYear", showMonthAfterYear);
 	}
 
 	/**
 	 * @return the showMonthAfterYear option value
 	 */
 	public boolean isShowMonthAfterYear() {
-		if(containsKey("showMonthAfterYear")){
-			return getBoolean("showMonthAfterYear");
+		if(this.options.containsKey("showMonthAfterYear")){
+			return options.getBoolean("showMonthAfterYear");
 		}
 		
 		return false;
@@ -772,14 +776,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setShowOn(ShowOnEnum showOn) {
-		putLiteral("showOn", showOn.name().toLowerCase());
+		options.putLiteral("showOn", showOn.name().toLowerCase());
 	}
 
 	/**
 	 * @return the showOn option value
 	 */
 	public ShowOnEnum getShowOn() {
-		String literal = getLiteral("showOn");
+		String literal = options.getLiteral("showOn");
 		return literal == null ? ShowOnEnum.FOCUS : ShowOnEnum.valueOf(literal.toUpperCase());
 	}
 	
@@ -789,7 +793,7 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setShowOptions(ListItemOptions<LiteralOption> showOptions) {
-		put("showOptions", showOptions);
+		options.put("showOptions", showOptions);
 	}
 
 	/**
@@ -797,7 +801,7 @@ public class DatePickerOptions extends Options {
 	 */
 	@SuppressWarnings("unchecked")
 	public ListItemOptions<LiteralOption> getShowOptions() {
-		ICollectionItemOptions showOptions = getListItemOptions("showOptions");
+		ICollectionItemOptions showOptions = options.getListItemOptions("showOptions");
 		
 		if(showOptions != null && showOptions instanceof ListItemOptions){
 			return (ListItemOptions<LiteralOption>) showOptions;
@@ -813,15 +817,15 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setShowWeek(boolean showWeek) {
-		put("showWeek", showWeek);
+		options.put("showWeek", showWeek);
 	}
 
 	/**
 	 * @return the showWeek option
 	 */
 	public boolean isShowWeek() {
-		if(containsKey("showWeek")){
-			return getBoolean("showWeek");
+		if(this.options.containsKey("showWeek")){
+			return options.getBoolean("showWeek");
 		}
 		
 		return false;
@@ -832,7 +836,7 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setStepMonths(short stepMonths) {
-		put("stepMonths", stepMonths);
+		options.put("stepMonths", stepMonths);
 	}
 
 	/**
@@ -840,8 +844,8 @@ public class DatePickerOptions extends Options {
 	 * hit.
 	 */
 	public short getStepMonths() {
-		if(containsKey("stepMonths")){
-			return getShort("stepMonths");
+		if(this.options.containsKey("stepMonths")){
+			return options.getShort("stepMonths");
 		}
 		
 		return 1;
@@ -872,14 +876,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setDateFormat(String dateFormat) {
-		putLiteral("dateFormat", dateFormat);
+		options.putLiteral("dateFormat", dateFormat);
 	}
 
 	/**
 	 * Returns the ISO date format to use.
 	 */
 	public String getDateFormat() {
-		String dateFormat = getLiteral("dateFormat");
+		String dateFormat = options.getLiteral("dateFormat");
 		return dateFormat == null ? "mm/dd/yy" : dateFormat;
 	}
 	
@@ -891,14 +895,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setDayNames(ArrayOfDayNames dayNames) {
-		put("dayNames", dayNames);
+		options.put("dayNames", dayNames);
 	}
 
 	/**
 	 * @return the dayNames option value
 	 */
 	public ArrayOfDayNames getDayNames() {
-		IComplexOption dayNames = getComplexOption("dayNames");
+		IComplexOption dayNames = options.getComplexOption("dayNames");
 		
 		if(dayNames != null && dayNames instanceof ArrayOfDayNames){
 			return (ArrayOfDayNames) dayNames;
@@ -915,14 +919,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setDayNamesMin(ArrayOfDayNames dayNamesMin) {
-		put("dayNamesMin", dayNamesMin);
+		options.put("dayNamesMin", dayNamesMin);
 	}
 
 	/**
 	 * @return the dayNamesMin option value
 	 */
 	public ArrayOfDayNames getDayNamesMin() {
-		IComplexOption dayNamesMin = getComplexOption("dayNamesMin");
+		IComplexOption dayNamesMin = options.getComplexOption("dayNamesMin");
 		
 		if(dayNamesMin != null && dayNamesMin instanceof ArrayOfDayNames){
 			return (ArrayOfDayNames) dayNamesMin;
@@ -938,14 +942,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setDayNamesShort(ArrayOfDayNames dayNamesShort) {
-		put("dayNamesShort", dayNamesShort);
+		options.put("dayNamesShort", dayNamesShort);
 	}
 
 	/**
 	 * @return the dayNamesShort option value
 	 */
 	public ArrayOfDayNames getDayNamesShort() {
-		IComplexOption dayNamesShort = getComplexOption("dayNamesShort");
+		IComplexOption dayNamesShort = options.getComplexOption("dayNamesShort");
 		
 		if(dayNamesShort != null && dayNamesShort instanceof ArrayOfDayNames){
 			return (ArrayOfDayNames) dayNamesShort;
@@ -962,14 +966,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setDefaultDate(DateOption defaultDate) {
-		put("defaultDate", defaultDate);
+		options.put("defaultDate", defaultDate);
 	}
 
 	/**
 	 * @return the defaultDate option value
 	 */
 	public DateOption getDefaultDate() {
-		IComplexOption defaultDate = getComplexOption("defaultDate");
+		IComplexOption defaultDate = options.getComplexOption("defaultDate");
 		
 		if(defaultDate != null && defaultDate instanceof DateOption){
 			return (DateOption) defaultDate;
@@ -984,15 +988,15 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current behavior
 	 */
 	public void setDisabled(boolean disabled) {
-		put("disabled", disabled);
+		this.options.put("disabled", disabled);
 	}
 	
 	/**
 	 * @return the disabled option
 	 */
 	public boolean isDisabled() {
-		if(containsKey("disabled")){
-			return getBoolean("disabled");
+		if(this.options.containsKey("disabled")){
+			return this.options.getBoolean("disabled");
 		}
 		
 		return false;
@@ -1005,14 +1009,14 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setDuration(DatePickerDuration duration) {
-		put("duration", duration);
+		options.put("duration", duration);
 	}
 
 	/**
 	 * @return the duration option value
 	 */
 	public DatePickerDuration getDuration() {
-		IComplexOption duration = getComplexOption("duration");
+		IComplexOption duration = options.getComplexOption("duration");
 		
 		if(duration != null && duration instanceof DatePickerDuration){
 			return (DatePickerDuration) duration;
@@ -1028,7 +1032,7 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setBeforeShowEvent(JsScopeUiEvent beforeShow) {
-		put("beforeShow", beforeShow);
+		this.options.put("beforeShow", beforeShow);
 	}
 	
 	/**The function takes a date as a parameter and must return an array with [0] 
@@ -1040,7 +1044,7 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setBeforeShowDayEvent(JsScopeUiDatePickerEvent beforeShowDay) {
-		put("beforeShowDay", beforeShowDay);
+		this.options.put("beforeShowDay", beforeShowDay);
 	}
 	
 	/**Allows you to define your own event when the datepicker moves to a new 
@@ -1051,7 +1055,7 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setOnChangeMonthYearEvent(JsScopeUiDatePickerOnChangeEvent onChangeMonthYear) {
-		put("onChangeMonthYear", onChangeMonthYear);
+		this.options.put("onChangeMonthYear", onChangeMonthYear);
 	}
 	
 	/**Allows you to define your own event when the datepicker is closed, whether 
@@ -1062,7 +1066,7 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setOnCloseEvent(JsScopeUiDatePickerDateTextEvent onClose) {
-		put("onClose", onClose);		
+		this.options.put("onClose", onClose);		
 	}
 	
 	/**Allows you to define your own event when the datepicker is selected. The 
@@ -1072,11 +1076,11 @@ public class DatePickerOptions extends Options {
 	 * @return instance of the current component
 	 */
 	public void setOnSelectEvent(JsScopeUiDatePickerDateTextEvent onSelect) {
-		put("onSelect", onSelect);		
+		this.options.put("onSelect", onSelect);		
 	}
 
 
 	public Options getOptions() {
-		return this;
+		return options;
 	}
 }

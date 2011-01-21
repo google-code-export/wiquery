@@ -21,7 +21,6 @@
  */
 package org.odlabs.wiquery.ui.sortable;
 
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
@@ -146,18 +145,6 @@ public class SortableBehavior extends WiQueryAbstractBehavior {
 	public SortableBehavior() {
 		super();
 		 options = new Options();
-	}
-	
-	@Override
-	public void bind(Component component) {
-		options.setOwner(component);
-		super.bind(component);
-	}
-
-	@Override
-	public void detach(Component component) {
-		super.detach(component);
-		options.detach();
 	}
 	
 	/**

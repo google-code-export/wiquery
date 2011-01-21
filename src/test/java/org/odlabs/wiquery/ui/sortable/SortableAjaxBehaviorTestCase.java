@@ -21,27 +21,38 @@
  */
 package org.odlabs.wiquery.ui.sortable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import junit.framework.TestCase;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
-import org.junit.Test;
-import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.util.tester.WicketTester;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
  * Test on {@link SortableAjaxBehavior}
- * 
  * @author Julien Roche
+ *
  */
-public class SortableAjaxBehaviorTestCase extends WiQueryTestCase {
+public class SortableAjaxBehaviorTestCase extends TestCase {
+	/**
+	 * @throws java.lang.Exception
+	 */
+	public void setUp() throws Exception {
+		new WicketTester(new WebApplication() {
+			@Override
+			public Class<? extends Page> getHomePage() {
+				return null;
+			}
+		});
+	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.selectable.SortableAjaxBehavior#statement()}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.selectable.SortableAjaxBehavior#statement()}.
 	 */
 	@Test
 	public void testStatement() {
@@ -49,32 +60,27 @@ public class SortableAjaxBehaviorTestCase extends WiQueryTestCase {
 		WebMarkupContainer component = new WebMarkupContainer("anId");
 		component.setMarkupId("anId");
 		component.add(sortableAjaxBehavior);
-
+		
 		WebPage webPage = new InnerPage();
 		webPage.add(component);
-		String genrateAjaxStatment = sortableAjaxBehavior.statement().render()
-				.toString();
+		String genrateAjaxStatment = sortableAjaxBehavior.statement().render().toString();
 		String expectedAjaxStatement = "$('#anId').sortable({receive: function(event, ui) {\n\t"
-				+ "var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&sortedType=receive&sortedIndex='+$(this).find(':data(sortable-item)').index(ui.item)+'&sortedId='+ $(ui.item).attr('id')+'&sortedParentId='+ $(ui.sender).attr('id'),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
-				+ "}, remove: function(event, ui) {\n\t"
-				+ "var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&sortedType=remove&sortedId='+ $(ui.item).attr('id'),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
-				+ "}, update: function(event, ui) {\n\t"
-				+ "var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&sortedType=update&sortedIndex='+$(this).find(':data(sortable-item)').index(ui.item)+'&sortedId='+ $(ui.item).attr('id'),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
-				+ "}});";
-		assertNotNull(sortableAjaxBehavior.getSortableBehavior());
-		assertEquals(genrateAjaxStatment, expectedAjaxStatement);
+			+ "var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&sortedType=receive&sortedIndex='+$(this).find(':data(sortable-item)').index(ui.item)+'&sortedId='+ $(ui.item).attr('id')+'&sortedParentId='+ $(ui.sender).attr('id'),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"+
+"}, remove: function(event, ui) {\n\t"+
+	"var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&sortedType=remove&sortedId='+ $(ui.item).attr('id'),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"+
+"}, update: function(event, ui) {\n\t"+
+	"var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&sortedType=update&sortedIndex='+$(this).find(':data(sortable-item)').index(ui.item)+'&sortedId='+ $(ui.item).attr('id'),function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"+
+"}});";
+		Assert.assertNotNull(sortableAjaxBehavior.getSortableBehavior());
+		Assert.assertEquals(genrateAjaxStatment, expectedAjaxStatement);
 	}
 
-	private class InnerSortableAjaxBehavior extends
-			SortableAjaxBehavior<Component> {
+	private class InnerSortableAjaxBehavior extends SortableAjaxBehavior<Component> {
 		private static final long serialVersionUID = 1L;
 
 		/**
 		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.ui.sortable.SortableAjaxBehavior#onReceive(org.apache.wicket.Component,
-		 *      int, org.apache.wicket.Component,
-		 *      org.apache.wicket.ajax.AjaxRequestTarget)
+		 * @see org.odlabs.wiquery.ui.sortable.SortableAjaxBehavior#onReceive(org.apache.wicket.Component, int, org.apache.wicket.Component, org.apache.wicket.ajax.AjaxRequestTarget)
 		 */
 		@Override
 		public void onReceive(Component sortedComponent, int index,
@@ -84,9 +90,7 @@ public class SortableAjaxBehaviorTestCase extends WiQueryTestCase {
 
 		/**
 		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.ui.sortable.SortableAjaxBehavior#onRemove(org.apache.wicket.Component,
-		 *      org.apache.wicket.ajax.AjaxRequestTarget)
+		 * @see org.odlabs.wiquery.ui.sortable.SortableAjaxBehavior#onRemove(org.apache.wicket.Component, org.apache.wicket.ajax.AjaxRequestTarget)
 		 */
 		@Override
 		public void onRemove(Component sortedComponent,
@@ -95,17 +99,15 @@ public class SortableAjaxBehaviorTestCase extends WiQueryTestCase {
 
 		/**
 		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.ui.sortable.SortableAjaxBehavior#onUpdate(org.apache.wicket.Component,
-		 *      int, org.apache.wicket.ajax.AjaxRequestTarget)
+		 * @see org.odlabs.wiquery.ui.sortable.SortableAjaxBehavior#onUpdate(org.apache.wicket.Component, int, org.apache.wicket.ajax.AjaxRequestTarget)
 		 */
 		@Override
 		public void onUpdate(Component sortedComponent, int index,
 				AjaxRequestTarget ajaxRequestTarget) {
-		}
+		}	
 	}
-
+	
 	private class InnerPage extends WebPage {
-
+		
 	}
 }

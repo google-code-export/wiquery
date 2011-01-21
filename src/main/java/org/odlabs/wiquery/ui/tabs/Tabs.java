@@ -81,19 +81,9 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public Tabs(String id) {
 		super(id);
-		options = new Options(this);
+		options = new Options();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.wicket.Component#detachModel()
-	 */
-	@Override
-	protected void detachModel() {
-		super.detachModel();
-		options.detach();		
-	}
-	
 	/**
 	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)

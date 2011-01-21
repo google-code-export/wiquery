@@ -14,8 +14,8 @@ jQuery(function($){
 		dayNames: ['Søndag','Mandag','Tirsdag','Onsdag','Torsdag','Fredag','Lørdag'],
 		dayNamesMin: ['Sø','Ma','Ti','On','To','Fr','Lø'],
 		weekHeader: 'Uke',
-        dateFormat: 'dd.mm.yy',
-		firstDay: 1,
+        dateFormat: 'yy-mm-dd',
+		firstDay: 0,
 		isRTL: false,
 		showMonthAfterYear: false,
 		yearSuffix: ''};

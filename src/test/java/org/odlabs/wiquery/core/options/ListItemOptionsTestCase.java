@@ -1,22 +1,23 @@
 package org.odlabs.wiquery.core.options;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import junit.framework.TestCase;
 
-import org.junit.Test;
-import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.odlabs.wiquery.core.options.IntegerItemOptions;
+import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
  * Unit test on the {@link ListItemOptions}
- * 
  * @author Julien Roche
+ *
  */
-public class ListItemOptionsTestCase extends WiQueryTestCase {
+public class ListItemOptionsTestCase extends TestCase {
 
-	protected static final Logger log = LoggerFactory
-			.getLogger(ListItemOptionsTestCase.class);
+	protected static final Logger log = LoggerFactory.getLogger(
+			ListItemOptionsTestCase.class);
 
 	/**
 	 * Check the syntax
@@ -26,13 +27,13 @@ public class ListItemOptionsTestCase extends WiQueryTestCase {
 		ListItemOptions<IntegerItemOptions> options = new ListItemOptions<IntegerItemOptions>();
 		IntegerItemOptions o1 = new IntegerItemOptions(5);
 		IntegerItemOptions o2 = new IntegerItemOptions(43);
-
+		
 		String expectedJavascript = "{}";
 		String generatedJavascript = options.getJavascriptOption().toString();
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		assertEquals(generatedJavascript, expectedJavascript);
-
+		Assert.assertEquals(generatedJavascript, expectedJavascript);
+		
 		// Second generation
 		options.add(o1);
 		options.add(o2);
@@ -40,9 +41,9 @@ public class ListItemOptionsTestCase extends WiQueryTestCase {
 		generatedJavascript = options.getJavascriptOption().toString();
 		log.info(expectedJavascript);
 		log.info(generatedJavascript);
-		assertEquals(generatedJavascript, expectedJavascript);
+		Assert.assertEquals(generatedJavascript, expectedJavascript);
 	}
-
+	
 	/**
 	 * Test the values
 	 */
@@ -51,10 +52,10 @@ public class ListItemOptionsTestCase extends WiQueryTestCase {
 		ListItemOptions<IntegerItemOptions> options = new ListItemOptions<IntegerItemOptions>();
 		IntegerItemOptions o1 = new IntegerItemOptions(5);
 		IntegerItemOptions o2 = new IntegerItemOptions(43);
-
-		assertTrue(options.values().length == 0);
+		
+		Assert.assertTrue(options.values().length == 0);
 		options.add(o1);
 		options.add(o2);
-		assertTrue(options.values().length == 2);
+		Assert.assertTrue(options.values().length == 2);
 	}
 }

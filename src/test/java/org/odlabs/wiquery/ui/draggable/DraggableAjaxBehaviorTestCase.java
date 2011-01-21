@@ -21,34 +21,38 @@
  */
 package org.odlabs.wiquery.ui.draggable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import junit.framework.TestCase;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
-import org.junit.Before;
-import org.junit.Test;
-import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.util.tester.WicketTester;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
  * Test on {@link DraggableAjaxBehavior}
- * 
  * @author Julien Roche
+ *
  */
-public class DraggableAjaxBehaviorTestCase extends WiQueryTestCase {
-	
-	@Override
-	@Before
-	public void setUp() {
-		super.setUp();
+public class DraggableAjaxBehaviorTestCase extends TestCase {
+	/**
+	 * @throws java.lang.Exception
+	 */
+	public void setUp() throws Exception {
+		new WicketTester(new WebApplication() {
+			@Override
+			public Class<? extends Page> getHomePage() {
+				return null;
+			}
+		});
 	}
 
 	/**
-	 * Test method for
-	 * {@link org.odlabs.wiquery.ui.draggaable.DraggableAjaxBehavior#statement()}
-	 * .
+	 * Test method for {@link org.odlabs.wiquery.ui.draggaable.DraggableAjaxBehavior#statement()}.
 	 */
 	@Test
 	public void testStatement() {
@@ -56,22 +60,21 @@ public class DraggableAjaxBehaviorTestCase extends WiQueryTestCase {
 		WebMarkupContainer component = new WebMarkupContainer("anId");
 		component.setMarkupId("anId");
 		component.add(draggableAjaxBehavior);
-
+		
 		WebPage webPage = new InnerPage();
 		webPage.add(component);
-		String genrateAjaxStatment = draggableAjaxBehavior.statement().render()
-				.toString();
-		String expectedAjaxStatement = "$('#anId').draggable({stop: function(event, ui) {\n\t"
-				+ "var isInvalid = $.ui.draggable._dragElementDroppedWasInvalid(this);var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&dragType=stop&dragStatus='+isInvalid,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
-				+ "}, start: function(event, ui) {\n\t"
-				+ "var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&dragType=start',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
-				+ "}, drag: function(event, ui) {\n\t"
-				+ "var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&dragType=drag',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"
-				+ "}, revert: function(dropped) {\n\t"
-				+ "return $.ui.draggable._dragElementWasDropped(this, dropped);\n"
-				+ "}});";
-		assertNotNull(draggableAjaxBehavior.getDraggableBehavior());
-		assertEquals(genrateAjaxStatment, expectedAjaxStatement);
+		String genrateAjaxStatment = draggableAjaxBehavior.statement().render().toString();
+		String expectedAjaxStatement = "$('#anId').draggable({stop: function(event, ui) {\n\t"+
+	"var isInvalid = $.ui.draggable._dragElementDroppedWasInvalid(this);var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&dragType=stop&dragStatus='+isInvalid,function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"+
+"}, start: function(event, ui) {\n\t"+
+	"var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&dragType=start',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"+
+"}, drag: function(event, ui) {\n\t"+
+	"var wcall=wicketAjaxGet('?wicket:interface=:0:anId::IActivePageBehaviorListener:0:&wicket:ignoreIfNotActive=true&dragType=drag',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('anId') != null;}.bind(this));\n"+
+"}, revert: function(dropped) {\n\t"+
+	"return $.ui.draggable._dragElementWasDropped(this, dropped);\n"+
+"}});";
+		Assert.assertNotNull(draggableAjaxBehavior.getDraggableBehavior());
+		Assert.assertEquals(genrateAjaxStatment, expectedAjaxStatement);
 	}
 
 	private class InnerDraggableAjaxBehavior extends DraggableAjaxBehavior {
@@ -79,9 +82,7 @@ public class DraggableAjaxBehaviorTestCase extends WiQueryTestCase {
 
 		/**
 		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior#onDrag(org.apache.wicket.Component,
-		 *      org.apache.wicket.ajax.AjaxRequestTarget)
+		 * @see org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior#onDrag(org.apache.wicket.Component, org.apache.wicket.ajax.AjaxRequestTarget)
 		 */
 		@Override
 		public void onDrag(Component component,
@@ -90,9 +91,7 @@ public class DraggableAjaxBehaviorTestCase extends WiQueryTestCase {
 
 		/**
 		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior#onStart(org.apache.wicket.Component,
-		 *      org.apache.wicket.ajax.AjaxRequestTarget)
+		 * @see org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior#onStart(org.apache.wicket.Component, org.apache.wicket.ajax.AjaxRequestTarget)
 		 */
 		@Override
 		public void onStart(Component component,
@@ -101,17 +100,15 @@ public class DraggableAjaxBehaviorTestCase extends WiQueryTestCase {
 
 		/**
 		 * {@inheritDoc}
-		 * 
-		 * @see org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior#onStop(org.apache.wicket.Component,
-		 *      org.apache.wicket.ajax.AjaxRequestTarget)
+		 * @see org.odlabs.wiquery.ui.draggable.DraggableAjaxBehavior#onStop(org.apache.wicket.Component, org.apache.wicket.ajax.AjaxRequestTarget)
 		 */
 		@Override
 		public void onStop(Component draggedComponent,
 				AjaxRequestTarget ajaxRequestTarget) {
-		}
+		}	
 	}
-
+	
 	private class InnerPage extends WebPage {
-
+		
 	}
 }

@@ -41,7 +41,7 @@ public class AccordionActive implements IComplexOption {
 	// Properties
 	private Boolean booleanParam;
 	private Integer intParam;
-	private LiteralOption selector;
+	private LiteralOption selectorOrElementParam;
 	private String jQueryParam;
 	
 	/**Constructor
@@ -59,10 +59,10 @@ public class AccordionActive implements IComplexOption {
 	}
 
 	/**Constructor
-	 * @param selector Selector parameter
+	 * @param selectorOrElementParam Selector or Element parameter
 	 */
-	public AccordionActive(LiteralOption selector) {
-		this(null, null, selector, null);
+	public AccordionActive(LiteralOption selectorOrElementParam) {
+		this(null, null, selectorOrElementParam, null);
 	}
 	
 	/**Constructor
@@ -75,13 +75,13 @@ public class AccordionActive implements IComplexOption {
 	/**Constructor
 	 * @param booleanParam Boolean parameter
 	 * @param intParam Integer parameter
-	 * @param selector Selector parameter
+	 * @param selectorOrElementParam Selector or Element parameter
 	 * @param jQueryParam jQuery parameter
 	 */
 	private AccordionActive(Boolean booleanParam, Integer intParam,
-			LiteralOption selector, String jQueryParam) {
+			LiteralOption selectorOrElementParam, String jQueryParam) {
 		super();
-		setParam(booleanParam, intParam, selector, jQueryParam);
+		setParam(booleanParam, intParam, selectorOrElementParam, jQueryParam);
 	}
 	
 	/**
@@ -100,17 +100,9 @@ public class AccordionActive implements IComplexOption {
 
 	/**
 	 * @return the selectorOrElementParam
-	 * @deprecated will be removed in 1.4
 	 */
 	public LiteralOption getSelectorOrElementParam() {
-		return selector;
-	}
-	
-	/**
-	 * @return the Selector
-	 */
-	public LiteralOption getSelector() {
-		return selector;
+		return selectorOrElementParam;
 	}
 	
 	/* (non-Javadoc)
@@ -118,7 +110,7 @@ public class AccordionActive implements IComplexOption {
 	 */
 	public CharSequence getJavascriptOption() {
 		if(booleanParam == null && intParam == null && jQueryParam == null &&
-				selector == null){
+				selectorOrElementParam == null){
 			throw new IllegalArgumentException("The AccordionActive must have one not null parameter");
 		}
 		
@@ -133,8 +125,8 @@ public class AccordionActive implements IComplexOption {
 		else if(jQueryParam != null){
 			sequence = jQueryParam;
 		}
-		else if(selector != null){
-			sequence = selector.toString();
+		else if(selectorOrElementParam != null){
+			sequence = selectorOrElementParam.toString();
 		}
 		else{
 			throw new IllegalArgumentException("The AccordionActive must have one not null parameter");
@@ -181,22 +173,14 @@ public class AccordionActive implements IComplexOption {
 			LiteralOption selectorOrElementParam, String jQueryParam) {
 		this.booleanParam = booleanParam;
 		this.intParam = intParam;
-		this.selector = selectorOrElementParam;
+		this.selectorOrElementParam = selectorOrElementParam;
 		this.jQueryParam = jQueryParam;
 	}
 
 	/**Set's the selector or element parameter
 	 * @param selectorOrElementParam the selectorOrElementParam to set
-	 * @deprecated will be removed in 1.4
 	 */
 	public void setSelectorOrElementParam(LiteralOption selectorOrElementParam) {
 		setParam(null, null, selectorOrElementParam, null);
-	}
-	
-	/**Set's the selector
-	 * @param selector the selector to set
-	 */
-	public void setSelector(LiteralOption selector) {
-		setParam(null, null, selector, null);
 	}
 }

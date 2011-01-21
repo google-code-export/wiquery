@@ -1,5 +1,5 @@
 /*
- * jQuery UI Progressbar 1.8.8
+ * jQuery UI Progressbar 1.8.5
  *
  * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT or GPL Version 2 licenses.
@@ -15,11 +15,11 @@
 
 $.widget( "ui.progressbar", {
 	options: {
-		value: 0,
-		max: 100
+		value: 0
 	},
 
 	min: 0,
+	max: 100,
 
 	_create: function() {
 		this.element
@@ -27,14 +27,13 @@ $.widget( "ui.progressbar", {
 			.attr({
 				role: "progressbar",
 				"aria-valuemin": this.min,
-				"aria-valuemax": this.options.max,
+				"aria-valuemax": this.max,
 				"aria-valuenow": this._value()
 			});
 
 		this.valueDiv = $( "<div class='ui-progressbar-value ui-widget-header ui-corner-left'></div>" )
 			.appendTo( this.element );
 
-		this.oldValue = this._value();
 		this._refreshValue();
 	},
 
@@ -64,9 +63,7 @@ $.widget( "ui.progressbar", {
 		if ( key === "value" ) {
 			this.options.value = value;
 			this._refreshValue();
-			if ( this._value() === this.options.max ) {
-				this._trigger( "complete" );
-			}
+			this._trigger( "change" );
 		}
 
 		$.Widget.prototype._setOption.apply( this, arguments );
@@ -78,31 +75,20 @@ $.widget( "ui.progressbar", {
 		if ( typeof val !== "number" ) {
 			val = 0;
 		}
-		return Math.min( this.options.max, Math.max( this.min, val ) );
-	},
-
-	_percentage: function() {
-		return 100 * this._value() / this.options.max;
+		return Math.min( this.max, Math.max( this.min, val ) );
 	},
 
 	_refreshValue: function() {
 		var value = this.value();
-		var percentage = this._percentage();
-
-		if ( this.oldValue !== value ) {
-			this.oldValue = value;
-			this._trigger( "change" );
-		}
-
 		this.valueDiv
-			.toggleClass( "ui-corner-right", value === this.options.max )
-			.width( percentage.toFixed(0) + "%" );
+			.toggleClass( "ui-corner-right", value === this.max )
+			.width( value + "%" );
 		this.element.attr( "aria-valuenow", value );
 	}
 });
 
 $.extend( $.ui.progressbar, {
-	version: "1.8.8"
+	version: "1.8.5"
 });
 
 })( jQuery );

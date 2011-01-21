@@ -57,20 +57,10 @@ public class ProgressBar extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public ProgressBar(String id) {
 		super(id);
-		this.options = new Options(this);
+		this.options = new Options();
 		this.options.setRenderer(new UiOptionsRenderer("progressbar", this));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.wicket.Component#detachModel()
-	 */
-	@Override
-	protected void detachModel() {
-		super.detachModel();
-		options.detach();		
-	}
-	
 	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
 	 */

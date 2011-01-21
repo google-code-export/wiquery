@@ -1,5 +1,5 @@
 /*
- * jQuery UI Button 1.8.8
+ * jQuery UI Button 1.8.5
  *
  * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT or GPL Version 2 licenses.
@@ -315,12 +315,9 @@ $.widget( "ui.button", {
 });
 
 $.widget( "ui.buttonset", {
-	options: {
-		items: ":button, :submit, :reset, :checkbox, :radio, a, :data(button)"
-	},
-
 	_create: function() {
 		this.element.addClass( "ui-buttonset" );
+		this._init();
 	},
 	
 	_init: function() {
@@ -336,7 +333,7 @@ $.widget( "ui.buttonset", {
 	},
 	
 	refresh: function() {
-		this.buttons = this.element.find( this.options.items )
+		this.buttons = this.element.find( ":button, :submit, :reset, :checkbox, :radio, a, :data(button)" )
 			.filter( ":ui-button" )
 				.button( "refresh" )
 			.end()
@@ -347,11 +344,13 @@ $.widget( "ui.buttonset", {
 				return $( this ).button( "widget" )[ 0 ];
 			})
 				.removeClass( "ui-corner-all ui-corner-left ui-corner-right" )
-				.filter( ":first" )
-					.addClass( "ui-corner-left" )
-				.end()
-				.filter( ":last" )
-					.addClass( "ui-corner-right" )
+				.filter( ":visible" )
+					.filter( ":first" )
+						.addClass( "ui-corner-left" )
+					.end()
+					.filter( ":last" )
+						.addClass( "ui-corner-right" )
+					.end()
 				.end()
 			.end();
 	},

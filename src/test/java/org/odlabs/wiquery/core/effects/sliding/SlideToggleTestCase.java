@@ -21,25 +21,25 @@
  */
 package org.odlabs.wiquery.core.effects.sliding;
 
-import static org.junit.Assert.assertEquals;
+import junit.framework.TestCase;
 
-import org.junit.Test;
 import org.odlabs.wiquery.core.javascript.JsStatement;
-import org.odlabs.wiquery.tester.WiQueryTestCase;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
 
 /**
  * Test on {@link SlideToggle}
- * 
  * @author Julien Roche
+ *
  */
-public class SlideToggleTestCase extends WiQueryTestCase {
+public class SlideToggleTestCase extends TestCase {
 	/**
 	 * Test the javascript generation
 	 */
 	@Test
 	public void testJavascriptGeneration() {
-		assertEquals(new JsStatement().$(null, "#aComponent").chain(
-				new SlideToggle()).render().toString(),
+		Assert.assertEquals(new JsStatement().$(null, "#aComponent").chain(new SlideToggle()).render().toString(), 
 				"$('#aComponent').slideToggle();");
 	}
 }

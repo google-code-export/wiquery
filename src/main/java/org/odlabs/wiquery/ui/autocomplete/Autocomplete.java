@@ -63,7 +63,7 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public Autocomplete(String id) {
 		super(id);
-		options = new Options(this);
+		options = new Options();
 	}
 
 	/**
@@ -73,19 +73,9 @@ public class Autocomplete<T> extends TextField<T> implements IWiQueryPlugin {
 	 */
 	public Autocomplete(String id, IModel<T> model) {
 		super(id, model);
-		options = new Options(this);
+		options = new Options();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apache.wicket.Component#detachModel()
-	 */
-	@Override
-	protected void detachModel() {
-		super.detachModel();
-		options.detach();		
-	}
-	
 	/**
 	 * {@inheritDoc}
 	 * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)

@@ -21,9 +21,9 @@
  */
 package org.odlabs.wiquery.core.options;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.model.IComponentAssignedModel;
+import org.apache.wicket.model.IDetachable;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 /**
  * $Id: $
@@ -32,47 +32,86 @@ import org.apache.wicket.model.IModel;
  * <p>
  * Example:
  * <p>
- * The {@link Double} <code>1</code> should be rendered as <code>1</code>
+ * The {@link Double} <code>11.11</code> should be rendered as
+ * <code>11.11</code>
  * </p>
- * </p> </p>
+ * </p>
+ * </p>
  * 
  * @author Lionel Armanet
- * @author Ernesto Reinaldo Barreiro
+ * @author Ernesto Reinaldo Barreiro 
  * @since 0.5
  */
-public class DoubleOption extends AbstractOption<Double> {
-	private static final long serialVersionUID = -5938430089917100476L;
-
+public class DoubleOption implements IDetachable, ITypedOption<Double> {
+	// Constants
+	/** Constant of serialization */
+	private static final long serialVersionUID = 6999431516689050752L;
+	
 	/**
+	 * The wrapped {@link String}
+	 */
+	private IModel<Double> value;
+	
+	/**
+	 * <p>
 	 * Builds a new instance of {@link DoubleOption}.
+	 * </p>
 	 * 
 	 * @param literal
-	 *            the wrapped {@link Double}
+	 *            the wrapped {@link String}
 	 */
 	public DoubleOption(Double value) {
-		super(value);
+		this(new Model<Double>(value));
+	}
+	
+	/**
+	 * <p>
+	 * Builds a new instance of {@link DoubleOption}.
+	 * </p>
+	 * 
+	 * @param literal
+	 *            the wrapped {@link String}
+	 */
+	public DoubleOption(IModel<Double> value) {
+		this.value = value;
 	}
 
 	/**
-	 * Builds a new instance of {@link DoubleOption}.
-	 * 
-	 * @param literal
-	 *            the wrapped {@link Double}
+	 * {@inheritDoc}
+	 * @see org.odlabs.wiquery.core.options.IListItemOption#getJavascriptOption()
 	 */
-	public DoubleOption(IModel<Double> value) {
-		super(value);
+	public CharSequence getJavascriptOption() {
+		return toString();
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		Double value = getValue();
-		return value != null ? Double.toString(value) : null;
+		Double value = this.value.getObject();
+		return value != null?Double.toString(this.value.getObject()): null;
 	}
-
-	public IModelOption<Double> wrapOnAssignment(Component component) {
-		if (getModel() instanceof IComponentAssignedModel<?>)
-			return new DoubleOption(((IComponentAssignedModel<Double>) getModel())
-					.wrapOnAssignment(component));
-		return this;
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.apache.wicket.model.IDetachable#detach()
+	 */
+	public void detach() {
+		if(value != null) {
+			value.detach();
+		}
+	} 
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.odlabs.wiquery.core.options.ITypedOption#getValue()
+	 */
+	public Double getValue() {
+		if(value != null) {
+			return value.getObject();
+		}
+		return null;
 	}
 }
