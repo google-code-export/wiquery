@@ -1,6 +1,23 @@
 #summary This pages contains the wish list for future versions of wiQuery.
 #labels Phase-Requirements
 
+[[Hielkes Wish List]]
+
+== WiQuery 1.3 ==
+- Fix resource management according to wicket 1.5 framework.
+- Cleanup header contributing so it is easier to read what it actually does (currently there are too many if elses), use subclassing to split merged resources, ajax contributing, etc.
+- Provide a better solution to options. Current options model is easy to use for small frameworks but a good framework for plugins with alot of options this is no good. Perhaps some form of abstract framework with json.
+- More examples or implement more plugins and make examples using those? Topicus has numerous custom wiquery plugins. perhaps we can use some of those?
+
+== WiQuery 1.2 ==
+Keep this version as the main release until 1.3 has been properly tested.
+
+== WiQuery 1.1 ==
+Leave as is, only perform bugfixes. 
+
+
+[[Old Wish List:]]
+
 = wiQuery 1.0.2 =
 
 - Fix issue 60 (apply richard's patch ?)
