@@ -2,7 +2,7 @@
   * Information
     * [WhatsNew What's new ?]
     * [TheCoreTeam The core team]
-  * !WiQuery 1.1.2
+  * !WiQuery 1.2.3
     * Getting started
       * [QuickStart Quickstart]
       * [UsingWiqueryAppArchetype  WiQuery Maven archtetype]
