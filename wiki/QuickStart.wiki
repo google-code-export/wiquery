@@ -1,19 +1,19 @@
-#summary This page describes how to start a project with WiQuery 1.1.2
+#summary This page describes how to start a project with WiQuery 1.2.3
 #labels Featured
 
 = Introduction =
 
-This tutorial will teach you how to install and use WiQuery 1.1.2 in 5 minutes, with a classic "Hello world" example.
+This tutorial will teach you how to install and use WiQuery 1.2.3 in 5 minutes, with a classic "Hello world" example.
 
 == Tools ==
 
 To begin this tutorial, you'll need the following components to be installed:
-  * [http://maven.apache.org/download.html Maven 2.0.10] 
+  * [http://maven.apache.org/download.html Maven 2.x or 3.x]
   * Java JDK1.5+
 
 == Version of Wicket ==
 
-WiQuery is built over the last Wicket version: Wicket 1.4.13 version
+Each WiQuery version is built with the latest Wicket version: 1.4.17.
 
 == Starting a Wicket project ==
 
@@ -24,7 +24,7 @@ First of all, we need to start a Wicket project. To do this quickly, we'll use m
 Go to your home directory (or in any directory you want to work in) and type the command below:
 
 {{{
-mvn archetype:create -DarchetypeGroupId=org.apache.wicket -DarchetypeArtifactId=wicket-archetype-quickstart -DarchetypeVersion=1.4.13 -DgroupId=org.odlabs -DartifactId=quickstart
+mvn archetype:create -DarchetypeGroupId=org.apache.wicket -DarchetypeArtifactId=wicket-archetype-quickstart -DarchetypeVersion=1.4.17 -DgroupId=org.odlabs -DartifactId=quickstart -DinteractiveMode=false
 }}}
 
 You should see the following output:
@@ -55,26 +55,20 @@ Then, connect to localhost:8080/quickstart. The following contents should appear
 
 http://wiquery.googlecode.com/files/check-wicket-works.png
 
-= Install WiQuery =
+= Use WiQuery =
 
-== Install WiQuery 1.1.2 in your local repository ==
-
-[Downloads] the last stable release of WiQuery 1.1.2. When it's done, install it in your local repository with the command below:
-
-{{{
-mvn install:install-file -Dfile=/your/path/to/wiquery-1.1.2.jar -DgroupId=org.odlabs.wiquery -DartifactId=wiquery -Dversion=1.1.2 -Dpackaging=jar
-}}}
+== Add WiQuery repository ==
 
 You must add the following server repository link into your
 pom.xml file:
 
 {{{
 <repositories>
-                <repository>
-                        <id>wiquery-maven-repo</id>
-                        <name>WiQuery repository</name>
-                        <url>https://wiquery.googlecode.com/svn/repo/</url>
-                </repository>
+     <repository>
+         <id>wiquery-maven-repo</id>
+         <name>WiQuery repository</name>
+         <url>https://wiquery.googlecode.com/svn/repo/</url>
+     </repository>
 </repositories>
 }}}
 
@@ -84,9 +78,9 @@ pom.xml file:
 
 {{{
 <dependency>
-        <groupId>org.odlabs.wiquery</groupId>
-        <artifactId>wiquery</artifactId>
-        <version>1.1.2</version>
+     <groupId>org.odlabs.wiquery</groupId>
+     <artifactId>wiquery</artifactId>
+     <version>1.2.3</version>
 </dependency>
 }}}
 
@@ -96,22 +90,9 @@ pom.xml file:
 mvn jetty:run
 }}}
 
-= SLF4J nota bene =
-
-The jetty server will need to use the 1.6.1 release of slf4j. So, you must update the version of this dependency into the pom.xml, or like the last section, add a dependency:
-
-{{{
-<dependency>
-    <groupId>org.slf4j</groupId>
-    <artifactId>slf4j-api</artifactId>
-    <version>1.6.1</version>
-</dependency>
-
-}}}
-
 = The Hello World example =
 
-Let's do the HellWorld example with WiQuery's modal window.
+Let's do the HelloWorld example with WiQuery's modal window.
 
 == Enable WiQuery ==
 
