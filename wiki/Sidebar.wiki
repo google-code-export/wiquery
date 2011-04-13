@@ -8,14 +8,6 @@
       * [UsingWiqueryAppArchetype  WiQuery Maven archtetype]
       * [Plugins Create your own plugins]
     * [Maven Repository]
-    * Javadoc
-      * [http://wiquery.googlecode.com/svn/javadoc/1.0/index.html 1.0]
-      * [http://wiquery.googlecode.com/svn/javadoc/1.0.1/index.html 1.0.1]
-      * [http://wiquery.googlecode.com/svn/javadoc/1.0.2/index.html 1.0.2]
-      * [http://wiquery.googlecode.com/svn/javadoc/1.0.3/index.html 1.0.3]
-      * [http://wiquery.googlecode.com/svn/javadoc/1.1/index.html 1.1]
-      * [http://wiquery.googlecode.com/svn/javadoc/1.1.1/index.html 1.1.1]
-      * [http://wiquery.googlecode.com/svn/javadoc/1.1.2/index.html 1.1.2]
     * [Tutorials]
     * Components
       * Core
