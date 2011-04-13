@@ -6,3 +6,8 @@
 || François Delalande || Project leader and developer || <a href="http://www.linkedin.com/pub/françois-delalande/1/a54/551" ><img src="http://www.linkedin.com/img/webpromo/btn_profile_bluetxt_80x15.gif" width="80" height="15" border="0" alt="View Francois Delalande's profile on LinkedIn"/></a> ||
 || Julien Roche || UI Components development leader || <a href="http://www.linkedin.com/pub/julien-roche/13/b98/233" ><img src="http://www.linkedin.com/img/webpromo/btn_profile_bluetxt_80x15.gif" width="80" height="15" border="0" alt="View Julien Roche's profile on LinkedIn"/></a> ||
 || Pierre Marguerite || Developer || <a href="http://www.linkedin.com/in/pierremarguerite" ><img src="http://www.linkedin.com/img/webpromo/btn_profile_bluetxt_80x15.gif" width="80" height="15" border="0" alt="View Pierre Marguerite's profile on LinkedIn"/></a> ||
+|| jWeekend || Developer || ... ||
+|| altuga || Developer || ... ||
+|| reiern70|| Developer || ... ||
+|| Richard John Wilkinson || Developer || ... ||
+|| Hielke Hoeve || Developer || <a href="http://www.linkedin.com/in/hielkehoeve" ><img src="http://www.linkedin.com/img/webpromo/btn_profile_bluetxt_80x15.gif" width="80" height="15" border="0" alt="View Hielke Hoeve's profile on LinkedIn"/></a> ||
