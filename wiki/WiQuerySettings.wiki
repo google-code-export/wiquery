@@ -4,8 +4,6 @@ You have the interface IWiQuerySettings and the class WiQuerySettings. The inter
 
 = How to use =
 
-This example is extract of the accordion component:
-
 {{{
 public class WicketApplication extends WebApplication implements IThemableApplication, IWiQuerySettings {
 	// Constants
