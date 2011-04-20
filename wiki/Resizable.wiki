@@ -15,20 +15,7 @@ See example here: http://wiquery-examples-1-1-x.appspot.com/?wicket:bookmarkable
 
 {{{
 WebMarkupContainer divContainer = new WebMarkupContainer("divContainer");
-divContainer.add(new ResizableAjaxBehavior(){
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * onResize is triggered at the end of a resize operation. 
-	 * 
-	 * @param height Height of the resized {@link Component}
-	 * @param width Width of the resized {@link Component}
-	 * @param ajaxRequestTarget the Ajax target
-	 */
-	public abstract void onResize(int height, int width, AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript("alert('width:" + width + "');");
-	}
-});
+divContainer.add(new ResizableBehavior());
 add(divContainer);
 
 }}}
