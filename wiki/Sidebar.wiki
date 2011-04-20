@@ -30,7 +30,7 @@
       * UI
         * [Accordion]
         * [Autocomplete]
-        * [Autocomplete-Ajax]
+        * [AutocompleteWithAjax]
         * [Button]
         * [DatePicker]
         * [Dialog]
