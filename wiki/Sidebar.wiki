@@ -17,7 +17,7 @@
         * [WiQueryUIPlugin]
         * [WiQueryJavaScriptResourceReference]
         * [WiQueryStyleSheetResourceReference]
-        * [JsQuery.]
+        * [JsQuery]
         * [JsScope]
         * [JsStatement]
         * [JsUtils]
@@ -27,6 +27,8 @@
         * [EventsHelper]
         * [ManipulatingHelper]
         * [TraversingHelper]
+        * [Events]
+        * [Effects]
       * UI
         * [Accordion]
         * [Autocomplete]
