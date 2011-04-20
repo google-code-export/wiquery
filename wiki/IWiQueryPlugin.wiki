@@ -6,6 +6,8 @@ This interface is used to specify which behaviors and components must be managed
 
  * statement: this method is used to execute a portion of javascript when the component is inserted into the page
 
+The jQuery API will be loaded.
+
 = How to use =
 
 This example is extract of the accordion component:
