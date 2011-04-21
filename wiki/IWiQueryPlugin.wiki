@@ -1,57 +1,33 @@
 = What is that ? =
 
-wiQuery offers the possiblity to bind standard and custom javascript event. To declare a type of event, you have to create an object that implements the interface "EventLabel".
-For all events binding by wiQuery, we use some enumerations.
+This interface is used to specify which behaviors and components must be managed with wiQuery. You will define two methods:
 
-After that, you can use WiQueryEventBehavior or WiQueryAjaxEventBehavior to declare a javascript event and to execute what you want
+ * contribute: this method helps you to import your resources (stylesheets and javascript)
 
+ * statement: this method is used to execute a portion of javascript when the component is inserted into the page
+ 
+The jQuery API will be loaded.
+ 
 = How to use =
 
-Example of to create events (extract from MouseEvent)
+This example is extract of the accordion component:
 
 {{{
-public enum MouseEvent implements EventLabel {
-
-	CLICK, DBLCLICK, MOUSEDOWN, MOUSEENTER, MOUSELEAVE, MOUSEMOVE, MOUSEOUT, MOUSEOVER, MOUSEUP, SCROLL;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.odlabs.wiquery.core.events.EventLabel#getEventLabel()
-	 */
-	public String getEventLabel() {
-		return this.name().toLowerCase();
-	}
-
+/* (non-Javadoc)
+ * @see org.odlabs.wiquery.core.commons.IWiQueryPlugin#contribute(org.odlabs.wiquery.core.commons.WiQueryResourceManager)
+ */
+public void contribute(WiQueryResourceManager wiQueryResourceManager) {
+	wiQueryResourceManager.addJavaScriptResource(WidgetJavascriptResourceReference.get());
+	wiQueryResourceManager.addJavaScriptResource(AccordionJavaScriptResourceReference.get());
 }
-}}}
 
-Examples to declare events:
-
-{{{
-clickButton.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.events.Event#callback()
-	 */
-	@Override
-	public JsScope callback() {
-		return JsScope.quickScope("alert('click done');");
-	}
-}));
-
-ajaxClickButton.add(new WiQueryAjaxEventBehavior(MouseEvent.CLICK) {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.events.WiQueryAjaxEventBehavior#onEvent(org.apache.wicket.ajax.AjaxRequestTarget)
-	 */
-	@Override
-	protected void onEvent(AjaxRequestTarget target) {
-		target.appendJavascript("alert('ajax click done');");
-	}
-});
+/*
+ * (non-Javadoc)
+ *
+ * @see org.objetdirect.wickext.core.commons.JavaScriptCallable#statement()
+ */
+public JsStatement statement() {
+	return new JsQuery(this).$().chain("accordion",
+			options.getJavaScriptOptions());
+}
 }}}
