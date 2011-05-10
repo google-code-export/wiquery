@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.odlabs.wiquery</groupId>
+  <artifactId>wiquery-jquery-ui</artifactId>
+  <version>1.5-SNAPSHOT</version>
+  <versioning>
+    <versions>
+      <version>1.5-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20110510070609</lastUpdated>
+  </versioning>
+</metadata>
