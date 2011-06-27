@@ -30,7 +30,6 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.options.ListItemOptions;
 import org.odlabs.wiquery.core.options.Options;
-import org.odlabs.wiquery.ui.button.ButtonJavascriptResourceReference;
 import org.odlabs.wiquery.ui.commons.WiQueryUIPlugin;
 import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
 import org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference;
@@ -115,9 +114,10 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 		wiQueryResourceManager.addJavaScriptResource(MouseJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(PositionJavascriptResourceReference.get());
 		wiQueryResourceManager.addJavaScriptResource(DialogJavaScriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(ButtonJavascriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(DraggableJavaScriptResourceReference.get());
-		wiQueryResourceManager.addJavaScriptResource(ResizableJavaScriptResourceReference.get());
+		wiQueryResourceManager
+				.addJavaScriptResource(DraggableJavaScriptResourceReference.get());
+		wiQueryResourceManager
+				.addJavaScriptResource(ResizableJavaScriptResourceReference.get());
 	}
 
 	/*
@@ -156,14 +156,14 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void open(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.open().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.open().render().toString());
 	}
 
 	/**Method to close the dialog within the ajax request
 	 * @param ajaxRequestTarget
 	 */
 	public void close(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.close().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.close().render().toString());
 	}
 
 	/**
@@ -788,7 +788,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.destroy().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.destroy().render().toString());
 	}
 	
 	/**Method to disable the dialog
@@ -802,7 +802,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void disable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.disable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.disable().render().toString());
 	}
 	
 	/**Method to enable the dialog
@@ -816,7 +816,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.enable().render().toString());
 	}
 	
 	/**Method returning true if the dialog is currently open
@@ -837,7 +837,7 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void moveToTop(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.moveToTop().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.moveToTop().render().toString());
 	}
 	
 	/**Method to returns the .ui-dialog  element
@@ -851,6 +851,6 @@ public class Dialog extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.widget().render().toString());
 	}
 }

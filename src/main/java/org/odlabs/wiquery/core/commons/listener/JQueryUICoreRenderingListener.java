@@ -24,9 +24,9 @@ package org.odlabs.wiquery.core.commons.listener;
 import java.io.Serializable;
 
 import org.apache.wicket.Application;
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.request.resource.ResourceReference;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.commons.WiQuerySettings;
@@ -55,7 +55,7 @@ public class JQueryUICoreRenderingListener implements
 	 * The default theme.
 	 */
 	private static final ResourceReference DEFAULT_THEME = new WiQueryCoreThemeResourceReference(
-			"uilightness");
+			"fusion");
 
 	/**
 	 * @return the default theme
@@ -86,7 +86,7 @@ public class JQueryUICoreRenderingListener implements
 					response.renderCSSReference(DEFAULT_THEME);
 				}
 				response
-						.renderJavascriptReference(CoreUIJavaScriptResourceReference
+						.renderJavaScriptReference(CoreUIJavaScriptResourceReference
 								.get());
 			}
 		}

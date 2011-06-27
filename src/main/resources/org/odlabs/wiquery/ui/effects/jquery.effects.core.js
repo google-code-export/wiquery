@@ -1,7 +1,7 @@
 /*
- * jQuery UI Effects 1.8.12
+ * jQuery UI Effects 1.8.6
  *
- * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
  *
@@ -231,7 +231,8 @@ $.effects.animateClass = function(value, duration, easing, callback) {
 		easing = null;
 	}
 
-	return this.queue('fx', function() {
+	return this.each(function() {
+
 		var that = $(this),
 			originalStyleAttr = that.attr('style') || ' ',
 			originalStyle = filterStyles(getElementStyles.call(this)),
@@ -259,13 +260,6 @@ $.effects.animateClass = function(value, duration, easing, callback) {
 			}
 			if (callback) { callback.apply(this, arguments); }
 		});
-
-		// $.animate adds a function to the end of the queue
-		// but we want it at the front
-		var queue = $.queue(this),
-			anim = queue.splice(queue.length - 1, 1)[0];
-		queue.splice(1, 0, anim);
-		$.dequeue(this);
 	});
 };
 
@@ -307,7 +301,7 @@ $.fn.extend({
 /******************************************************************************/
 
 $.extend($.effects, {
-	version: "1.8.12",
+	version: "1.8.6",
 
 	// Saves a set of properties in a data storage
 	save: function(element, set) {
@@ -388,7 +382,7 @@ $.extend($.effects, {
 					props[pos] = 'auto';
 				}
 			});
-			element.css({position: 'relative', top: 0, left: 0, right: 'auto', bottom: 'auto' });
+			element.css({position: 'relative', top: 0, left: 0 });
 		}
 
 		return wrapper.css(props).show();
@@ -438,7 +432,7 @@ function _normalizeArguments(effect, options, speed, callback) {
 
 	speed = speed || options.duration;
 	speed = $.fx.off ? 0 : typeof speed == 'number'
-		? speed : speed in $.fx.speeds ? $.fx.speeds[speed] : $.fx.speeds._default;
+		? speed : $.fx.speeds[speed] || $.fx.speeds._default;
 
 	callback = callback || options.complete;
 

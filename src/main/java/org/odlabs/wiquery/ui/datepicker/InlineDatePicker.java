@@ -21,6 +21,8 @@
  */
 package org.odlabs.wiquery.ui.datepicker;
 
+import java.util.Locale;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.odlabs.wiquery.core.commons.IWiQueryPlugin;
@@ -85,9 +87,12 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	public void contribute(WiQueryResourceManager wiQueryResourceManager) {
 		wiQueryResourceManager.addJavaScriptResource(DatePickerJavaScriptResourceReference.get());
 		
-		DatePickerLanguageResourceReference dpl = DatePickerLanguageResourceReference.get(getLocale());
-		if(dpl !=null)
-			wiQueryResourceManager.addJavaScriptResource(dpl);
+		Locale locale = getLocale();
+		if(locale != null && !Locale.ENGLISH.getLanguage().equals(locale.getLanguage())){ // #issue 24
+			wiQueryResourceManager
+					.addJavaScriptResource(new DatePickerLanguageResourceReference(
+							locale));
+		}
 	}
 
 	/* (non-Javadoc)
@@ -1024,7 +1029,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	 * @param ajaxRequestTarget
 	 */
 	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.destroy().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.destroy().render().toString());
 	}
 	
 	/**Method to disable the datepicker
@@ -1038,7 +1043,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	 * @param ajaxRequestTarget
 	 */
 	public void disable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.disable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.disable().render().toString());
 	}
 	
 	/**Method to enable the datepicker
@@ -1052,7 +1057,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	 * @param ajaxRequestTarget
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.enable().render().toString());
 	}
 	
 	/**Method returning the current date for the datepicker
@@ -1075,7 +1080,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	 * @param speed The speed at which to close the date picker.
 	 */
 	public void hide(AjaxRequestTarget ajaxRequestTarget, short speed) {
-		ajaxRequestTarget.appendJavascript(this.hide(speed).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.hide(speed).render().toString());
 	}
 	
 	/**Method to hide the datepicker
@@ -1089,7 +1094,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	 * @param ajaxRequestTarget
 	 */
 	public void hide(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.hide().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.hide().render().toString());
 	}
 	
 	/**Method to set the date of the datepicker
@@ -1106,7 +1111,7 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	 * @param dateOption Date to set
 	 */
 	public void setDate(AjaxRequestTarget ajaxRequestTarget, DateOption dateOption) {
-		ajaxRequestTarget.appendJavascript(this.setDate(dateOption).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.setDate(dateOption).render().toString());
 	}
 	
 	/**Method to show the datepicker
@@ -1120,6 +1125,6 @@ public class InlineDatePicker<T> extends WebMarkupContainer implements IWiQueryP
 	 * @param ajaxRequestTarget
 	 */
 	public void show(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.show().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.show().render().toString());
 	}
 }

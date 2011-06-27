@@ -28,14 +28,14 @@ import java.util.ListIterator;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.WicketRuntimeException;
-import org.apache.wicket.javascript.IJavascriptCompressor;
-import org.apache.wicket.javascript.NoOpJavascriptCompressor;
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.apache.wicket.javascript.IJavaScriptCompressor;
+import org.apache.wicket.javascript.NoOpJavaScriptCompressor;
+import org.apache.wicket.request.resource.ResourceReference;
+import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResource;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
 
 /**
  * $Id$
- * 
  * <p>
  * Bean to get the wiQuery settings
  * </p>
@@ -59,7 +59,7 @@ public class WiQuerySettings implements Serializable {
 
 		if (instance == null) {
 			throw new WicketRuntimeException(
-					"There is no WiQuerySettings attached to the application "
+					"There is no WiQueryInstantiationListener attached to the application "
 							+ Thread.currentThread().getName());
 		}
 
@@ -70,7 +70,7 @@ public class WiQuerySettings implements Serializable {
 	private boolean autoImportJQueryResource;
 	private boolean enableResourcesMerging;
 	private List<WiQueryPluginRenderingListener> listeners;
-	private JavascriptResourceReference jQueryCoreResourceReference;
+	private ResourceReference jQueryCoreResourceReference;
 	private boolean minifiedResources;
 	private boolean autoImportJQueryUIResource;
 	private boolean enableWiqueryResourceManagement;
@@ -81,21 +81,21 @@ public class WiQuerySettings implements Serializable {
 	 */
 	public WiQuerySettings() {
 		super();
-		
+
 		this.autoImportJQueryUIResource = true;
 		this.enableWiqueryResourceManagement = true;
 		this.embedGeneratedStatements = false;
-		
+
 		setAutoImportJQueryResource(true);
 		setEnableResourcesMerging(false);
 		setJQueryCoreResourceReference(null);
-		
+
 		listeners = new ArrayList<WiQueryPluginRenderingListener>();
 
-		IJavascriptCompressor compressor = Application.get()
-				.getResourceSettings().getJavascriptCompressor();
+		IJavaScriptCompressor compressor = Application.get()
+				.getResourceSettings().getJavaScriptCompressor();
 		setMinifiedResources(compressor != null
-				&& !(compressor instanceof NoOpJavascriptCompressor));
+				&& !(compressor instanceof NoOpJavaScriptCompressor));
 	}
 
 	/**
@@ -128,13 +128,13 @@ public class WiQuerySettings implements Serializable {
 	public boolean isEnableResourcesMerging() {
 		return enableResourcesMerging;
 	}
-	
+
 	/**
 	 * @return the state of the embedGeneratedStatements option
 	 */
-    public boolean isEmbedGeneratedStatements() {
-        return embedGeneratedStatements;
-    }
+	public boolean isEmbedGeneratedStatements() {
+		return embedGeneratedStatements;
+	}
 
 	/**
 	 * <p>
@@ -184,20 +184,21 @@ public class WiQuerySettings implements Serializable {
 	}
 
 	/**
-	 * If set to <code>false</code> (default), the generated JavaScript statements will be
-	 * loaded using a dynamic resource named xxxxxxxx-wiquery-gen.js. To embed the code in your
-	 * HTML page, set this option to <code>true</code>. 
+	 * If set to <code>false</code> (default), the generated JavaScript
+	 * statements will be loaded using a dynamic resource named
+	 * xxxxxxxx-wiquery-gen.js. To embed the code in your HTML page, set this
+	 * option to <code>true</code>.
+	 * 
 	 * @param embedGeneratedStatements
 	 */
-    public void setEmbedGeneratedStatements(boolean embedGeneratedStatements) {
-        this.embedGeneratedStatements = embedGeneratedStatements;
-    }
+	public void setEmbedGeneratedStatements(boolean embedGeneratedStatements) {
+		this.embedGeneratedStatements = embedGeneratedStatements;
+	}
 
 	/**
-	 * @return the {@link JavascriptResourceReference} where we can find the
-	 *         jQuery core
+	 * @return the {@link ResourceReference} where we can find the jQuery core
 	 */
-	public JavascriptResourceReference getJQueryCoreResourceReference() {
+	public ResourceReference getJQueryCoreResourceReference() {
 		return jQueryCoreResourceReference;
 	}
 
@@ -207,7 +208,7 @@ public class WiQuerySettings implements Serializable {
 	 * @param jQueryCoreResourceReference
 	 */
 	public void setJQueryCoreResourceReference(
-			JavascriptResourceReference jQueryCoreResourceReference) {
+			ResourceReference jQueryCoreResourceReference) {
 		this.jQueryCoreResourceReference = jQueryCoreResourceReference;
 	}
 

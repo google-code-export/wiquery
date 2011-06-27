@@ -21,7 +21,7 @@
  */
 package org.odlabs.wiquery.ui.themes;
 
-import org.odlabs.wiquery.core.commons.WiQueryStyleSheetResourceReference;
+import org.odlabs.wiquery.core.commons.compressed.WiQueryYUICompressedStyleSheetResourceReference;
 
 /**
  * $Id: WiQueryCoreThemeResourceReference.java 85 2009-05-28 23:07:56Z
@@ -29,17 +29,16 @@ import org.odlabs.wiquery.core.commons.WiQueryStyleSheetResourceReference;
  * <p>
  * Defines the default WiQuery theme.
  * </p>
- * 
+ *
  * @author Lionel Armanet
  * @since 1.0
  */
-public class WiQueryCoreThemeResourceReference extends
-		WiQueryStyleSheetResourceReference {
+public class WiQueryCoreThemeResourceReference extends WiQueryYUICompressedStyleSheetResourceReference {
 
 	private static final long serialVersionUID = 6795863553105608280L;
 
 	public WiQueryCoreThemeResourceReference(String theme) {
 		super(WiQueryCoreThemeResourceReference.class, theme
-				+ "/jquery-ui-1.8.12.custom.css");
+				+ "/jquery-ui-1.8.6.custom.css");
 	}
 }

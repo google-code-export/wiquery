@@ -202,7 +202,7 @@ public class JQueryCookieOption extends Object implements IComplexOption {
 	 * @param ajaxRequestTarget
 	 */
 	public void deleteCookie(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.deleteCookie().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.deleteCookie().render().toString());
 	}
 	
 	/**Method to retrieve the cookie
@@ -226,6 +226,6 @@ public class JQueryCookieOption extends Object implements IComplexOption {
 	 * @param ajaxRequestTarget
 	 */
 	public void setCookie(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.setCookie().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.setCookie().render().toString());
 	}
 }

@@ -35,140 +35,63 @@ import org.odlabs.wiquery.core.options.LiteralOption;
  */
 public class DatePickerYearRange extends Object implements IComplexOption {
 	// Constants
-	/** Constant of serialization */
+	/**	Constant of serialization */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * 
-	 * <p>
-	 * 	Control for the DatePickerYearRange
-	 * </p>
-	 *
-	 * @author Julien Roche
-	 * @since 1.2.2
-	 */
-	public enum DatePickerYearRangeControl {
-		ABSOLUTE,
-		RELATIVE_SELECTED_YEAR,
-		RELATIVE_TODAY;
-	}
-
 	// Properties
-	private Short yearFrom;
-	private Short yearTo;
-	private DatePickerYearRangeControl controlTo;
-	private DatePickerYearRangeControl controlFrom;
-
+	private short yearFrom;
+	private short yearTo;
+	
 	/**
-	 * Constructor which sets absolute yearFrom and yearTo, eg: 2000 and 2020.
-	 * 
-	 * @param yearFrom
-	 *            the range's start
-	 * @param yearTo
-	 *            the range's end
+	 * Constructor
+	 * @param yearFrom the range's start
+	 * @param yearTo the range's end
 	 */
 	public DatePickerYearRange(short yearFrom, short yearTo) {
 		super();
 		this.yearFrom = yearFrom;
 		this.yearTo = yearTo;
-		this.controlTo = DatePickerYearRangeControl.ABSOLUTE;
-		this.controlFrom = DatePickerYearRangeControl.ABSOLUTE;
 	}
 
-	/**
-	 * Constructor which sets relative yearFrom and yearTo, eh: 2010 and -10.
-	 * 
-	 * @param yearFrom
-	 *            the range's start
-	 * @param yearTo
-	 *            the range's end
-	 * @param controlFrom
-	 *            Control for the range's start
-	 * @param controlTo
-	 *            Control for the range's end
-	 */
-	public DatePickerYearRange(short yearFrom, short yearTo,
-			DatePickerYearRangeControl controlFrom, DatePickerYearRangeControl controlTo) {
-		super();
-		this.yearFrom = yearFrom;
-		this.yearTo = yearTo;
-		this.controlTo = controlTo == null ? DatePickerYearRangeControl.ABSOLUTE : controlTo;
-		this.controlFrom = controlFrom == null ? DatePickerYearRangeControl.ABSOLUTE : controlFrom;
-	}
-	
-	/**
-	 * Constructor which mixed raltive and absolute. eh: c-10 and
-	 * 
-	 * @param yearFrom
-	 *            the range's start
-	 * @param yearTo
-	 *            the range's end
-	 * @param yearRelativeToToday
-	 *            determines whether to count from today's year or the currently
-	 *            selected year.
-	 */
-	public DatePickerYearRange(short yearFrom, short yearTo,
-			boolean yearRelativeToToday) {
-		super();
-		this.yearFrom = yearFrom;
-		this.yearTo = yearTo;
-		this.controlTo = yearRelativeToToday ? DatePickerYearRangeControl.RELATIVE_TODAY : DatePickerYearRangeControl.RELATIVE_SELECTED_YEAR;
-		this.controlFrom = yearRelativeToToday ? DatePickerYearRangeControl.RELATIVE_TODAY : DatePickerYearRangeControl.RELATIVE_SELECTED_YEAR;
-	}
-	
-	/**
-	 * {@inheritDoc}
+	/* (non-Javadoc)
 	 * @see org.odlabs.wiquery.core.options.IComplexOption#getJavascriptOption()
 	 */
 	public CharSequence getJavascriptOption() {
-		if (yearFrom == null || yearTo == null || controlTo == null || controlFrom == null) {
-			throw new IllegalArgumentException("The DatePickerYearRange needs all arguments !!");
+		if (yearFrom > yearTo) {
+			throw new IllegalArgumentException("Invalid year range");
 		}
 		
-		return new LiteralOption(
-			generateRangeFormat(yearFrom, controlFrom) 
-			+ ":" 
-			+ generateRangeFormat(yearTo, controlTo) ).toString();
+		String yearFromStr = (this.yearFrom > 0 ? "+" : "") + Short.toString(this.yearFrom);
+		String yearToStr = (this.yearTo > 0 ? "+" : "") + Short.toString(this.yearTo);
+		
+		return new LiteralOption(yearFromStr + ":" + yearToStr).toString();
 	}
 	
 	/**
-	 * @return the format for the specified range part
+	 * @return the yearFrom
 	 */
-	private String generateRangeFormat(Short value, DatePickerYearRangeControl control) {
-		if(control == DatePickerYearRangeControl.ABSOLUTE){
-			return value.toString();
-			
-		}
-		
-		String preStr = value > 0 ? "+" : "";
-		
-		if(control == DatePickerYearRangeControl.RELATIVE_SELECTED_YEAR){
-			preStr = "c" + preStr;
-		}
-		
-		return preStr + value.toString();
+	public short getYearFrom() {
+		return yearFrom;
 	}
 
-	public void setAbsoluteRange(short yearFrom, short yearTo) {
-		this.yearFrom = yearFrom;
-		this.yearTo = yearTo;
-		this.controlTo = DatePickerYearRangeControl.ABSOLUTE;
-		this.controlFrom = DatePickerYearRangeControl.ABSOLUTE;
+	/**
+	 * @return the yearTo
+	 */
+	public short getYearTo() {
+		return yearTo;
 	}
 
-	public void setRelativeRange(short yearFrom, short yearTo,
-			boolean yearRelativeToToday) {
+	/**
+	 * @param yearFrom the yearFrom to set
+	 */
+	public void setYearFrom(short yearFrom) {
 		this.yearFrom = yearFrom;
-		this.yearTo = yearTo;
-		this.controlTo = yearRelativeToToday ? DatePickerYearRangeControl.RELATIVE_TODAY : DatePickerYearRangeControl.RELATIVE_SELECTED_YEAR;
-		this.controlFrom = yearRelativeToToday ? DatePickerYearRangeControl.RELATIVE_TODAY : DatePickerYearRangeControl.RELATIVE_SELECTED_YEAR;
 	}
-	
-	public void setRange(short yearFrom, short yearTo,
-			DatePickerYearRangeControl controlFrom, DatePickerYearRangeControl controlTo) {
-		this.yearFrom = yearFrom;
+
+	/**
+	 * @param yearTo the yearTo to set
+	 */
+	public void setYearTo(short yearTo) {
 		this.yearTo = yearTo;
-		this.controlTo = controlTo == null ? DatePickerYearRangeControl.ABSOLUTE : controlTo;
-		this.controlFrom = controlFrom == null ? DatePickerYearRangeControl.ABSOLUTE : controlFrom;
 	}
 }

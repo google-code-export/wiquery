@@ -126,9 +126,8 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * Additional Ajax options to consider when loading tab content (see $.ajax).
 	 * @param ajaxOptions
 	 */
-	public Tabs setAjaxOptions(JQueryAjaxOption ajaxOptions) {
+	public void setAjaxOptions(JQueryAjaxOption ajaxOptions) {
 		this.options.put("ajaxOptions", ajaxOptions);
-		return this;
 	}
 	
 	/**
@@ -157,9 +156,8 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * 
 	 * @param cookie
 	 */
-	public Tabs setCookie(JQueryCookieOption cookie) {
+	public void setCookie(JQueryCookieOption cookie) {
 		this.options.put("cookie", cookie);
-		return this;
 	}
 	
 	/**
@@ -511,7 +509,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public void add(AjaxRequestTarget ajaxRequestTarget, int index, 
 			String title, Component contentToAdd) {
-		ajaxRequestTarget.appendJavascript(add(index, title, contentToAdd).render().toString());
+		ajaxRequestTarget.appendJavaScript(add(index, title, contentToAdd).render().toString());
 	}
 
 	/**
@@ -542,7 +540,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public void add(AjaxRequestTarget ajaxRequestTarget, 
 			String title, Component contentToAdd) {
-		ajaxRequestTarget.appendJavascript(add(title, contentToAdd).render().toString());
+		ajaxRequestTarget.appendJavaScript(add(title, contentToAdd).render().toString());
 	}
 	
 	/**Method to add a new tab
@@ -562,7 +560,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param label Label of the tab
 	 */
 	public void add(AjaxRequestTarget ajaxRequestTarget, String url, String label) {
-		ajaxRequestTarget.appendJavascript(this.add(url, label).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.add(url, label).render().toString());
 	}
 	
 	/**Method to add a new tab
@@ -585,7 +583,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 */
 	public void add(AjaxRequestTarget ajaxRequestTarget, String url, String label,
 			int index) {
-		ajaxRequestTarget.appendJavascript(this.add(url, label, index).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.add(url, label, index).render().toString());
 	}
 	
 	/**Method to terminate all running tab ajax requests and animations
@@ -601,7 +599,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void abort(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.abort().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.abort().render().toString());
 	}
 	
 	/**Method to destroy the tabs
@@ -616,7 +614,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void destroy(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.destroy().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.destroy().render().toString());
 	}
 	
 	/**Method to disable the tabs
@@ -630,7 +628,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void disable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.disable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.disable().render().toString());
 	}
 	
 	/**Method to disable a tab
@@ -646,7 +644,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void disable(AjaxRequestTarget ajaxRequestTarget, int index) {
-		ajaxRequestTarget.appendJavascript(this.disable(index).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.disable(index).render().toString());
 	}
 	
 	/**Method to enable the tabs
@@ -660,7 +658,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.enable().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.enable().render().toString());
 	}
 	
 	/**Method to enable a tab
@@ -676,7 +674,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void enable(AjaxRequestTarget ajaxRequestTarget, int index) {
-		ajaxRequestTarget.appendJavascript(this.enable(index).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.enable(index).render().toString());
 	}
 	
 	/**Method retrieving the number of tabs of the first matched tab pane
@@ -699,7 +697,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void load(AjaxRequestTarget ajaxRequestTarget, int index) {
-		ajaxRequestTarget.appendJavascript(this.load(index).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.load(index).render().toString());
 	}
 	
 	/**
@@ -718,7 +716,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void remove(AjaxRequestTarget ajaxRequestTarget, int index) {
-		ajaxRequestTarget.appendJavascript(this.remove(index).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.remove(index).render().toString());
 	}
 	
 	/**Method to set up an automatic rotation through tabs of a tab pane
@@ -735,7 +733,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void rotate(AjaxRequestTarget ajaxRequestTarget, int ms) {
-		ajaxRequestTarget.appendJavascript(this.rotate(ms).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.rotate(ms).render().toString());
 	}
 	
 	/**Method to set up an automatic rotation through tabs of a tab pane
@@ -755,7 +753,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void rotate(AjaxRequestTarget ajaxRequestTarget, int ms, boolean continuing) {
-		ajaxRequestTarget.appendJavascript(this.rotate(ms).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.rotate(ms).render().toString());
 	}
 	
 	/**Method to select a tab
@@ -771,7 +769,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void select(AjaxRequestTarget ajaxRequestTarget, int index) {
-		ajaxRequestTarget.appendJavascript(this.select(index).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.select(index).render().toString());
 	}
 	
 	/**Method to change the url from which an Ajax (remote) tab will be loaded
@@ -791,7 +789,7 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void url(AjaxRequestTarget ajaxRequestTarget, int index, String url) {
-		ajaxRequestTarget.appendJavascript(this.url(index, url).render().toString());
+		ajaxRequestTarget.appendJavaScript(this.url(index, url).render().toString());
 	}
 	
 	/**Method to returns the .ui-slider  element
@@ -805,6 +803,6 @@ public class Tabs extends WebMarkupContainer implements IWiQueryPlugin {
 	 * @param ajaxRequestTarget
 	 */
 	public void widget(AjaxRequestTarget ajaxRequestTarget) {
-		ajaxRequestTarget.appendJavascript(this.widget().render().toString());
+		ajaxRequestTarget.appendJavaScript(this.widget().render().toString());
 	}
 }

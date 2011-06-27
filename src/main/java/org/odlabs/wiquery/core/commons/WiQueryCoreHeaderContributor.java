@@ -27,15 +27,16 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.Component.IVisitor;
 import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.Page;
-import org.apache.wicket.RequestCycle;
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.behavior.IBehavior;
-import org.apache.wicket.markup.html.IHeaderContributor;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.resource.ResourceReference;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
+import org.apache.wicket.util.visit.Visit;
 import org.odlabs.wiquery.core.commons.listener.JQueryCoreRenderingListener;
 import org.odlabs.wiquery.core.commons.listener.JQueryUICoreRenderingListener;
 import org.odlabs.wiquery.core.commons.listener.WiQueryPluginRenderingListener;
@@ -65,9 +66,9 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  * @author Hielke Hoeve
  * @author Emond Papegaaij
  */
-public class WiQueryCoreHeaderContributor implements Serializable,
-		IHeaderContributor {
-	private static class WiQueryPluginCollector implements IVisitor<Component> {
+public class WiQueryCoreHeaderContributor extends Behavior implements Serializable
+		 {
+	private static class WiQueryPluginCollector implements IVisitor<Component, Void> {
 		private List<IWiQueryPlugin> plugins = new ArrayList<IWiQueryPlugin>();
 
 		private WiQueryPluginCollector() {
@@ -77,20 +78,19 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 			return plugins;
 		}
 
-		public Object component(Component component) {
+		public void component(Component component, IVisit<Void> visit) {
 			if (component.determineVisibility()) {
 				if (component instanceof IWiQueryPlugin) {
 					plugins.add((IWiQueryPlugin) component);
 				}
-				for (IBehavior behavior : component.getBehaviors()) {
+				for (Behavior behavior : component.getBehaviors()) {
 					if (behavior instanceof IWiQueryPlugin
 							&& behavior.isEnabled(component)) {
 						plugins.add((IWiQueryPlugin) behavior);
 					}
 				}
-				return CONTINUE_TRAVERSAL;
 			} else {
-				return CONTINUE_TRAVERSAL_BUT_DONT_GO_DEEPER;
+				visit.dontGoDeeper();
 			}
 		}
 	}
@@ -108,9 +108,6 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	private static final MetaDataKey<Long> WIQUERY_PAGE_KEY = new MetaDataKey<Long>() {
 		private static final long serialVersionUID = 1L;
 	};
-	private static final MetaDataKey<WiQueryHeaderResponse> WIQUERY_MERGER = new MetaDataKey<WiQueryHeaderResponse>() {
-		private static final long serialVersionUID = 1L;
-	};
 
 	private Component owner;
 
@@ -126,7 +123,8 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	/**
 	 * Renders WiQuery's JavaScript code.
 	 */
-	public void renderHead(final IHeaderResponse response) {
+	@Override
+	public void renderHead(Component component, IHeaderResponse response) {
 		AjaxRequestTarget ajaxRequestTarget = AjaxRequestTarget.get();
 		if (ajaxRequestTarget == null) {
 			renderResponse(response);
@@ -136,7 +134,7 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	}
 
 	private void renderResponse(final IHeaderResponse response) {
-		Page page = RequestCycle.get().getResponsePage();
+		Page page = WiQueryUtil.getCurrentPage();
 		Boolean rendered;
 		if (page == null) {
 			rendered = RequestCycle.get().getMetaData(WIQUERY_KEY);
@@ -155,25 +153,15 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 			WiQueryPluginCollector visitor = new WiQueryPluginCollector();
 			if (page != null) {
 				page.visitChildren(visitor);
-				visitor.component(page);
+				visitor.component(page, new Visit<Void>());
 			}
 
-			WiQueryHeaderResponse wiQueryHeaderResponse;
+			WiQueryHeaderResponse wiQueryHeaderResponse = new WiQueryHeaderResponse();
 			IHeaderResponse headerResponse;
-			if (settings.isEnableResourcesMerging() && page != null) {
-				wiQueryHeaderResponse = page.getMetaData(WIQUERY_MERGER);
-				
-				if(wiQueryHeaderResponse == null){
-					wiQueryHeaderResponse = new WiQueryHeaderResponse();
-					page.setMetaData(WIQUERY_MERGER, wiQueryHeaderResponse);
-				}
-				
-				wiQueryHeaderResponse.setIHeaderResponse(response); // Preserved already used
-				// references
+			if (settings.isEnableResourcesMerging()) {
+				wiQueryHeaderResponse.setIHeaderResponse(response);
 				headerResponse = wiQueryHeaderResponse;
-				
 			} else {
-				wiQueryHeaderResponse = null;
 				headerResponse = response;
 			}
 
@@ -201,7 +189,7 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 
 			JsQuery jsq = new JsQuery();
 			jsq.setStatement(jsStatement);
-			jsq.renderHead(response, RequestCycle.get().getRequestTarget());
+			jsq.renderHead(response, RequestCycle.get().getActiveRequestHandler());
 		}
 	}
 
@@ -217,24 +205,12 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 
 		final List<WiQueryPluginRenderingListener> pluginRenderingListeners = getRenderingListeners(settings);
 
-		WiQueryHeaderResponse wiQueryHeaderResponse;
 		IHeaderResponse headerResponse;
+		WiQueryHeaderResponse wiQueryHeaderResponse = new WiQueryHeaderResponse();
 		if (settings.isEnableResourcesMerging()) {
-			Page page = RequestCycle.get().getResponsePage();
-			
-			if(page == null || page.getMetaData(WIQUERY_MERGER) == null){
-				wiQueryHeaderResponse = null;
-				headerResponse = response;
-				
-			} else {
-				wiQueryHeaderResponse = page.getMetaData(WIQUERY_MERGER);
-				wiQueryHeaderResponse.setIHeaderResponse(response); // Preserved already used
-				// references
-				headerResponse = wiQueryHeaderResponse;
-			}
-			
+			wiQueryHeaderResponse.setIHeaderResponse(response);
+			headerResponse = wiQueryHeaderResponse;
 		} else {
-			wiQueryHeaderResponse = null;
 			headerResponse = response;
 		}
 
@@ -244,7 +220,7 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 			if (owner instanceof IWiQueryPlugin) {
 				renderPlugin(response, ajaxRequestTarget, (IWiQueryPlugin) owner, pluginRenderingListeners,	manager, headerResponse);
 			}
-			for (IBehavior behavior : owner.getBehaviors()) {
+			for (Behavior behavior : owner.getBehaviors()) {
 				if (behavior instanceof IWiQueryPlugin && behavior.isEnabled(owner)) {
 					renderPlugin(response, ajaxRequestTarget, (IWiQueryPlugin) behavior, pluginRenderingListeners, manager, headerResponse);
 				}
@@ -290,7 +266,7 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 	private void mergeResources(final IHeaderResponse response,
 			WiQuerySettings settings,
 			WiQueryHeaderResponse wiQueryHeaderResponse) {
-		if (settings.isEnableResourcesMerging() && wiQueryHeaderResponse != null) {
+		if (settings.isEnableResourcesMerging()) {
 			// Merging of stylesheet resources
 			if (!wiQueryHeaderResponse.getStylesheet().isEmpty()) {
 				response
@@ -307,14 +283,13 @@ public class WiQueryCoreHeaderContributor implements Serializable,
 			// Merging of javascript resources
 			if (!wiQueryHeaderResponse.getJavascript().isEmpty()) {
 				response
-						.renderJavascriptReference(new WiQueryMergedJavaScriptResourceReference(
-								wiQueryHeaderResponse));
+						.renderJavaScriptReference(new WiQueryMergedJavaScriptResourceReference(wiQueryHeaderResponse));
 			}
 
 			// Insertion of non mergeable javascript
 			for (ResourceReference ref : wiQueryHeaderResponse
 					.getJavascriptUnmergeable()) {
-				response.renderJavascriptReference(ref);
+				response.renderJavaScriptReference(ref);
 			}
 		}
 	}

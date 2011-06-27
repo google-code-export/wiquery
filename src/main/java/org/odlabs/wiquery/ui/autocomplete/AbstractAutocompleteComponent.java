@@ -30,11 +30,11 @@ import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
-import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.convert.IConverter;
 import org.apache.wicket.util.string.Strings;
+import org.odlabs.wiquery.core.commons.WiQueryJavaScriptResourceReference;
 import org.odlabs.wiquery.core.commons.WiQueryResourceManager;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 import org.odlabs.wiquery.core.javascript.JsUtils;
@@ -133,7 +133,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 			js.append("$.ui.autocomplete.wiquery.changeEvent(event, ui,")
 				.append(JsUtils.quotes(autocompleteHidden.getMarkupId()));
 			if(isAutoUpdate()){
-				js.append(",'").append(updateAjax.getCallbackUrl(true)).append("'");
+				js.append(",'").append(updateAjax.getCallbackUrl()).append("'");
 			}
 			js.append(");");
 			super.setChangeEvent(JsScopeUiEvent.quickScope(js.toString()));
@@ -148,8 +148,8 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	private static final long serialVersionUID = -3377109382248062940L;
 
 	/** Constant of wiQuery Autocomplete resource */
-	public static final JavascriptResourceReference WIQUERY_AUTOCOMPLETE_JS =
-		new JavascriptResourceReference(
+	public static final WiQueryJavaScriptResourceReference WIQUERY_AUTOCOMPLETE_JS =
+		new WiQueryJavaScriptResourceReference(
 				AutocompleteAjaxComponent.class,
 		"wiquery-autocomplete.js");
 
@@ -204,7 +204,7 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 					String displayValue = "";
 					if (objectClass != null && objectClass != String.class)
 					{
-						final IConverter converter = getConverter(objectClass);
+						final IConverter<T> converter = getConverter(objectClass);
 	
 						displayValue = converter.convertToString(objectValue, getLocale());
 					}
@@ -263,20 +263,16 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	protected final void convertInput() {
 		String valueId = autocompleteHidden.getConvertedInput();
 		String input = autocompleteField.getConvertedInput();
-		final T object = this.getModelObject();
-		final IChoiceRenderer<? super T> renderer = getChoiceRenderer();
 
-		if (NOT_ENTERED.equals(valueId))
-			valueId = null;
-		
 		if(valueId == null && Strings.isEmpty(input)){
 			setConvertedInput(null);
 
 		} else if(valueId == null){
 			setConvertedInput(getValueOnSearchFail(input));
-			
-		} else if (object == null || input.compareTo((String) renderer.getDisplayValue(object)) != 0) {
+
+		} else {
 			final List<? extends T> choices = getChoices();
+			final IChoiceRenderer<? super T> renderer = getChoiceRenderer();
 			boolean found = false;
 			for (int index = 0; index < choices.size(); index++)
 			{
@@ -300,8 +296,6 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 					setConvertedInput(getValueOnSearchFail(input));
 				}
 			}
-		} else {
-			setConvertedInput(object);
 		}
 	}
 	
@@ -334,16 +328,17 @@ public abstract class AbstractAutocompleteComponent<T> extends FormComponentPane
 	 * @param obj
 	 * @return a new instance of {@link AutocompleteJson}
 	 */
+	@SuppressWarnings("unchecked")
 	protected AutocompleteJson newAutocompleteJson(int id, T obj) {
 
 		boolean thisOneSelected = obj.equals(getModelObject());
-		Object objectValue = getChoiceRenderer().getDisplayValue(obj);
-		Class<?> objectClass = (objectValue == null ? null : objectValue.getClass());
+		T objectValue = (T) getChoiceRenderer().getDisplayValue(obj);
+		Class<T> objectClass = (Class<T>)(objectValue == null ? null : objectValue.getClass());
 
 		String displayValue = "";
 		if (objectClass != null && objectClass != String.class)
 		{
-			final IConverter converter = getConverter(objectClass);
+			final IConverter<T> converter = getConverter(objectClass);
 			displayValue = converter.convertToString(objectValue, getLocale());
 		}
 		else if (objectValue != null)

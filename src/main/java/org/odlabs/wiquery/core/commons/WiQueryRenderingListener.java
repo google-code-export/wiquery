@@ -3,8 +3,7 @@ package org.odlabs.wiquery.core.commons;
 import org.apache.wicket.Component;
 import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.application.IComponentOnBeforeRenderListener;
-import org.apache.wicket.behavior.HeaderContributor;
-import org.apache.wicket.behavior.IBehavior;
+import org.apache.wicket.behavior.Behavior;
 
 /**
  * 
@@ -28,12 +27,12 @@ class WiQueryRenderingListener implements IComponentOnBeforeRenderListener {
 		if (wiQueryRendered == null || !wiQueryRendered) {
 			if (component instanceof IWiQueryPlugin) {
 				// binding component as a plugin
-				component.add(new HeaderContributor(new WiQueryCoreHeaderContributor(component)));
+				component.add(new WiQueryCoreHeaderContributor(component));
 			}
 			else{
-				for (IBehavior curBehavior : component.getBehaviors()) {
+				for (Behavior curBehavior : component.getBehaviors()) {
 					if (curBehavior instanceof IWiQueryPlugin) {
-						component.add(new HeaderContributor(new WiQueryCoreHeaderContributor(component)));
+						component.add(new WiQueryCoreHeaderContributor(component));
 						break;
 					}
 				}
