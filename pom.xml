@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.odlabs.wiquery</groupId>
-	<artifactId>wiquery</artifactId>
-	<packaging>jar</packaging>
-	<version>1.2-SNAPSHOT</version>
-	<name>WiQuery project</name>
+	<artifactId>wiquery-parent</artifactId>
+	<packaging>pom</packaging>
+	<version>1.5-M3</version>
+	<name>WiQuery Parent</name>
 
 	<scm>
-		<developerConnection>scm:svn:https://wiquery.googlecode.com/svn/trunk/</developerConnection>
+		<developerConnection>scm:svn:http://wiquery.googlecode.com/svn/branches/wicket-1.5</developerConnection>
 	</scm>
 
 	<distributionManagement>
@@ -22,7 +22,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wicket.version>[1.4,1.4.20]</wicket.version>
+		<wicket.version>1.5-RC5.1</wicket.version>
 		<jackson.version>[1.6,1.6.7]</jackson.version>
 		<log4j.version>[1.2,1.2.16]</log4j.version>
 		<slf4j.version>[1.6,1.6.1]</slf4j.version>
@@ -40,6 +40,92 @@
 				
 		<wagon-svn-extension.version>1.9</wagon-svn-extension.version>
 	</properties>
+
+	<modules>
+		<module>wiquery-core</module>
+		<module>wiquery-jquery-ui</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- WiQuery dependencies -->
+			<dependency>
+				<groupId>org.odlabs.wiquery</groupId>
+				<artifactId>wiquery-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<!-- add wiquery-core also as test project so wiquery-jquery-ui can use 
+				the abstract testcase class -->
+			<dependency>
+				<groupId>org.odlabs.wiquery</groupId>
+				<artifactId>wiquery-core</artifactId>
+				<version>${project.version}</version>
+				<classifier>tests</classifier>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.odlabs.wiquery</groupId>
+				<artifactId>wiquery-jquery-ui</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<!-- System dependencies -->
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>${servlet-api.version}</version>
+			</dependency>
+
+			<!-- External dependencies -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-core</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-request</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-util</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>rhino</groupId>
+				<artifactId>js</artifactId>
+				<version>${rhino.version}</version>
+			</dependency>
+
+			<!-- Test dependencies -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
@@ -97,7 +183,6 @@
 				<version>${maven-eclipse-plugin.version}</version>
 				<configuration>
 					<projectNameTemplate>[artifactId]-[version]</projectNameTemplate>
-
 					<wtpmanifest>true</wtpmanifest>
 					<wtpapplicationxml>true</wtpapplicationxml>
 					<wtpversion>1.5</wtpversion>
@@ -109,7 +194,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven-compiler-plugin.version}</version>
-				<inherited>true</inherited>
 				<configuration>
 					<source>1.5</source>
 					<target>1.5</target>
@@ -125,31 +209,14 @@
 				<configuration>
 					<encoding>UTF-8</encoding>
 				</configuration>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>${maven-javadoc-plugin.version}</version>
-				<inherited>true</inherited>
 				<configuration>
 					<encoding>UTF-8</encoding>
 				</configuration>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -201,18 +268,18 @@
 					</supportedProjectTypes>
 					<instructions>
 						<Import-Package>
-                            !org.odlabs.wiquery*,
-                            !com.yahoo.platform.yui.compressor*,
-                            !org.mozilla.javascript*,
-                            org.codehaus.jackson*;version="${jackson.version}",
-                            org.apache.wicket*;version="${wicket.version}",
-                            org.slf4j*version="${slf4j.version}",
-                            *
+							!org.odlabs.wiquery*,
+							!com.yahoo.platform.yui.compressor*,
+							!org.mozilla.javascript*,
+							org.codehaus.jackson*;version="${jackson.version}",
+							org.apache.wicket*;version="${wicket.version}",
+							org.slf4j*version="${slf4j.version}",
+							*
 						</Import-Package>
 						<Export-Package>
-                            org.odlabs.wiquery*,
-                            com.yahoo.platform.yui.compressor*,
-                            org.mozilla.javascript*
+							org.odlabs.wiquery*,
+							com.yahoo.platform.yui.compressor*,
+							org.mozilla.javascript*
 						</Export-Package>
 					</instructions>
 				</configuration>
@@ -226,54 +293,4 @@
 			</extension>
 		</extensions>
 	</build>
-
-	<dependencies>
-		<!-- System dependencies -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>${servlet-api.version}</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- External dependencies -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket</artifactId>
-			<version>${wicket.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>rhino</groupId>
-			<artifactId>js</artifactId>
-			<version>${rhino.version}</version>
-		</dependency>
-
-		<!-- Test dependencies -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
 </project>
