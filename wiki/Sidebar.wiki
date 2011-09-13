@@ -50,3 +50,5 @@
         * [Sortable]
         * [SortableWithAjax]
         * [Tabs]
+ * !WiQuery 1.5.x
+    * Getting started
