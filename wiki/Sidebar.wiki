@@ -53,5 +53,4 @@
   * !WiQuery 1.5
     * Getting started
       * [Quickstart15 QuickStart]
-      * [UsingWiqueryAppArchetype15  WiQuery Maven archtetype]
       * [Plugins15 Create your own plugins]
