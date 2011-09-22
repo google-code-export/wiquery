@@ -1,40 +1,51 @@
 = What is that ? =
 
-You have the interface IWiQuerySettings and the class WiQuerySettings. The interface must be placed on your WebApplication definition. You will have a method where you will create a WiQuerySettings bean which will contains some configrations for wiQuery.
+WiQuery is configurable using the WiQuerySettings class. Not everything is configurable (yet), but most features are.
 
 = How to use =
 
-{{{
-public class WicketApplication extends WebApplication implements IThemableApplication, IWiQuerySettings {
-	// Constants
-	private static final Logger LOGGER = LoggerFactory.getLogger(WicketApplication.class);
-	
-	/**
-	 * Constructor
-	 */
-	public WicketApplication() {
-		super();
-	}
-	
-	/**
-	 * @see org.apache.wicket.Application#getHomePage()
-	 */
-	@Override
-	public Class<HomePage> getHomePage() {
-		return HomePage.class;
-	}
+ * The preferred way for changing WiQuery settings upon startup is creating a wicket.properties and an IWiQueryInitializer. This is similar to how Wicket loads it's IInitializer classes. In short: Wicket scans the classpath for wicket.properties files which contain the full classname of implementations of the IInitializer class. Since WiQuery implements one WiQuery is able to do the same but then for wiquery.properties and implementations of the IWiQueryInitializer class respectively. Here is how you can implement your own IWiQueryInitializer:
 
-	/**
-	 * {@inheritDoc}
-	 * @see org.odlabs.wiquery.core.commons.IWiQuerySettings#getWiQuerySettings()
-	 */
-	public WiQuerySettings getWiQuerySettings() {
-		WiQuerySettings settings = new WiQuerySettings();
-		settings.setEnableResourcesMerging(true);
-		
-		return settings;
+ * Create a class like so:
+
+{{{
+package org.odlabs;
+
+import org.apache.wicket.Application;
+import org.odlabs.wiquery.core.IWiQueryInitializer;
+import org.odlabs.wiquery.core.WiQuerySettings;
+
+public class MyWiQueryInitializer implements IWiQueryInitializer
+{
+	private static final long serialVersionUID = 1L;
+
+	public void init(Application application, WiQuerySettings wiQuerySettings)
+	{
+		//use WiQuerySettings.get() to get the singleton and alter settings.
 	}
 }
+
+}}}
+
+ * Create a file in src/main/resources called wiquery.properties and have it contain:
+
+{{{
+initializer: org.odlabs.MyWiQueryInitializer
+}}}
+
+ * if your logging system is set to allow INFO messages for org.apache.wicket and/or org.odlabs.wiquery you will see which Initializers were found. Here is an example output:
+
+{{{
+>>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP
+INFO  - Server                     - jetty-7.5.0.v20110901
+INFO  - tandardDescriptorProcessor - NO JSP Support for {}, did not find {}
+INFO  - ContextHandler             - started {}
+INFO  - WebXmlFile                 - web.xml: url mapping found for filter with name wicket.quickstart: [/*]
+INFO  - Application                - [wicket.quickstart] init: org.odlabs.wiquery.core.WiQueryInitializer@5e6ffd79
+INFO  - WiQueryInitializer         - [wicket.quickstart] init: org.odlabs.MyWiQueryInitializer@5374a6e2
+INFO  - WiQueryInitializer         - [wicket.quickstart] init: org.odlabs.wiquery.core.WiQueryCoreInitializer@2d35da43
+INFO  - WiQueryInitializer         - [wicket.quickstart] init: org.odlabs.wiquery.ui.listener.WiQueryUIInitializer@77a9f87c
+INFO  - Application                - [wicket.quickstart] init: Wicket core library initializer
 }}}
 
 = Possible configurations =
@@ -46,3 +57,14 @@ public class WicketApplication extends WebApplication implements IThemableApplic
  * setEmbedGeneratedStatements: If set to false (default), the generated JavaScript statements will be loaded using a dynamic resource named xxxxxxxx-wiquery-gen.js
  * setJQueryCoreResourceReference: specify the resource for the jQuery API
  * setMinifiedResources: shall we minified javascripts and stylesheets files
+
+
+setAutoImportJQueryResource;
+setAutoImportJQueryUIJavaScriptResource;
+setAutoImportJQueryUIStyleSheetResource;
+setEnableWiqueryResourceManagement;
+addInitializer
+List<WiQueryPluginRenderingListener> listeners;
+	private boolean minifiedJavaScriptResources;
+	private boolean minifiedStyleSheetResources;
+	private List<String> resourceGroupingKeys = new ArrayList<String>();
