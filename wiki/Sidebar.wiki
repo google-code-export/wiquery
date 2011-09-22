@@ -52,6 +52,6 @@
         * [Tabs]
  * !WiQuery 1.5.x
     * Getting started
-      * [QuickStart]
+      * [QuickStart QuickStart1.5]
       * [UsingWiqueryAppArchetype  WiQuery Maven archtetype]
       * [Plugins Create your own plugins]
