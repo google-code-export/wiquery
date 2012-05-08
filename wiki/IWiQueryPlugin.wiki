@@ -12,6 +12,7 @@ The jQuery API will be loaded.
 
 This example is extract of the accordion component:
 
+{{{
 /*
  * (non-Javadoc)
  *
