@@ -79,7 +79,7 @@
   * !WiQuery 6.0.0
     * Getting started
     * [MavenRepository60 Maven Repository]
-    * [Tutorials60 Tutorials]
+    * [Tutorials]
     * Components
       * Core
         * [JsQuery]
