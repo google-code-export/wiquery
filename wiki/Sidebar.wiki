@@ -77,7 +77,7 @@
         * [Events]
         * [Effects]
   * !WiQuery 6.0.0
-    * Getting started
+    * [Gettingstarted60 Getting started]
     * [MavenRepository60 Maven Repository]
     * [Tutorials]
     * Components
