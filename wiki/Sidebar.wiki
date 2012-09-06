@@ -78,8 +78,8 @@
         * [Effects]
   * !WiQuery 6.0.0
     * Getting started
-    * [Maven Repository6.0]
-    * [Tutorials6.0]
+    * [Maven Repository60]
+    * [Tutorials60]
     * Components
       * Core
         * [JsQuery]
