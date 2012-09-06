@@ -76,3 +76,21 @@
         * [TraversingHelper]
         * [Events]
         * [Effects]
+  * !WiQuery 6.0.0
+    * Getting started
+    * [Maven Repository]
+    * [Tutorials]
+    * Components
+      * Core
+        * [JsQuery]
+        * [JsScope]
+        * [JsStatement]
+        * [JsUtils]
+        * [AttributesHelper]
+        * [CssHelper]
+        * [DateHelper]
+        * [EventsHelper]
+        * [ManipulatingHelper]
+        * [TraversingHelper]
+        * [Events]
+        * [Effects]
