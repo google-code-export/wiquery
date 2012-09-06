@@ -1,0 +1,3 @@
+= Maven Repository =
+
+It is no longer necessary to use our svn as repository. All wiquery builds are deployed to [http://oss.sonatype.org SonaType] and all releases are pushed to Maven Central by Sonatype.
