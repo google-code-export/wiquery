@@ -83,3 +83,21 @@ public class AccordionJavaScriptResourceReference extends JavaScriptResourceRefe
 	}
 }
 }}}
+
+
+If you are using a custom theme for JQuery UI you will notice that IThemeApplication does no longer does the trick. If you are planning to make one you will have to the following:
+{{{
+
+public class CustomApplication extends Application {
+
+...
+
+	@Override
+	protected void init()
+	{
+		addResourceReplacement(WiQueryCoreThemeResourceReference.get(), new WiQueryCoreThemeResourceReference("custom"));
+	}
+}
+}}}
+
+and place your JQuery UI theme in a package in your project with the package name "org.odlabs.wiquery.ui.themes.custom". Where "custom" is the name of your theme.
